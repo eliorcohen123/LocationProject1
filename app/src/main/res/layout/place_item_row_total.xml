@@ -60,6 +60,19 @@
         android:shadowRadius="1.5"
         android:textColor="@color/colorWhite" />
 
+    <TextView
+        android:id="@+id/isOpen1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="129dp"
+        android:shadowColor="@color/colorTransparentGrey"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="1.5"
+        android:textColor="@color/colorBrown" />
+
     <ImageView
         android:layout_width="15dp"
         android:layout_height="17dp"

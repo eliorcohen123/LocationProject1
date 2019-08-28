@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/image1"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="150dp"
         android:scaleType="fitXY"
         android:tint="#6F000000" />
 
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="70dp"
         android:shadowColor="@color/colorTransparentGrey"
         android:shadowDx="3"
         android:shadowDy="3"
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="175dp"
+        android:layout_marginTop="110dp"
         android:shadowColor="@color/colorTransparentGrey"
         android:shadowDx="3"
         android:shadowDy="3"
@@ -53,24 +53,37 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="198dp"
+        android:layout_marginTop="112dp"
         android:shadowColor="@color/colorTransparentGrey"
         android:shadowDx="3"
         android:shadowDy="3"
         android:shadowRadius="1.5"
         android:textColor="@color/colorWhite" />
 
+    <TextView
+        android:id="@+id/isOpen1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="129dp"
+        android:shadowColor="@color/colorTransparentGrey"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="1.5"
+        android:textColor="@color/colorBrown" />
+
     <ImageView
         android:layout_width="15dp"
         android:layout_height="17dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="130dp"
         android:scaleType="fitXY"
         android:src="@drawable/ic_location_on_white_24dp" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="150dp"
         android:scaleType="fitXY"
         android:src="@drawable/line4" />
 </RelativeLayout>

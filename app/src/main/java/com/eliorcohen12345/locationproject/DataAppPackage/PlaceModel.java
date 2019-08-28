@@ -13,6 +13,7 @@ public class PlaceModel implements Serializable {
     private int user_ratings_total;
     private List<Photos> photos;
     private Geometry geometry;
+    private OpeningHours opening_hours;
 
     // Subject class to the SQLiteHelper
     public PlaceModel(String name, String vicinity, Geometry geometry, List<Photos> photos) {
@@ -96,6 +97,14 @@ public class PlaceModel implements Serializable {
 
     public void setLng(double lng) {
         this.geometry.getLocation().setLng(lng);
+    }
+
+    public boolean getOpening_hours() {
+        return opening_hours.isOpen_now();
+    }
+
+    public void setOpening_hours(OpeningHours opening_hours) {
+        this.opening_hours.isOpen_now();
     }
 
 }

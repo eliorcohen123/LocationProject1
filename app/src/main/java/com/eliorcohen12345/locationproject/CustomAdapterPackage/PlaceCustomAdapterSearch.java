@@ -35,15 +35,12 @@ import com.eliorcohen12345.locationproject.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAdapterSearch.PlaceViewHolder> {
 
     class PlaceViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
-        private TextView name1, address1, kmMe1;
+        private TextView name1, address1, kmMe1, isOpen1;
         private ImageView image1;
         private RelativeLayout relativeLayout1;
 
@@ -52,6 +49,7 @@ public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAd
             name1 = itemView.findViewById(R.id.name1);
             address1 = itemView.findViewById(R.id.address1);
             kmMe1 = itemView.findViewById(R.id.kmMe1);
+            isOpen1 = itemView.findViewById(R.id.isOpen1);
             image1 = itemView.findViewById(R.id.image1);
             relativeLayout1 = itemView.findViewById(R.id.relative1);
 
@@ -165,6 +163,17 @@ public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAd
                         disMile = "\n" + "Miles: " + String.valueOf(distanceMile1);
                         // Put the text in kmMe1
                         holder.kmMe1.setText(disMile);
+                    }
+                    try {
+                        if (String.valueOf(current.getOpening_hours()).equals("true")) {
+                            holder.isOpen1.setText("Open");
+                        } else if (String.valueOf(current.getOpening_hours()).equals("false")) {
+                            holder.isOpen1.setText("Close");
+                        } else {
+                            holder.isOpen1.setText("No info");
+                        }
+                    } catch (Exception e) {
+
                     }
                     try {
                         Picasso.get().load("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference="
