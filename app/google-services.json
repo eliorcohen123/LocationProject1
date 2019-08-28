@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "243506622347",
+    "firebase_url": "https://lovely-favorite-places.firebaseio.com",
+    "project_id": "lovely-favorite-places",
+    "storage_bucket": "lovely-favorite-places.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243506622347:android:9c2b172bfdfdf2db",
+        "android_client_info": {
+          "package_name": "com.eliorcohen12345.locationproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243506622347-kg5dmj705nm5p6o5l34f3f455h9h02dn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eliorcohen12345.locationproject",
+            "certificate_hash": "761d81e72981310e1eca8cf6ec7a1dc2851d9c91"
+          }
+        },
+        {
+          "client_id": "243506622347-q6vq0a64nqvctltt69v6gsvru95patbd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBduOkbkr16OjAR3fspk-j9KBEGc0kQMhI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "243506622347-q6vq0a64nqvctltt69v6gsvru95patbd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

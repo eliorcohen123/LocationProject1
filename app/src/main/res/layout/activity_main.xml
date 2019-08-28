@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainAndOtherPackage.MainActivity">
+
+    <!-- The toolbar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBlack"
+            android:fitsSystemWindows="true"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/AppTheme.AppBarOverlay" />
+
+        <FrameLayout
+            android:id="@+id/myButton"
+            android:layout_width="50dp"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:fitsSystemWindows="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:src="@drawable/ic_dehaze_lightblue_24dp" />
+        </FrameLayout>
+    </RelativeLayout>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:openDrawer="end">
+
+        <FrameLayout
+            android:id="@+id/fragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:fitsSystemWindows="true"
+            android:focusable="true" />
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/nav_header_main"
+            app:itemIconTint="#cd4312"
+            app:itemTextColor="#1d3f4c"
+            app:menu="@menu/activity_main_menu" />
+    </androidx.drawerlayout.widget.DrawerLayout>
+</LinearLayout>

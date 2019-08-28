@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/options"
+        android:icon="@color/colorTransparent"
+        android:title=""
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/credits"
+                android:icon="@drawable/ic_copyright_lightblue_24dp"
+                android:title="Credits" />
+
+            <item
+                android:id="@+id/favorites"
+                android:icon="@drawable/ic_favorite_border_blue_24dp"
+                android:title="Favorites" />
+
+            <item
+                android:id="@+id/customFragment"
+                android:icon="@drawable/ic_create_lightblue_24dp"
+                android:title="Add custom marker" />
+
+            <item
+                android:id="@+id/deleteAllDataFavorites"
+                android:icon="@drawable/ic_delete_forever_lightblue_24dp"
+                android:title="Delete my favorites" />
+
+            <item
+                android:id="@+id/deleteAllDataHistory"
+                android:icon="@drawable/ic_delete_sweep_lightblue_24dp"
+                android:title="Delete my history" />
+
+            <item
+                android:id="@+id/settingsMyActivity"
+                android:icon="@drawable/ic_settings_lightblue_24dp"
+                android:title="Settings of distance" />
+
+            <item
+                android:id="@+id/shareIntentApp"
+                android:icon="@drawable/ic_share_lightblue_24dp"
+                android:title="Share the app" />
+
+            <item
+                android:id="@+id/exit"
+                android:icon="@drawable/ic_exit_to_app_lightblue_24dp"
+                android:title="Exit" />
+        </menu>
+    </item>
+</menu>

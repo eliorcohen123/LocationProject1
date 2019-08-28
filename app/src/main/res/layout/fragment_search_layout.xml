@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    tools:context=".MapsDataPackage.FragmentSearch">
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:background="@drawable/timg"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnBank"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/custom_button_all"
+                android:text="Banks"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:id="@+id/btnBar"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/custom_button_all"
+                android:text="Bars"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:id="@+id/btnBeauty"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/custom_button_all"
+                android:text="Beauty"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:id="@+id/btnBooks"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/custom_button_all"
+                android:text="Books"
+                android:textColor="@color/colorWhite" />
+
+
+            <Button
+                android:id="@+id/btnBusStation"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/custom_button_all"
+                android:text="Bus stations"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:id="@+id/btnCars"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/custom_button_all"
+                android:text="Cars"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:id="@+id/btnClothing"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/custom_button_all"
+                android:text="Clothing"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:id="@+id/btnDoctor"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/custom_button_all"
+                android:text="Doctors"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:id="@+id/btnGasStation"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/custom_button_all"
+                android:text="Gas stations"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:id="@+id/btnGym"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/custom_button_all"
+                android:text="Gym"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:id="@+id/btnJewelry"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/custom_button_all"
+                android:text="Jewelries"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:id="@+id/btnPark"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/custom_button_all"
+                android:text="Parks"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:id="@+id/btnRestaurant"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/custom_button_all"
+                android:padding="5dp"
+                android:text="Restaurants"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:id="@+id/btnSchool"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/custom_button_all"
+                android:text="School"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:id="@+id/btnSpa"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/custom_button_all"
+                android:text="Spa"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imagePreFirst"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_first_page_purple_24dp" />
+
+        <ImageView
+            android:id="@+id/imagePre"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_chevron_left_purple_24dp" />
+
+        <TextView
+            android:id="@+id/textPage"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@color/whiteTransparent"
+            android:gravity="center"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/imageNext"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_chevron_right_purple_24dp" />
+    </LinearLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_containerFrag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/places_list_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</LinearLayout>

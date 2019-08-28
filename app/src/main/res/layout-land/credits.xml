@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    tools:context=".MainAndOtherPackage.Credits">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="78dp"
+            android:layout_height="77dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_copyright_lightblue_24dp" />
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="@string/textView1_credits"
+            android:textColor="@color/colorLightBlue2"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/custom_button"
+            android:text="@string/button1_ok"
+            android:textColor="@color/colorWhite" />
+    </LinearLayout>
+</ScrollView>

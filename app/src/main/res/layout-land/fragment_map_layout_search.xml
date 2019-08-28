@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapSearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/myContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:id="@+id/linearOpenList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/blackTransparent">
+
+        <ImageView
+            android:id="@+id/btnOpenList"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/ic_dehaze_lightblue_24dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/listAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearOpenList"
+        android:background="@color/blackTransparent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/whiteTransparent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Tutorial map:"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="1dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/circleblue" />
+
+                    <TextView
+                        android:id="@+id/disSearch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="1dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/circlered" />
+
+                    <TextView
+                        android:id="@+id/disNearBy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/imageViewMoovit"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/moovit" />
+
+                <ImageView
+                    android:id="@+id/imageViewGett"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/gettaxi" />
+
+                <ImageView
+                    android:id="@+id/imageViewWaze"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/waze" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@color/whiteTransparent"
+                    android:gravity="center"
+                    android:text="Map type:"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/imageMe1"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/number1" />
+
+                <ImageView
+                    android:id="@+id/imageMe2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="5dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/number2" />
+
+                <ImageView
+                    android:id="@+id/imageMe3"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="5dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/number3" />
+
+                <ImageView
+                    android:id="@+id/imageMe4"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="5dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/number4" />
+
+                <ImageView
+                    android:id="@+id/imageMe5"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="5dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/number5" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

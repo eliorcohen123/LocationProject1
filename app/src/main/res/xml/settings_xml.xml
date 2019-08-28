@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Distance:">
+        <ListPreference
+            android:dialogTitle="KM/Miles"
+            android:entries="@array/disVal"
+            android:entryValues="@array/distanceValues"
+            android:key="myKm"
+            android:summary="Choose Distance: KM/Miles"
+            android:title="KM/Miles" />
+        <com.eliorcohen12345.locationproject.MainAndOtherPackage.MySeekBar
+            android:defaultValue="5000"
+            android:key="seek"
+            android:title="Radius" />
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="disVal">
+        <item>KM/Meters</item>
+        <item>Miles</item>
+    </string-array>
+
+    <string-array name="distanceValues">
+        <item>1000.0</item>
+        <item>1609.344</item>
+    </string-array>
+</resources>
