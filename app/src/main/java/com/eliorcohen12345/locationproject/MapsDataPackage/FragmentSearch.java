@@ -75,8 +75,8 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     private static FragmentSearch mFragmentSearch;
     private GetMapsAsyncTaskHistory mGetMapsAsyncTaskHistory;
     private View mView;
-    private static Location location;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private static Location location;
     private static LocationManager locationManager;
     private static Criteria criteria;
     private static String provider;
