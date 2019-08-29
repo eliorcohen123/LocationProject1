@@ -79,7 +79,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     private static Location location;
     private static LocationManager locationManager;
     private Criteria criteria;
-    private SharedPreferences prefs, prefsPage, prefsPre;
+    private SharedPreferences prefsSeek, prefsPage, prefsPre;
     private SharedPreferences.Editor editorPage, editorPre;
     private ItemDecoration itemDecoration;
     private int myRadius, myPage = 1;
@@ -132,7 +132,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         mFragmentSearch = this;
 
         mMapDBHelperSearch = new MapDBHelperSearch(getActivity());
-        prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        prefsSeek = PreferenceManager.getDefaultSharedPreferences(getContext());
         mMapList = new ArrayList<>();
 
         setHasOptionsMenu(true);
@@ -512,7 +512,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 if (location != null) {
                     if (mAdapter != null) {
                         if (query.equals("")) {
-                            myRadius = prefs.getInt("seek", 5000);
+                            myRadius = prefsSeek.getInt("seek", 5000);
                         } else {
                             myRadius = 50000;
                         }
