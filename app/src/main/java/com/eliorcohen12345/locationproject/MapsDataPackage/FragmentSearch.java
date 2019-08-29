@@ -187,7 +187,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             itemDecoration = new ItemDecoration(20);
             mRecyclerView.addItemDecoration(itemDecoration);
         }
-        mRecyclerView.setAdapter(mAdapter);
 
         swipeRefreshLayout = mView.findViewById(R.id.swipe_containerFrag);  // ID of the SwipeRefreshLayout of FragmentSearch
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorOrange));  // Colors of the SwipeRefreshLayout of FragmentSearch
