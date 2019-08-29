@@ -78,14 +78,14 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     private SwipeRefreshLayout swipeRefreshLayout;
     private static Location location;
     private static LocationManager locationManager;
-    private static Criteria criteria;
-    private static String provider;
+    private Criteria criteria;
     private SharedPreferences prefs, prefsPage, prefsPre;
     private SharedPreferences.Editor editorPage, editorPre;
     private ItemDecoration itemDecoration;
     private int myRadius, myPage = 1;
     private ImageView imagePre, imageNext, imagePreFirst;
     private TextView textPage;
+    private static String provider;
     private String hasPage, myStringQuery1, myStringQuery2, myStringQuery3, pageTokenPre;
     private Button btnBank, btnBar, btnBeauty, btnBooks, btnBusStation, btnCars, btnClothing, btnDoctor, btnGasStation,
             btnGym, btnJewelry, btnPark, btnRestaurant, btnSchool, btnSpa;
