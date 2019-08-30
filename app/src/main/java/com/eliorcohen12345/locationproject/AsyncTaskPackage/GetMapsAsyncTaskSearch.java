@@ -25,7 +25,7 @@ public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList
     private MapDBHelperSearch mapDBHelperSearch;
     private double diagonalInches;
 
-    // startShowingProgressBar of FragmentSearch
+    // startShowingProgressDialog of FragmentSearch
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -38,7 +38,7 @@ public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList
         float xInches = metrics.widthPixels / metrics.xdpi;
         diagonalInches = Math.sqrt(xInches * xInches + yInches * yInches);
         if (diagonalInches < 6.5) {
-            FragmentSearch.startShowingProgressBar();
+            FragmentSearch.startShowingProgressDialog();
         }
     }
 
@@ -108,7 +108,7 @@ public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList
         float xInches = metrics.widthPixels / metrics.xdpi;
         diagonalInches = Math.sqrt(xInches * xInches + yInches * yInches);
         if (diagonalInches <= 6.5) {
-            FragmentSearch.stopShowingProgressBar();
+            FragmentSearch.stopShowingProgressDialog();
         }
 
         mapDBHelperSearch = new MapDBHelperSearch(ConApp.getmContext());

@@ -332,7 +332,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 public boolean onQueryTextChange(String newText) {
                     getCheckBtnSearch("", newText);
 
-                    stopShowingProgressBar();
+                    stopShowingProgressDialog();
                     return true;
                 }
             });
@@ -564,16 +564,16 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         }
     }
 
-    // stopShowingProgressBar
-    public static void stopShowingProgressBar() {
+    // stopShowingProgressDialog
+    public static void stopShowingProgressDialog() {
         if (mProgressDialogInternet != null) {
             mProgressDialogInternet.dismiss();
             mProgressDialogInternet = null;
         }
     }
 
-    // startShowingProgressBar
-    public static void startShowingProgressBar() {
+    // startShowingProgressDialog
+    public static void startShowingProgressDialog() {
         mProgressDialogInternet = ProgressDialog.show(mFragmentSearch.getActivity(), "Loading...",
                 "Please wait...", true);
         mProgressDialogInternet.show();
