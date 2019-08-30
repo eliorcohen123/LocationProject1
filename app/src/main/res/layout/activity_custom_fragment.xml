@@ -10,7 +10,7 @@
 
     <fragment
         android:id="@+id/fragment"
-        android:name="com.eliorcohen12345.locationproject.MapsDataPackage.CustomFragment"
+        android:name="com.eliorcohen12345.locationproject.MapsDataPackage.CustomMarkerFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.eliorcohen12345.locationproject.R;
 
-  // Activity of CustomFragment
+  // Activity of CustomMarkerFragment
 public class PlaceCustomActivity extends AppCompatActivity {
 
     @Override
