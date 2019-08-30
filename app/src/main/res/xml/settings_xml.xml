@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <PreferenceCategory android:title="Open Places:">
+        <ListPreference
+            android:dialogTitle="Open Places"
+            android:entries="@array/openVal"
+            android:entryValues="@array/openValues"
+            android:key="open"
+            android:summary="Choose Option: Open/All(Open+Close)"
+            android:title="Open Places" />
+    </PreferenceCategory>
     <PreferenceCategory android:title="Distance:">
         <ListPreference
             android:dialogTitle="KM/Miles"

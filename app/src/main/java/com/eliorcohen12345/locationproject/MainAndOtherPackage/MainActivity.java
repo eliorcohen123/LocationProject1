@@ -362,9 +362,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
                 new AlertDialog.Builder(this)
-                        .setTitle("אישור מיקום")
-                        .setMessage("על מנת להשתמש בשירותי המיקום באפליקציה אשר הודעה זו")
-                        .setPositiveButton("אשר", new DialogInterface.OnClickListener() {
+                        .setTitle("Location Confirmation")
+                        .setMessage("To use the location services in the app confirm this message")
+                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //Prompt the user once explanation has been shown

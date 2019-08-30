@@ -6,7 +6,7 @@ android {
         applicationId "com.eliorcohen12345.locationproject"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 85
+        versionCode 86
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -40,7 +40,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:17.1.0'
     implementation 'com.google.firebase:firebase-messaging:20.0.0'
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation project(':googlemapsapi')
+    implementation 'com.github.eliorcohen123:LocationProject1:1.01'
+//    implementation project(':googlemapsapi')
 }
 
 apply plugin: 'com.google.gms.google-services'

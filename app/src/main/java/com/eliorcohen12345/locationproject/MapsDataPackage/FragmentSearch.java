@@ -81,14 +81,14 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     private static Location location;
     private static LocationManager locationManager;
     private Criteria criteria;
-    private SharedPreferences prefsSeek, prefsPage, prefsPre;
+    private SharedPreferences prefsSeek, prefsOpen, prefsPage, prefsPre;
     private SharedPreferences.Editor editorPage, editorPre;
     private ItemDecoration itemDecoration;
     private int myRadius, myPage = 1;
     private ImageView imagePre, imageNext, imagePreFirst;
     private TextView textPage;
     private static String provider;
-    private String hasPage, myStringQueryPage, myStringQueryType, myStringQueryQuery, pageTokenPre;
+    private String hasPage, myStringQueryPage, myStringQueryType, myStringQueryQuery, pageTokenPre, myOpen;
     private Button btnBank, btnBar, btnBeauty, btnBooks, btnBusStation, btnCars, btnClothing, btnDoctor, btnGasStation,
             btnGym, btnJewelry, btnPark, btnRestaurant, btnSchool, btnSpa;
     private GoogleMapsApi googleMapsApi;
@@ -136,6 +136,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
         mMapDBHelperSearch = new MapDBHelperSearch(getActivity());
         prefsSeek = PreferenceManager.getDefaultSharedPreferences(getContext());
+        prefsOpen = PreferenceManager.getDefaultSharedPreferences(getContext());
         mMapList = new ArrayList<>();
         googleMapsApi = new GoogleMapsApi();
 
@@ -191,6 +192,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             itemDecoration = new ItemDecoration(20);
             mRecyclerView.addItemDecoration(itemDecoration);
         }
+        mRecyclerView.setAdapter(mAdapter);
 
         swipeRefreshLayout = mView.findViewById(R.id.swipe_containerFrag);  // ID of the SwipeRefreshLayout of FragmentSearch
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorOrange));  // Colors of the SwipeRefreshLayout of FragmentSearch
@@ -520,14 +522,15 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                         } else {
                             myRadius = 50000;
                         }
+                        myOpen = prefsOpen.getString("open", "");
                         mMapDBHelperSearch.deleteData();
-                        String myQuery = googleMapsApi.getStringGoogleMapsApi(location.getLatitude(), location.getLongitude(), myRadius, pageToken, type, query, getString(R.string.api_key_search));
+                        String myQuery = googleMapsApi.getStringGoogleMapsApi(location.getLatitude(), location.getLongitude(), myRadius, pageToken, myOpen, type, query, getString(R.string.api_key_search));
                         mGetMapsAsyncTaskSearch = new GetMapsAsyncTaskSearch();
                         mGetMapsAsyncTaskSearch.execute(myQuery);
 
                         // Get Pages
                         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                                googleMapsApi.getStringGoogleMapsApi(location.getLatitude(), location.getLongitude(), myRadius, pageToken, type, query, getString(R.string.api_key_search)), new Response.Listener<String>() {
+                                googleMapsApi.getStringGoogleMapsApi(location.getLatitude(), location.getLongitude(), myRadius, pageToken, myOpen, type, query, getString(R.string.api_key_search)), new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 try {
