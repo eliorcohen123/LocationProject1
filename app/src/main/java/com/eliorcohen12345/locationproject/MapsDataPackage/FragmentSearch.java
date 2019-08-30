@@ -431,7 +431,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 if (myPage == 2) {
                     pageTokenPre = "";
                 } else {
-                    pageTokenPre = prefsPre.getString("mystringquerypre1", "");
+                    pageTokenPre = prefsPre.getString("mystringquerypre", "");
                 }
 
                 getTypeQuery(pageTokenPre, myStringQueryType, myStringQueryQuery);
@@ -543,7 +543,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                                     editorPage.apply();
 
                                     if (myPage == 1) {
-                                        editorPre.putString("mystringquerypre1", hasPage);
+                                        editorPre.putString("mystringquerypre", hasPage);
                                         editorPre.apply();
                                     }
                                 } catch (Exception e) {
