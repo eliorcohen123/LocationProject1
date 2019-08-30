@@ -11,6 +11,7 @@ public class GoogleMapsApi {
                 + myRadius +
                 "&sensor=true&rankby=prominence&pagetoken="
                 + pageToken +
+                open +
                 "&types="
                 + type +
                 "&keyword="
