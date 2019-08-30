@@ -40,8 +40,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:17.1.0'
     implementation 'com.google.firebase:firebase-messaging:20.0.0'
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'com.github.eliorcohen123:LocationProject1:1.02'
-//    implementation project(':googlemapsapi')
+//    implementation 'com.github.eliorcohen123:LocationProject1:1.02'
+    implementation project(':googlemapsapi')
 }
 
 apply plugin: 'com.google.gms.google-services'
