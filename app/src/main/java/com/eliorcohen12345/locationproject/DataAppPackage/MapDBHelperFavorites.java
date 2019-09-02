@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +21,12 @@ public class MapDBHelperFavorites extends SQLiteOpenHelper {
     private static final String MAP_LAT = "LAT";
     private static final String MAP_LNG = "LNG";
     private static final String MAP_PHOTOS = "PHOTOS";
+    private Context ctx;
 
     public MapDBHelperFavorites(Context context) {
         super(context, MAP_TABLE_NAME, null, 1);
+
+        this.ctx = context;
     }
 
     @Override
@@ -55,21 +59,29 @@ public class MapDBHelperFavorites extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put(MAP_NAME, name);
-        contentValues.put(MAP_ADDRESS, address);
-        contentValues.put(MAP_LAT, lat);
-        contentValues.put(MAP_LNG, lng);
-        contentValues.put(MAP_PHOTOS, photo);
+        Cursor cursor1;
+        String sql = "SELECT * FROM " + MAP_TABLE_NAME + " WHERE " + MAP_LAT + "= '" + lat + "'";
+        cursor1 = db.rawQuery(sql, null);
+        if (cursor1.getCount() > 0) {
+            Toast.makeText(ctx, "Current place already exist in your favorites", Toast.LENGTH_LONG).show();
+        } else {
+            contentValues.put(MAP_NAME, name);
+            contentValues.put(MAP_ADDRESS, address);
+            contentValues.put(MAP_LAT, lat);
+            contentValues.put(MAP_LNG, lng);
+            contentValues.put(MAP_PHOTOS, photo);
 
-        long id = db.insertOrThrow(MAP_TABLE_NAME, null, contentValues);
-        try {
-            Log.d("MapDBHelperFavorites", "insert new place with id: " + id +
-                    ", name: " + name);
-        } catch (SQLiteException ex) {
-            Log.e("MapDBHelperFavorites", ex.getMessage());
-        } finally {
-            db.close();
+            long id = db.insertOrThrow(MAP_TABLE_NAME, null, contentValues);
+            try {
+                Log.d("MapDBHelperFavorites", "insert new place with id: " + id +
+                        ", name: " + name);
+            } catch (SQLiteException ex) {
+                Log.e("MapDBHelperFavorites", ex.getMessage());
+            } finally {
+                db.close();
+            }
         }
+        cursor1.close();
     }
 
     //Edit info items
