@@ -152,6 +152,7 @@ public class MapDBHelperSearch extends SQLiteOpenHelper {
             placeModel.setId(String.valueOf(id));
             placeModels.add(placeModel);
         }
+        cursor.close();
         return placeModels;
     }
 
