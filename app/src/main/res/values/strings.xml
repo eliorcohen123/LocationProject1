@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Lovely Favorites Places</string>
+    <string name="app_name">Lovely Favorite Places</string>
     <string name="hint">Search a place…</string>
     <string name="map_id">map_id</string>
     <string name="map_edit">map_edit</string>
