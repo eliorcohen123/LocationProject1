@@ -106,6 +106,13 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         return mView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getResumeTypeQuery();
+    }
+
     private void initUI() {
         mRecyclerView = mView.findViewById(R.id.places_list_search);
 
@@ -352,13 +359,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        getResumeTypeQuery();
     }
 
     private void getResumeTypeQuery() {

@@ -88,6 +88,21 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         frg();
     }
 
+    // onResume
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startLocationUpdates();
+    }
+
+    // onPause
+    @Override
+    protected void onPause() {
+        super.onPause();
+        startLocationUpdates();
+//        stopLocationUpdates();
+    }
+
     private void initUI() {
         toolbar = findViewById(R.id.toolbar);
         drawer = findViewById(R.id.drawer_layout);
@@ -489,21 +504,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             Log.i(TAG, "Inside onStart function; getting location when permission is already available");
             getLastLocation();
         }
-    }
-
-    // onResume
-    @Override
-    protected void onResume() {
-        super.onResume();
-        startLocationUpdates();
-    }
-
-    // onPause
-    @Override
-    protected void onPause() {
-        super.onPause();
-        startLocationUpdates();
-//        stopLocationUpdates();
     }
 
 }
