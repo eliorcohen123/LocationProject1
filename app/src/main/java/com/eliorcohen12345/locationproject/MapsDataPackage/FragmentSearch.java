@@ -55,6 +55,7 @@ import com.eliorcohen12345.locationproject.AsyncTaskPackage.GetMapsAsyncTaskSear
 import com.eliorcohen12345.locationproject.CustomAdapterPackage.PlaceCustomAdapterSearch;
 import com.eliorcohen12345.locationproject.DataAppPackage.MapDBHelperSearch;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.MainAndOtherPackage.ConApp;
 import com.eliorcohen12345.locationproject.MainAndOtherPackage.ItemDecoration;
 import com.eliorcohen12345.locationproject.R;
 
@@ -83,7 +84,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     private Criteria criteria;
     private SharedPreferences prefsSeek, prefsOpen, prefsPage, prefsPre;
     private SharedPreferences.Editor editorPage, editorPre;
-    private ItemDecoration itemDecoration;
+    private static ItemDecoration itemDecoration;
     private int myRadius, myPage = 1;
     private ImageView imagePre, imageNext, imagePreFirst;
     private TextView textPage;
@@ -102,6 +103,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         initListeners();
         initLocation();
         getData();
+        refreshUI();
 
         return mView;
     }
@@ -189,18 +191,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         editorPre = prefsPre.edit();
     }
 
-    private void getData() {
-        if (!isConnected(mFragmentSearch.getContext())) {
-            mMapList = mMapDBHelperSearch.getAllMaps();
-        }
-        mAdapter = new PlaceCustomAdapterSearch(getActivity(), mMapList);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mFragmentSearch.getContext()));
-        if (itemDecoration == null) {
-            itemDecoration = new ItemDecoration(20);
-            mRecyclerView.addItemDecoration(itemDecoration);
-        }
-        mRecyclerView.setAdapter(mAdapter);
-
+    private void refreshUI() {
         swipeRefreshLayout = mView.findViewById(R.id.swipe_containerFrag);  // ID of the SwipeRefreshLayout of FragmentSearch
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorOrange));  // Colors of the SwipeRefreshLayout of FragmentSearch
         // Refresh the MapDBHelper of app in RecyclerView of MainActivity
@@ -230,14 +221,16 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         });
     }
 
-    // Set maps in FragmentSearch
-    public static void setMaps(ArrayList<PlaceModel> list) {
-        mMapList = list;
+    private static void getData() {
         if (!isConnected(mFragmentSearch.getContext())) {
             mMapList = mMapDBHelperSearch.getAllMaps();
         }
-        mAdapter = new PlaceCustomAdapterSearch(mFragmentSearch.getContext(), mMapList);
+        mAdapter = new PlaceCustomAdapterSearch(ConApp.getmContext(), mMapList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mFragmentSearch.getContext()));
+        if (itemDecoration == null) {
+            itemDecoration = new ItemDecoration(20);
+            mRecyclerView.addItemDecoration(itemDecoration);
+        }
         if (ActivityCompat.checkSelfPermission(mFragmentSearch.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.checkSelfPermission(mFragmentSearch.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION);
         }// TODO: Consider calling
@@ -265,6 +258,12 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             }
         }
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    // Set maps in FragmentSearch
+    public static void setMaps(ArrayList<PlaceModel> list) {
+        mMapList = list;
+        getData();
     }
 
     // Check network
