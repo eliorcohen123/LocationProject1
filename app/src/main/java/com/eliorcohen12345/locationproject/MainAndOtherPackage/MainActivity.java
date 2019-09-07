@@ -88,6 +88,19 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         frg();
     }
 
+    // onStart
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (!checkPermissions()) {
+            Log.i(TAG, "Inside onStart function; requesting permission when permission is not available");
+            requestPermissions();
+        } else {
+            Log.i(TAG, "Inside onStart function; getting location when permission is already available");
+            getLastLocation();
+        }
+    }
+
     // onResume
     @Override
     protected void onResume() {
@@ -491,19 +504,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         }
                     }
                 });
-    }
-
-    // onStart
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (!checkPermissions()) {
-            Log.i(TAG, "Inside onStart function; requesting permission when permission is not available");
-            requestPermissions();
-        } else {
-            Log.i(TAG, "Inside onStart function; getting location when permission is already available");
-            getLastLocation();
-        }
     }
 
 }
