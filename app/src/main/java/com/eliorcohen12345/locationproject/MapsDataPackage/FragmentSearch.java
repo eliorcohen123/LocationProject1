@@ -226,6 +226,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             mMapList = mMapDBHelperSearch.getAllMaps();
         }
         mAdapter = new PlaceCustomAdapterSearch(ConApp.getmContext(), mMapList);
+        mAdapter.setNames(mMapList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mFragmentSearch.getContext()));
         if (itemDecoration == null) {
             itemDecoration = new ItemDecoration(20);

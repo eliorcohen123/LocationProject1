@@ -35,6 +35,8 @@ import com.eliorcohen12345.locationproject.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAdapterSearch.PlaceViewHolder> {
 
@@ -216,6 +218,16 @@ public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAd
             // Covers the case of data not being ready yet.
             holder.name1.setText("No Places");
         }
+    }
+
+    public void setNames(ArrayList<PlaceModel> gameFavorites) {
+        mPlacesSearchList = gameFavorites;
+        Collections.sort(mPlacesSearchList, new Comparator<PlaceModel>() {
+            public int compare(PlaceModel obj1, PlaceModel obj2) {
+                return obj1.getName().compareToIgnoreCase(obj2.getName());
+            }
+        });
+        notifyDataSetChanged();
     }
 
     // getItemCount() is called many times, and when it is first called,
