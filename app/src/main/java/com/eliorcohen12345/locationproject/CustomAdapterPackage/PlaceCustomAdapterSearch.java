@@ -77,6 +77,7 @@ public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAd
                     case 1:
                         Intent intent = new Intent(mInflater.getContext(), AddPlaceFavorites.class);
                         intent.putExtra(mInflater.getContext().getString(R.string.map_add_from_internet), current);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         mInflater.getContext().startActivity(intent);
                         break;
                     case 2:
@@ -88,6 +89,7 @@ public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAd
                         sendIntent.setAction(Intent.ACTION_SEND);
                         sendIntent.putExtra(Intent.EXTRA_TEXT, "Name: " + name + "\nAddress: " + address + "\nLatitude: " + lat + "\nLongitude: " + lng);
                         sendIntent.setType("text/plain");
+                        sendIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         mInflater.getContext().startActivity(sendIntent);
                         break;
                 }
