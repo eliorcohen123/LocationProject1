@@ -102,7 +102,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         initUI();
         initListeners();
         initLocation();
-        getData();
         refreshUI();
 
         return mView;
@@ -112,6 +111,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
 
+        getData();
         getResumeTypeQuery();
     }
 
@@ -226,7 +226,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             mMapList = mMapDBHelperSearch.getAllMaps();
         }
         mAdapter = new PlaceCustomAdapterSearch(ConApp.getmContext(), mMapList);
-        mAdapter.setNames(mMapList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mFragmentSearch.getContext()));
         if (itemDecoration == null) {
             itemDecoration = new ItemDecoration(20);
@@ -285,8 +284,8 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     private AlertDialog.Builder buildDialog(Context c) {
         AlertDialog.Builder builder = new AlertDialog.Builder(c);
         builder.setTitle("No Internet Connection");
-        builder.setMessage("You need to have Mobile Data or wifi to access this. Press ok to Resume");
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setMessage("You need to have Mobile Data or Wi-Fi to access this. Press OK to Resume");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 

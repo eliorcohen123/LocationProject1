@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
+import com.eliorcohen12345.locationproject.MainAndOtherPackage.ConApp;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.core.app.ActivityCompat;
@@ -29,9 +30,11 @@ import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -89,6 +92,7 @@ public class FragmentMapSearch extends Fragment implements OnMapReadyCallback, V
     private LinearLayout linearList;
     private boolean isClicked;
     private AlphaAnimation anim;
+    private double diagonalInches;
 
     @Nullable
     @Override
@@ -167,7 +171,16 @@ public class FragmentMapSearch extends Fragment implements OnMapReadyCallback, V
                 mRecyclerView = new RecyclerView(getContext());
                 mGetMapsAsyncTaskHistory = new GetMapsAsyncTaskHistory(mRecyclerView);
                 mGetMapsAsyncTaskHistory.execute(mMapDBHelperSearch);
-                buildDialog(getContext()).show();
+                // Tablet/Phone mode
+                DisplayMetrics metrics = new DisplayMetrics();
+                ((WindowManager) ConApp.getmContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(metrics);
+
+                float yInches = metrics.heightPixels / metrics.ydpi;
+                float xInches = metrics.widthPixels / metrics.xdpi;
+                diagonalInches = Math.sqrt(xInches * xInches + yInches * yInches);
+                if (diagonalInches < 6.5) {
+                    buildDialog(getContext()).show();
+                }
             } else {
                 if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION);
@@ -421,11 +434,11 @@ public class FragmentMapSearch extends Fragment implements OnMapReadyCallback, V
     private AlertDialog.Builder buildDialog(Context c) {
         AlertDialog.Builder builder = new AlertDialog.Builder(c);
         builder.setTitle("No Internet Connection");
-        builder.setMessage("You need to have Mobile Data or wifi to access this. Press ok to Resume");
-
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setMessage("You need to have Mobile Data or Wi-Fi to access this. Press OK to Resume");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
             }
         });
         return builder;

@@ -35,7 +35,8 @@ public class GetMapsAsyncTaskFavorites extends AsyncTask<MapDBHelperFavorites, I
     protected void onPostExecute(ArrayList<PlaceModel> placeModels) {
         super.onPostExecute(placeModels);
 
-        mPlaceCustomAdapterFavorites = new PlaceCustomAdapterFavorites(mRecyclerView.getContext(), placeModels);
+        mMapList = placeModels;
+        mPlaceCustomAdapterFavorites = new PlaceCustomAdapterFavorites(mRecyclerView.getContext(), mMapList);
         mRecyclerView.setAdapter(mPlaceCustomAdapterFavorites);
     }
 

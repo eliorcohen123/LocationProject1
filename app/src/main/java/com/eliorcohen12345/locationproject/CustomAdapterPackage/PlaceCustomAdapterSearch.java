@@ -37,6 +37,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAdapterSearch.PlaceViewHolder> {
 
@@ -96,7 +97,7 @@ public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAd
     }
 
     private final LayoutInflater mInflater;
-    private ArrayList<PlaceModel> mPlacesSearchList;
+    private List<PlaceModel> mPlacesSearchList;
     private double diagonalInches;
     private Location location;
     private LocationManager locationManager;
@@ -220,13 +221,37 @@ public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAd
         }
     }
 
-    public void setNames(ArrayList<PlaceModel> gameFavorites) {
+    public void setMaps(List<PlaceModel> gameFavorites) {
         mPlacesSearchList = gameFavorites;
-        Collections.sort(mPlacesSearchList, new Comparator<PlaceModel>() {
-            public int compare(PlaceModel obj1, PlaceModel obj2) {
-                return obj1.getName().compareToIgnoreCase(obj2.getName());
+        locationManager = (LocationManager) mInflater.getContext().getSystemService(Context.LOCATION_SERVICE);
+        criteria = new Criteria();
+        provider = locationManager.getBestProvider(criteria, true);
+        if (ActivityCompat.checkSelfPermission(mInflater.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.checkSelfPermission(mInflater.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION);
+        }// TODO: Consider calling
+//    ActivityCompat#requestPermissions
+// here to request the missing permissions, and then overriding
+//   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                                          int[] grantResults)
+// to handle the case where the user grants the permission. See the documentation
+// for ActivityCompat#requestPermissions for more details.
+        if (provider != null) {
+            location = locationManager.getLastKnownLocation(provider);
+            if (location != null) {
+                Collections.sort(mPlacesSearchList, new Comparator<PlaceModel>() {
+                    public int compare(PlaceModel obj1, PlaceModel obj2) {
+                        // ## Ascending order
+//                return obj1.getDistance().compareToIgnoreCase(obj2.getDistance()); // To compare string values
+                        return Double.compare(Math.sqrt(Math.pow(obj1.getLat() - location.getLatitude(), 2) + Math.pow(obj1.getLng() - location.getLongitude(), 2)),
+                                Math.sqrt(Math.pow(obj2.getLat() - location.getLatitude(), 2) + Math.pow(obj2.getLng() - location.getLongitude(), 2))); // To compare integer values
+
+                        // ## Descending order
+                        // return obj2.getCompanyName().compareToIgnoreCase(obj1.getCompanyName()); // To compare string values
+                        // return Integer.valueOf(obj2.getId()).compareTo(obj1.getId()); // To compare integer values
+                    }
+                });
             }
-        });
+        }
         notifyDataSetChanged();
     }
 

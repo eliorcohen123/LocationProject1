@@ -35,7 +35,9 @@ public class GetMapsAsyncTaskHistory extends AsyncTask<MapDBHelperSearch, Intege
     protected void onPostExecute(ArrayList<PlaceModel> placeModels) {
         super.onPostExecute(placeModels);
 
-        mPlaceCustomAdapterSearch = new PlaceCustomAdapterSearch(mRecyclerView.getContext(), placeModels);
+        mMapList = placeModels;
+        mPlaceCustomAdapterSearch = new PlaceCustomAdapterSearch(mRecyclerView.getContext(), mMapList);
+        mPlaceCustomAdapterSearch.setMaps(mMapList);
         mRecyclerView.setAdapter(mPlaceCustomAdapterSearch);
     }
 
