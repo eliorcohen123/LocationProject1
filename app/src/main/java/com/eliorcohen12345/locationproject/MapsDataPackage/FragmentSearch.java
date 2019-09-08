@@ -508,6 +508,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         if (!isConnected(getContext())) {
             mMapList = mMapDBHelperSearch.getAllMaps();
             mAdapter = new PlaceCustomAdapterSearch(getActivity(), mMapList);
+            mAdapter.setMaps(mMapList);
             // Put AsyncTask in the RecyclerView of fragmentSearch to execute the SQLiteHelper
             mGetMapsAsyncTaskHistory = new GetMapsAsyncTaskHistory(mRecyclerView);
             mGetMapsAsyncTaskHistory.execute(mMapDBHelperSearch);
