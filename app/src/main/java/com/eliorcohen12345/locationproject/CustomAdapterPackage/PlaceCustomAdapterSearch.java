@@ -8,31 +8,22 @@ import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.DisplayMetrics;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
-import com.eliorcohen12345.locationproject.MainAndOtherPackage.ConApp;
 import com.eliorcohen12345.locationproject.MapsDataPackage.AddPlaceFavorites;
-import com.eliorcohen12345.locationproject.MapsDataPackage.FragmentMapSearch;
 import com.eliorcohen12345.locationproject.R;
 import com.squareup.picasso.Picasso;
 
@@ -47,7 +38,6 @@ public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAd
 
         private TextView name1, address1, kmMe1, isOpen1;
         private ImageView image1;
-        private RelativeLayout relativeLayout1;
 
         private PlaceViewHolder(View itemView) {
             super(itemView);
@@ -56,7 +46,6 @@ public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAd
             kmMe1 = itemView.findViewById(R.id.kmMe1);
             isOpen1 = itemView.findViewById(R.id.isOpen1);
             image1 = itemView.findViewById(R.id.image1);
-            relativeLayout1 = itemView.findViewById(R.id.relative1);
 
             itemView.setOnCreateContextMenuListener(this);
         }
@@ -102,7 +91,6 @@ public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAd
 
     private final LayoutInflater mInflater;
     private List<PlaceModel> mPlacesSearchList;
-    private double diagonalInches;
     private Location location;
     private LocationManager locationManager;
     private Criteria criteria;
