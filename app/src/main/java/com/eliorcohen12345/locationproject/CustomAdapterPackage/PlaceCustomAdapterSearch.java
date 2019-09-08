@@ -187,8 +187,8 @@ public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAd
         }
     }
 
-    public void setMaps(List<PlaceModel> gameFavorites) {
-        mPlacesSearchList = gameFavorites;
+    public void setMaps(List<PlaceModel> placeModels) {
+        mPlacesSearchList = placeModels;
         locationManager = (LocationManager) mInflater.getContext().getSystemService(Context.LOCATION_SERVICE);
         criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, true);
