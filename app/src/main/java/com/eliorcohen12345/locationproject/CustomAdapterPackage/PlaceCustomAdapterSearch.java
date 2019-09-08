@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -29,6 +30,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.MainAndOtherPackage.ConApp;
 import com.eliorcohen12345.locationproject.MapsDataPackage.AddPlaceFavorites;
 import com.eliorcohen12345.locationproject.MapsDataPackage.FragmentMapSearch;
 import com.eliorcohen12345.locationproject.R;
@@ -189,32 +191,6 @@ public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAd
                     }
                 }
             }
-            holder.relativeLayout1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Tablet/Phone mode
-                    DisplayMetrics metrics = new DisplayMetrics();
-                    ((AppCompatActivity) mInflater.getContext()).getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
-                    float yInches = metrics.heightPixels / metrics.ydpi;
-                    float xInches = metrics.widthPixels / metrics.xdpi;
-                    diagonalInches = Math.sqrt(xInches * xInches + yInches * yInches);
-
-                    FragmentMapSearch fragmentMapSearch = new FragmentMapSearch();
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable(mInflater.getContext().getString(R.string.map_search_key), current);
-                    fragmentMapSearch.setArguments(bundle);
-                    FragmentManager fragmentManager = ((AppCompatActivity) mInflater.getContext()).getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    if (diagonalInches >= 6.5) {
-                        fragmentTransaction.replace(R.id.fragmentLt, fragmentMapSearch);
-                    } else {
-                        fragmentTransaction.replace(R.id.fragmentContainer, fragmentMapSearch);
-                    }
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-                }
-            });
 
             setFadeAnimation(holder.itemView);
         } else {

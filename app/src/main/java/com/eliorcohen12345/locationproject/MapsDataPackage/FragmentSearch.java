@@ -25,6 +25,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -33,12 +35,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
 import android.text.Html;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -64,6 +68,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import eliorcohen.com.googlemapsapi.GoogleMapsApi;
 
@@ -93,6 +98,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     private Button btnBank, btnBar, btnBeauty, btnBooks, btnBusStation, btnCars, btnClothing, btnDoctor, btnGasStation,
             btnGym, btnJewelry, btnPark, btnRestaurant, btnSchool, btnSpa;
     private GoogleMapsApi googleMapsApi;
+    private static double diagonalInches;
 
     @Nullable
     @Override
@@ -111,7 +117,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
 
-        getData();
+        getData(mMapList);
         getResumeTypeQuery();
     }
 
@@ -221,7 +227,8 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         });
     }
 
-    private static void getData() {
+    private static void getData(ArrayList<PlaceModel> list) {
+        mMapList = list;
         if (!isConnected(mFragmentSearch.getContext())) {
             mMapList = mMapDBHelperSearch.getAllMaps();
         }
@@ -233,12 +240,41 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         }
         mAdapter.setMaps(mMapList);
         mRecyclerView.setAdapter(mAdapter);
+
+        ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                PlaceModel current = mMapList.get(position);
+
+                DisplayMetrics metrics = new DisplayMetrics();
+                WindowManager windowManager = (WindowManager) mFragmentSearch.getContext().getSystemService(Context.WINDOW_SERVICE);
+                windowManager.getDefaultDisplay().getMetrics(metrics);
+
+                float yInches = metrics.heightPixels / metrics.ydpi;
+                float xInches = metrics.widthPixels / metrics.xdpi;
+                diagonalInches = Math.sqrt(xInches * xInches + yInches * yInches);
+
+                FragmentMapSearch fragmentMapSearch = new FragmentMapSearch();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(mFragmentSearch.getContext().getString(R.string.map_search_key), current);
+                fragmentMapSearch.setArguments(bundle);
+                FragmentManager fragmentManager = ((AppCompatActivity) mFragmentSearch.getContext()).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                if (diagonalInches >= 6.5) {
+                    fragmentTransaction.replace(R.id.fragmentLt, fragmentMapSearch);
+                } else {
+                    fragmentTransaction.replace(R.id.fragmentContainer, fragmentMapSearch);
+                }
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
     }
 
     // Set maps in FragmentSearch
     public static void setMaps(ArrayList<PlaceModel> list) {
         mMapList = list;
-        getData();
+        getData(mMapList);
     }
 
     // Check network
@@ -554,6 +590,107 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         mProgressDialogInternet = ProgressDialog.show(mFragmentSearch.getActivity(), "Loading...",
                 "Please wait...", true);
         mProgressDialogInternet.show();
+    }
+
+    private static class ItemClickSupport {
+
+        private final RecyclerView mRecyclerView;
+        private OnItemClickListener mOnItemClickListener;
+        private OnItemLongClickListener mOnItemLongClickListener;
+
+        private View.OnClickListener mOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnItemClickListener != null) {
+                    // ask the RecyclerView for the viewHolder of this view.
+                    // then use it to get the position for the adapter
+                    RecyclerView.ViewHolder holder = mRecyclerView.getChildViewHolder(v);
+                    mOnItemClickListener.onItemClicked(mRecyclerView, holder.getAdapterPosition(), v);
+                }
+            }
+        };
+
+        private View.OnLongClickListener mOnLongClickListener = new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (mOnItemLongClickListener != null) {
+                    RecyclerView.ViewHolder holder = mRecyclerView.getChildViewHolder(v);
+                    return mOnItemLongClickListener.onItemLongClicked(mRecyclerView, holder.getAdapterPosition(), v);
+                }
+                return false;
+            }
+        };
+
+        private RecyclerView.OnChildAttachStateChangeListener mAttachListener = new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(View view) {
+                // every time a new child view is attached add click listeners to it
+                if (mOnItemClickListener != null) {
+                    view.setOnClickListener(mOnClickListener);
+                }
+                if (mOnItemLongClickListener != null) {
+                    view.setOnLongClickListener(mOnLongClickListener);
+                }
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(View view) {
+
+            }
+        };
+
+        private ItemClickSupport(RecyclerView recyclerView) {
+            mRecyclerView = recyclerView;
+            // the ID must be declared in XML, used to avoid
+            // replacing the ItemClickSupport without removing
+            // the old one from the RecyclerView
+            mRecyclerView.setTag(R.id.item_click_support, this);
+            mRecyclerView.addOnChildAttachStateChangeListener(mAttachListener);
+        }
+
+        private static ItemClickSupport addTo(RecyclerView view) {
+            // if there's already an ItemClickSupport attached
+            // to this RecyclerView do not replace it, use it
+            ItemClickSupport support = (ItemClickSupport) view.getTag(R.id.item_click_support);
+            if (support == null) {
+                support = new ItemClickSupport(view);
+            }
+            return support;
+        }
+
+        private static ItemClickSupport removeFrom(RecyclerView view) {
+            ItemClickSupport support = (ItemClickSupport) view.getTag(R.id.item_click_support);
+            if (support != null) {
+                support.detach(view);
+            }
+            return support;
+        }
+
+        private ItemClickSupport setOnItemClickListener(OnItemClickListener listener) {
+            mOnItemClickListener = listener;
+            return this;
+        }
+
+        private ItemClickSupport setOnItemLongClickListener(OnItemLongClickListener listener) {
+            mOnItemLongClickListener = listener;
+            return this;
+        }
+
+        private void detach(RecyclerView view) {
+            view.removeOnChildAttachStateChangeListener(mAttachListener);
+            view.setTag(R.id.item_click_support, null);
+        }
+
+        private interface OnItemClickListener {
+
+            void onItemClicked(RecyclerView recyclerView, int position, View v);
+        }
+
+        private interface OnItemLongClickListener {
+
+            boolean onItemLongClicked(RecyclerView recyclerView, int position, View v);
+        }
+
     }
 
 }
