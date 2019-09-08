@@ -231,32 +231,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             itemDecoration = new ItemDecoration(20);
             mRecyclerView.addItemDecoration(itemDecoration);
         }
-        if (ActivityCompat.checkSelfPermission(mFragmentSearch.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.checkSelfPermission(mFragmentSearch.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION);
-        }// TODO: Consider calling
-//    ActivityCompat#requestPermissions
-// here to request the missing permissions, and then overriding
-//   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//                                          int[] grantResults)
-// to handle the case where the user grants the permission. See the documentation
-// for ActivityCompat#requestPermissions for more details.
-        if (provider != null) {
-            location = locationManager.getLastKnownLocation(provider);
-            if (location != null) {
-                Collections.sort(mMapList, new Comparator<PlaceModel>() {
-                    public int compare(PlaceModel obj1, PlaceModel obj2) {
-                        // ## Ascending order
-//                return obj1.getDistance().compareToIgnoreCase(obj2.getDistance()); // To compare string values
-                        return Double.compare(Math.sqrt(Math.pow(obj1.getLat() - location.getLatitude(), 2) + Math.pow(obj1.getLng() - location.getLongitude(), 2)),
-                                Math.sqrt(Math.pow(obj2.getLat() - location.getLatitude(), 2) + Math.pow(obj2.getLng() - location.getLongitude(), 2))); // To compare integer values
-
-                        // ## Descending order
-                        // return obj2.getCompanyName().compareToIgnoreCase(obj1.getCompanyName()); // To compare string values
-                        // return Integer.valueOf(obj2.getId()).compareTo(obj1.getId()); // To compare integer values
-                    }
-                });
-            }
-        }
+        mAdapter.setMaps(mMapList);
         mRecyclerView.setAdapter(mAdapter);
     }
 
