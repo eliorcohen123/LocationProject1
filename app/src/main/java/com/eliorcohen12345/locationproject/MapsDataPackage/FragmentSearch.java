@@ -66,9 +66,6 @@ import com.eliorcohen12345.locationproject.R;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 import eliorcohen.com.googlemapsapi.GoogleMapsApi;
 
@@ -99,6 +96,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             btnGym, btnJewelry, btnPark, btnRestaurant, btnSchool, btnSpa;
     private GoogleMapsApi googleMapsApi;
     private static double diagonalInches;
+    private static ImageView handScrollDownImage;
 
     @Nullable
     @Override
@@ -140,10 +138,13 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         btnSchool = mView.findViewById(R.id.btnSchool);
         btnSpa = mView.findViewById(R.id.btnSpa);
 
+        handScrollDownImage = mView.findViewById(R.id.handScrollDownImage);
         imagePre = mView.findViewById(R.id.imagePre);
         imageNext = mView.findViewById(R.id.imageNext);
         imagePreFirst = mView.findViewById(R.id.imagePreFirst);
         textPage = mView.findViewById(R.id.textPage);
+
+        swipeRefreshLayout = mView.findViewById(R.id.swipe_containerFrag);
 
         getClearPrefs();
 
@@ -198,7 +199,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     }
 
     private void refreshUI() {
-        swipeRefreshLayout = mView.findViewById(R.id.swipe_containerFrag);  // ID of the SwipeRefreshLayout of FragmentSearch
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorOrange));  // Colors of the SwipeRefreshLayout of FragmentSearch
         // Refresh the MapDBHelper of app in RecyclerView of MainActivity
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -233,6 +233,11 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             mMapList = mMapDBHelperSearch.getAllMaps();
         }
         mAdapter = new PlaceCustomAdapterSearch(ConApp.getmContext(), mMapList);
+        if (mAdapter.getItemCount() != 0) {
+            handScrollDownImage.setVisibility(View.GONE);
+        } else {
+            handScrollDownImage.setVisibility(View.VISIBLE);
+        }
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mFragmentSearch.getContext()));
         if (itemDecoration == null) {
             itemDecoration = new ItemDecoration(20);
