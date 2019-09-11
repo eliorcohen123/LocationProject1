@@ -243,7 +243,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             itemDecoration = new ItemDecoration(20);
             mRecyclerView.addItemDecoration(itemDecoration);
         }
-        mAdapter.setMaps(mMapList);
+        mAdapter.setMapsCollections(mMapList);
         mRecyclerView.setAdapter(mAdapter);
 
         ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
@@ -513,7 +513,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         if (!isConnected(getContext())) {
             mMapList = mMapDBHelperSearch.getAllMaps();
             mAdapter = new PlaceCustomAdapterSearch(getActivity(), mMapList);
-            mAdapter.setMaps(mMapList);
+            mAdapter.setMapsCollections(mMapList);
             // Put AsyncTask in the RecyclerView of fragmentSearch to execute the SQLiteHelper
             mGetMapsAsyncTaskHistory = new GetMapsAsyncTaskHistory(mRecyclerView);
             mGetMapsAsyncTaskHistory.execute(mMapDBHelperSearch);
