@@ -204,17 +204,15 @@ public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAd
         if (provider != null) {
             location = locationManager.getLastKnownLocation(provider);
             if (location != null) {
-                Collections.sort(mPlacesSearchList, new Comparator<PlaceModel>() {
-                    public int compare(PlaceModel obj1, PlaceModel obj2) {
-                        // ## Ascending order
+                Collections.sort(mPlacesSearchList, (obj1, obj2) -> {
+                    // ## Ascending order
 //                return obj1.getDistance().compareToIgnoreCase(obj2.getDistance()); // To compare string values
-                        return Double.compare(Math.sqrt(Math.pow(obj1.getLat() - location.getLatitude(), 2) + Math.pow(obj1.getLng() - location.getLongitude(), 2)),
-                                Math.sqrt(Math.pow(obj2.getLat() - location.getLatitude(), 2) + Math.pow(obj2.getLng() - location.getLongitude(), 2))); // To compare integer values
+                    return Double.compare(Math.sqrt(Math.pow(obj1.getLat() - location.getLatitude(), 2) + Math.pow(obj1.getLng() - location.getLongitude(), 2)),
+                            Math.sqrt(Math.pow(obj2.getLat() - location.getLatitude(), 2) + Math.pow(obj2.getLng() - location.getLongitude(), 2))); // To compare integer values
 
-                        // ## Descending order
-                        // return obj2.getCompanyName().compareToIgnoreCase(obj1.getCompanyName()); // To compare string values
-                        // return Integer.valueOf(obj2.getId()).compareTo(obj1.getId()); // To compare integer values
-                    }
+                    // ## Descending order
+                    // return obj2.getCompanyName().compareToIgnoreCase(obj1.getCompanyName()); // To compare string values
+                    // return Integer.valueOf(obj2.getId()).compareTo(obj1.getId()); // To compare integer values
                 });
             }
         }
