@@ -1,6 +1,5 @@
 package com.eliorcohen12345.locationproject.MainAndOtherPackage;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
@@ -24,7 +23,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -43,7 +41,6 @@ import com.eliorcohen12345.locationproject.MapsDataPackage.DeleteAllDataHistory;
 import com.eliorcohen12345.locationproject.MapsDataPackage.FragmentMapSearch;
 import com.eliorcohen12345.locationproject.MapsDataPackage.FragmentSearch;
 import com.eliorcohen12345.locationproject.MapsDataPackage.PlaceCustomActivity;
-import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
 import com.eliorcohen12345.locationproject.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -57,9 +54,6 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.SettingsClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import guy4444.smartrate.SmartRate;
