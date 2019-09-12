@@ -30,7 +30,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.eliorcohen12345.locationproject.DataAppPackage.MapDBHelperFavorites;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
-import com.eliorcohen12345.locationproject.MapsDataPackage.AddPlaceFavorites;
 import com.eliorcohen12345.locationproject.MapsDataPackage.DeletePlace;
 import com.eliorcohen12345.locationproject.MapsDataPackage.EditPlace;
 import com.eliorcohen12345.locationproject.MapsDataPackage.FragmentMapFavorites;
@@ -38,9 +37,6 @@ import com.eliorcohen12345.locationproject.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCustomAdapterFavorites.PlaceViewHolder> {
 
