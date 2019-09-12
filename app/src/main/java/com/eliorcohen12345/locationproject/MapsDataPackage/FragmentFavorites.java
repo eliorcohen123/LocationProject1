@@ -87,16 +87,12 @@ public class FragmentFavorites extends Fragment implements NavigationView.OnNavi
     private void drawerLayout() {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
-        mView.findViewById(R.id.myButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // open right drawer
-
-                if (drawer.isDrawerOpen(GravityCompat.END)) {
-                    drawer.closeDrawer(GravityCompat.END);
-                } else
-                    drawer.openDrawer(GravityCompat.END);
-            }
+        mView.findViewById(R.id.myButton).setOnClickListener(v -> {
+            // open right drawer
+            if (drawer.isDrawerOpen(GravityCompat.END)) {
+                drawer.closeDrawer(GravityCompat.END);
+            } else
+                drawer.openDrawer(GravityCompat.END);
         });
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

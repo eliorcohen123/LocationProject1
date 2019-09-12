@@ -201,29 +201,26 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     private void refreshUI() {
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorOrange));  // Colors of the SwipeRefreshLayout of FragmentSearch
         // Refresh the MapDBHelper of app in RecyclerView of MainActivity
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Vibration for 0.1 second
-                Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
-                } else {
-                    vibrator.vibrate(100);
-                }
-
-                getActivity().finish();
-                startActivity(getActivity().getIntent());  // Refresh activity
-
-                Toast toast = Toast.makeText(getContext(), "The list are refreshed!", Toast.LENGTH_LONG);
-                View view = toast.getView();
-                view.getBackground().setColorFilter(getResources().getColor(R.color.colorLightBlue), PorterDuff.Mode.SRC_IN);
-                TextView text = view.findViewById(android.R.id.message);
-                text.setTextColor(getResources().getColor(R.color.colorDarkBrown));
-                toast.show();  // Toast
-
-                swipeRefreshLayout.setRefreshing(false);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            // Vibration for 0.1 second
+            Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
+            } else {
+                vibrator.vibrate(100);
             }
+
+            getActivity().finish();
+            startActivity(getActivity().getIntent());  // Refresh activity
+
+            Toast toast = Toast.makeText(getContext(), "The list are refreshed!", Toast.LENGTH_LONG);
+            View view = toast.getView();
+            view.getBackground().setColorFilter(getResources().getColor(R.color.colorLightBlue), PorterDuff.Mode.SRC_IN);
+            TextView text = view.findViewById(android.R.id.message);
+            text.setTextColor(getResources().getColor(R.color.colorDarkBrown));
+            toast.show();  // Toast
+
+            swipeRefreshLayout.setRefreshing(false);
         });
     }
 
@@ -246,33 +243,30 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         mAdapter.setMapsCollections(mMapList);
         mRecyclerView.setAdapter(mAdapter);
 
-        ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-            @Override
-            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                PlaceModel current = mMapList.get(position);
+        ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener((recyclerView, position, v) -> {
+            PlaceModel current = mMapList.get(position);
 
-                DisplayMetrics metrics = new DisplayMetrics();
-                WindowManager windowManager = (WindowManager) mFragmentSearch.getContext().getSystemService(Context.WINDOW_SERVICE);
-                windowManager.getDefaultDisplay().getMetrics(metrics);
+            DisplayMetrics metrics = new DisplayMetrics();
+            WindowManager windowManager = (WindowManager) mFragmentSearch.getContext().getSystemService(Context.WINDOW_SERVICE);
+            windowManager.getDefaultDisplay().getMetrics(metrics);
 
-                float yInches = metrics.heightPixels / metrics.ydpi;
-                float xInches = metrics.widthPixels / metrics.xdpi;
-                diagonalInches = Math.sqrt(xInches * xInches + yInches * yInches);
+            float yInches = metrics.heightPixels / metrics.ydpi;
+            float xInches = metrics.widthPixels / metrics.xdpi;
+            diagonalInches = Math.sqrt(xInches * xInches + yInches * yInches);
 
-                FragmentMapSearch fragmentMapSearch = new FragmentMapSearch();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(mFragmentSearch.getContext().getString(R.string.map_search_key), current);
-                fragmentMapSearch.setArguments(bundle);
-                FragmentManager fragmentManager = ((AppCompatActivity) mFragmentSearch.getContext()).getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                if (diagonalInches >= 6.5) {
-                    fragmentTransaction.replace(R.id.fragmentLt, fragmentMapSearch);
-                } else {
-                    fragmentTransaction.replace(R.id.fragmentContainer, fragmentMapSearch);
-                }
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+            FragmentMapSearch fragmentMapSearch = new FragmentMapSearch();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(mFragmentSearch.getContext().getString(R.string.map_search_key), current);
+            fragmentMapSearch.setArguments(bundle);
+            FragmentManager fragmentManager = ((AppCompatActivity) mFragmentSearch.getContext()).getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            if (diagonalInches >= 6.5) {
+                fragmentTransaction.replace(R.id.fragmentLt, fragmentMapSearch);
+            } else {
+                fragmentTransaction.replace(R.id.fragmentContainer, fragmentMapSearch);
             }
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         });
     }
 
@@ -301,11 +295,8 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         AlertDialog.Builder builder = new AlertDialog.Builder(c);
         builder.setTitle("No Internet Connection");
         builder.setMessage("You need to have Mobile Data or Wi-Fi to access this. Press OK to Resume");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setPositiveButton("OK", (dialog, which) -> {
 
-            }
         });
         return builder;
     }
@@ -546,35 +537,29 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
                         // Get Pages
                         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                                googleMapsApi.getStringGoogleMapsApi(location.getLatitude(), location.getLongitude(), myRadius, pageToken, myOpen, type, query, getString(R.string.api_key_search)), new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                try {
-                                    JSONObject mainObj = new JSONObject(response);
-                                    if (mainObj.has("next_page_token")) {
-                                        imageNext.setVisibility(View.VISIBLE);
-                                        hasPage = mainObj.getString("next_page_token");
-                                    } else {
-                                        imageNext.setVisibility(View.GONE);
-                                        hasPage = "";
-                                    }
-                                    editorPage.putString("myStringQueryPage", hasPage);
-                                    editorPage.apply();
+                                googleMapsApi.getStringGoogleMapsApi(location.getLatitude(), location.getLongitude(), myRadius, pageToken, myOpen, type, query, getString(R.string.api_key_search)), response -> {
+                                    try {
+                                        JSONObject mainObj = new JSONObject(response);
+                                        if (mainObj.has("next_page_token")) {
+                                            imageNext.setVisibility(View.VISIBLE);
+                                            hasPage = mainObj.getString("next_page_token");
+                                        } else {
+                                            imageNext.setVisibility(View.GONE);
+                                            hasPage = "";
+                                        }
+                                        editorPage.putString("myStringQueryPage", hasPage);
+                                        editorPage.apply();
 
-                                    if (myPage == 1) {
-                                        editorPre.putString("mystringquerypre", hasPage);
-                                        editorPre.apply();
+                                        if (myPage == 1) {
+                                            editorPre.putString("mystringquerypre", hasPage);
+                                            editorPre.apply();
+                                        }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
                                     }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
+                                }, error -> {
 
-                            }
-                        });
+                                });
                         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
                         requestQueue.add(stringRequest);
                     }

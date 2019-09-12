@@ -66,12 +66,7 @@ public class CustomMarkerFragment extends Fragment implements OnMapReadyCallback
     private void myUI() {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
-        mView.findViewById(R.id.myButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
+        mView.findViewById(R.id.myButton).setOnClickListener(v -> getActivity().onBackPressed());
     }
 
     @Override
@@ -129,23 +124,18 @@ public class CustomMarkerFragment extends Fragment implements OnMapReadyCallback
 
     // Add marker to the map
     private void addCustomMarker() {
-        mGoogleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-            @Override
-            public void onMapLongClick(LatLng point) {
-                mGoogleMap.addMarker(new MarkerOptions().position(point).title("Custom location").icon(BitmapDescriptorFactory
-                        .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-                Toast.makeText(getContext(), point.latitude + " : " + point.longitude, Toast.LENGTH_SHORT).show();
-            }
+        mGoogleMap.setOnMapLongClickListener(point -> {
+            mGoogleMap.addMarker(new MarkerOptions().position(point).title("Custom location").icon(BitmapDescriptorFactory
+                    .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+            Toast.makeText(getContext(), point.latitude + " : " + point.longitude, Toast.LENGTH_SHORT).show();
         });
-        mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                Intent intent = new Intent(getContext(), AddMarkerFavorites.class);
-                intent.putExtra(getString(R.string.lat_marker), marker.getPosition().latitude);
-                intent.putExtra(getString(R.string.lng_marker), marker.getPosition().longitude);
-                startActivity(intent);
-                return true;
-            }
+
+        mGoogleMap.setOnMarkerClickListener(marker -> {
+            Intent intent = new Intent(getContext(), AddMarkerFavorites.class);
+            intent.putExtra(getString(R.string.lat_marker), marker.getPosition().latitude);
+            intent.putExtra(getString(R.string.lng_marker), marker.getPosition().longitude);
+            startActivity(intent);
+            return true;
         });
     }
 

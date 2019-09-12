@@ -188,19 +188,16 @@ public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCusto
                     }
                 }
             }
-            holder.relativeLayout3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    FragmentMapFavorites fragmentMapFavorites = new FragmentMapFavorites();
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable(mInflater.getContext().getString(R.string.map_favorites_key), current);
-                    fragmentMapFavorites.setArguments(bundle);
-                    FragmentManager fragmentManager = ((AppCompatActivity) mInflater.getContext()).getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragmentFavoritesContainer, fragmentMapFavorites);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-                }
+            holder.relativeLayout3.setOnClickListener(v -> {
+                FragmentMapFavorites fragmentMapFavorites = new FragmentMapFavorites();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(mInflater.getContext().getString(R.string.map_favorites_key), current);
+                fragmentMapFavorites.setArguments(bundle);
+                FragmentManager fragmentManager = ((AppCompatActivity) mInflater.getContext()).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragmentFavoritesContainer, fragmentMapFavorites);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             });
 
             setFadeAnimation(holder.itemView);
