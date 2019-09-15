@@ -308,7 +308,7 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
                 intent.setData(Uri.parse(uri));
                 startActivity(intent);
             } catch (PackageManager.NameNotFoundException e) {
-                String url = "http://app.appsflyer.com/com.tranzmate?pid=DL&c=Lovely Favorites Places";
+                String url = "http://app.appsflyer.com/com.tranzmate?pid=DL&c=Lovely Favorite Places";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
