@@ -303,7 +303,7 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
             try {
                 PackageManager pm = getActivity().getPackageManager();
                 pm.getPackageInfo("com.tranzmate", PackageManager.GET_ACTIVITIES);
-                String uri = "moovit://directions?dest_lat=" + des_lat + "&dest_lon=" + des_lng + "&dest_name=" + name + "&orig_lat=" + orig_lat + "&orig_lon=" + orig_lng + "&orig_name=Your current location&auto_run=true&partner_id=Lovely Favorites Places";
+                String uri = "moovit://directions?dest_lat=" + des_lat + "&dest_lon=" + des_lng + "&dest_name=" + name + "&orig_lat=" + orig_lat + "&orig_lon=" + orig_lng + "&orig_name=Your current location&auto_run=true&partner_id=Lovely Favorite Places";
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(uri));
                 startActivity(intent);
