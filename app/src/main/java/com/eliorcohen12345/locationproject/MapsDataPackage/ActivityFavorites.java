@@ -75,7 +75,6 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
     private static FusedLocationProviderClient mFusedLocationClient;
     private static LocationRequest mLocationRequest;
     private static LocationCallback mLocationCallback;
-    private Location mLastLocation;
     private static final String TAG = "MyLocation";
     private GoogleApiClient mGoogleApiClient;
     private int myRadiusGeo;
@@ -367,9 +366,9 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
-        if (mLastLocation != null) {
+        if (location != null) {
         }
     }
 
@@ -430,7 +429,7 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
         mFusedLocationClient.getLastLocation()
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful() && task.getResult() != null) {
-                        mLastLocation = task.getResult();
+                        location = task.getResult();
                     } else {
                         Log.i(TAG, "Inside getLocation function. Error while getting location");
                         System.out.println(TAG + task.getException());
