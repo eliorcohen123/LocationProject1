@@ -82,8 +82,8 @@ public class GeofenceTransitionsJobIntentService extends JobIntentService {
         PendingIntent notificationPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 
-        builder.setSmallIcon(R.drawable.ic_launcher_background)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_background))
+        builder.setSmallIcon(R.drawable.mapsicon)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.mapsicon))
                 .setColor(Color.RED)
                 .setContentTitle(notificationDetails)
                 .setContentText(getString(R.string.geofence_transition_notification_text))
