@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
+import com.eliorcohen12345.locationproject.MainAndOtherPackage.MainActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.core.app.ActivityCompat;
@@ -32,6 +33,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -79,11 +81,12 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
     private GetMapsAsyncTaskFavorites mGetMapsAsyncTaskFavorites;
     private ArrayList<PlaceModel> mMapList;  // ArrayList of PlaceModel
     private RecyclerView mRecyclerView;  // RecyclerView of FragmentMapFavorites
-    private List<Marker> markers = new ArrayList<Marker>();
+    private List<Marker> markers;
     private CoordinatorLayout coordinatorLayout;
     private LinearLayout linearList;
     private boolean isClicked;
     private AlphaAnimation anim;
+    private static Button mAddGeofencesButton, mRemoveGeofencesButton;
 
     @Nullable
     @Override
@@ -93,6 +96,7 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
         initUI();
         initListeners();
         initLocation();
+        setButtonsEnabledState();
         mapShow();
         getData();
 
@@ -120,8 +124,12 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
 
         linearList = mView.findViewById(R.id.listAll);
 
+        mAddGeofencesButton = mView.findViewById(R.id.btnYes);
+        mRemoveGeofencesButton = mView.findViewById(R.id.btnNo);
+
         linearList.setVisibility(View.GONE);
 
+        markers = new ArrayList<Marker>();
         mMapDBHelperFavorites = new MapDBHelperFavorites(getContext());  // Put the SQLiteHelper in FragmentFavorites
 
         isClicked = true;
@@ -493,6 +501,16 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
                     mGoogleMap.addPolyline(opts);
                 }
             }
+        }
+    }
+
+    public static void setButtonsEnabledState() {
+        if (ActivityFavorites.getGeofencesAdded()) {
+            mAddGeofencesButton.setEnabled(false);
+            mRemoveGeofencesButton.setEnabled(true);
+        } else {
+            mAddGeofencesButton.setEnabled(true);
+            mRemoveGeofencesButton.setEnabled(false);
         }
     }
 

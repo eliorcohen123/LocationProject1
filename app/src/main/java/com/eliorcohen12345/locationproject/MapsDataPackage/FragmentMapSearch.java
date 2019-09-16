@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.eliorcohen12345.locationproject.MainAndOtherPackage.ConApp;
+import com.eliorcohen12345.locationproject.MainAndOtherPackage.MainActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.core.app.ActivityCompat;
@@ -35,6 +36,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -83,10 +85,10 @@ public class FragmentMapSearch extends Fragment implements OnMapReadyCallback, V
     private ImageView moovit, gett, waze, num1, num2, num3, num4, num5, btnOpenList;
     private GetMapsAsyncTaskSearch mGetMapsAsyncTaskSearch;
     private GetMapsAsyncTaskHistory mGetMapsAsyncTaskHistory;
-    private static MapDBHelperSearch mMapDBHelperSearch;
-    private static ArrayList<PlaceModel> mMapList;
-    private List<Marker> markers = new ArrayList<Marker>();
-    private RecyclerView mRecyclerView;  // RecyclerView of FragmentMapSearch
+    private MapDBHelperSearch mMapDBHelperSearch;
+    private ArrayList<PlaceModel> mMapList;
+    private List<Marker> markers;
+    private RecyclerView mRecyclerView;
     private CoordinatorLayout coordinatorLayout;
     private LinearLayout linearList;
     private boolean isClicked;
@@ -130,6 +132,7 @@ public class FragmentMapSearch extends Fragment implements OnMapReadyCallback, V
 
         linearList.setVisibility(View.GONE);
 
+        markers = new ArrayList<Marker>();
         mMapDBHelperSearch = new MapDBHelperSearch(getActivity());
 
         isClicked = true;
