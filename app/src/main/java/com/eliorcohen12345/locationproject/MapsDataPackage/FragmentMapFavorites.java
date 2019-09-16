@@ -36,6 +36,7 @@ import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.eliorcohen12345.locationproject.AsyncTaskPackage.GetMapsAsyncTaskFavorites;
@@ -77,6 +78,7 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
     private Criteria criteria;
     private String provider;
     private ImageView moovit, gett, waze, num1, num2, num3, num4, num5, btnOpenList;
+    private TextView textGeo;
     private MapDBHelperFavorites mMapDBHelperFavorites;
     private GetMapsAsyncTaskFavorites mGetMapsAsyncTaskFavorites;
     private ArrayList<PlaceModel> mMapList;  // ArrayList of PlaceModel
@@ -86,6 +88,8 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
     private LinearLayout linearList;
     private boolean isClicked;
     private AlphaAnimation anim;
+    private SharedPreferences prefsSeekGeo;
+    private int myRadiusGeo;
     private static Button mAddGeofencesButton, mRemoveGeofencesButton;
 
     @Nullable
@@ -124,13 +128,18 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
 
         linearList = mView.findViewById(R.id.listAll);
 
+        textGeo = mView.findViewById(R.id.textGeo);
+
         mAddGeofencesButton = mView.findViewById(R.id.btnYes);
         mRemoveGeofencesButton = mView.findViewById(R.id.btnNo);
 
         linearList.setVisibility(View.GONE);
 
         markers = new ArrayList<Marker>();
-        mMapDBHelperFavorites = new MapDBHelperFavorites(getContext());  // Put the SQLiteHelper in FragmentFavorites
+        mMapDBHelperFavorites = new MapDBHelperFavorites(getContext());
+        prefsSeekGeo = PreferenceManager.getDefaultSharedPreferences(getContext());
+        myRadiusGeo = prefsSeekGeo.getInt("seek_geo", 500);
+        textGeo.setText("Geofence? (" + myRadiusGeo + "m)");
 
         isClicked = true;
 
