@@ -69,7 +69,7 @@ public class GoogleService extends Service implements LocationListener {
 
     }
 
-    private void fn_getlocation() {
+    private void fn_getLocation() {
         locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
         isGPSEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         isNetworkEnable = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
@@ -120,7 +120,7 @@ public class GoogleService extends Service implements LocationListener {
     private class TimerTaskToGetLocation extends TimerTask {
         @Override
         public void run() {
-            mHandler.post(GoogleService.this::fn_getlocation);
+            mHandler.post(GoogleService.this::fn_getLocation);
         }
     }
 

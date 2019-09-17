@@ -1,11 +1,9 @@
 package com.eliorcohen12345.locationproject.MapsDataPackage;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -13,16 +11,12 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -39,21 +33,10 @@ import com.eliorcohen12345.locationproject.GeofencePackage.GeofenceErrorMessages
 import com.eliorcohen12345.locationproject.MainAndOtherPackage.ConApp;
 import com.eliorcohen12345.locationproject.MainAndOtherPackage.GoogleService;
 import com.eliorcohen12345.locationproject.R;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResolvableApiException;
-import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingClient;
 import com.google.android.gms.location.GeofencingRequest;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
-import com.google.android.gms.location.LocationSettingsStates;
-import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -86,7 +69,7 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
     private ArrayList<PlaceModel> mMapListFavorites;
     private boolean boolean_permission;
     private SharedPreferences mPref;
-    private SharedPreferences.Editor medit;
+    private SharedPreferences.Editor mEdit;
     private Geocoder geocoder;
 
     private enum PendingGeofenceTask {
@@ -121,7 +104,7 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
 
         geocoder = new Geocoder(this, Locale.getDefault());
         mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        medit = mPref.edit();
+        mEdit = mPref.edit();
 
         fn_permission();
     }
@@ -210,7 +193,7 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
 
         if (boolean_permission) {
             if (mPref.getString("service", "").matches("")) {
-                medit.putString("service", "service").commit();
+                mEdit.putString("service", "service").commit();
 
                 Intent intent = new Intent(getApplicationContext(), GoogleService.class);
                 startService(intent);
@@ -228,7 +211,6 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
             showSnackbar(getString(R.string.insufficient_permissions));
             return;
         }
-
         mGeofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent()).addOnCompleteListener(this);
     }
 
