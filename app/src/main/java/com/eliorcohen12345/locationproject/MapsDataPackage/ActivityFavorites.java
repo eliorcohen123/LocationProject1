@@ -98,6 +98,7 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
 
         mGeofenceList = new ArrayList<>();
         mGeofencePendingIntent = null;
+
         populateGeofenceList();
 
         mGeofencingClient = LocationServices.getGeofencingClient(this);
