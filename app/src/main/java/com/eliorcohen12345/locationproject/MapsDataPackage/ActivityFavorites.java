@@ -9,6 +9,7 @@ import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import com.eliorcohen12345.locationproject.GeofencePackage.Constants;
 import com.eliorcohen12345.locationproject.GeofencePackage.GeofenceBroadcastReceiver;
 import com.eliorcohen12345.locationproject.GeofencePackage.GeofenceErrorMessages;
 import com.eliorcohen12345.locationproject.MainAndOtherPackage.ConApp;
+import com.eliorcohen12345.locationproject.MainAndOtherPackage.GoogleService;
 import com.eliorcohen12345.locationproject.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -59,11 +61,11 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 // Activity of FragmentFavorites
-public class ActivityFavorites extends AppCompatActivity implements OnCompleteListener<Void>,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class ActivityFavorites extends AppCompatActivity implements OnCompleteListener<Void> {
 
     private GeofencingClient mGeofencingClient;
     private ArrayList<Geofence> mGeofenceList;
@@ -71,12 +73,7 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
     private PendingGeofenceTask mPendingGeofenceTask = PendingGeofenceTask.NONE;
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 33;
-    private static final int REQUEST_CHECK_SETTINGS = 77;
-    private static FusedLocationProviderClient mFusedLocationClient;
-    private static LocationRequest mLocationRequest;
-    private static LocationCallback mLocationCallback;
     private static final String TAG = "MyLocation";
-    private GoogleApiClient mGoogleApiClient;
     private int myRadiusGeo;
     private SharedPreferences prefsSeekGeo;
     private Location location;
@@ -87,6 +84,10 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
     private MapDBHelperFavorites mMapDBHelperFavorites;
     private RecyclerView mRecyclerView;
     private ArrayList<PlaceModel> mMapListFavorites;
+    private boolean boolean_permission;
+    private SharedPreferences mPref;
+    private SharedPreferences.Editor medit;
+    private Geocoder geocoder;
 
     private enum PendingGeofenceTask {
         ADD, REMOVE, NONE
@@ -106,36 +107,10 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
     public void onStart() {
         super.onStart();
 
-        if (!checkPermissions()) {
-            Log.i(TAG, "Inside onStart function; requesting permission when permission is not available");
-            requestPermissions();
-        } else {
-            Log.i(TAG, "Inside onStart function; getting location when permission is already available");
-            getLastLocation();
-            performPendingGeofenceTask();
-        }
-    }
-
-    // onResume
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        startLocationUpdates();
-    }
-
-    // onPause
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        startLocationUpdates();
-//        stopLocationUpdates();
+        performPendingGeofenceTask();
     }
 
     private void initUI() {
-        getMyLocation();
-
         prefsSeekGeo = PreferenceManager.getDefaultSharedPreferences(this);
 
         mGeofenceList = new ArrayList<>();
@@ -143,6 +118,12 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
         populateGeofenceList();
 
         mGeofencingClient = LocationServices.getGeofencingClient(this);
+
+        geocoder = new Geocoder(this, Locale.getDefault());
+        mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        medit = mPref.edit();
+
+        fn_permission();
     }
 
     private void frg() {
@@ -153,236 +134,14 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
         fragmentTransaction.commit();
     }
 
-    private void getMyLocation() {
-        checkLocationPermission();
-
-        // Start all of check location
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        buildGoogleApiClient();
-
-        if (mGoogleApiClient != null) {
-            mGoogleApiClient.connect();
-        } else
-            Toast.makeText(this, "Not connected...", Toast.LENGTH_SHORT).show();
-
-        String locationProviders = Settings.Secure.getString(getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-        if (locationProviders == null || locationProviders.equals("")) {
-            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-        }
-
-        mLocationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                if (locationResult == null) {
-                    return;
-                }
-                for (Location location : locationResult.getLocations()) {
-                    // Update UI with location data
-                    // ...
-                }
-            }
-        };
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(ActivityFavorites.this);
-        if (ActivityCompat.checkSelfPermission(ActivityFavorites.this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ActivityFavorites.this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(ActivityFavorites.this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
-//                Toast.makeText(MainActivity.this, "Please I need yor location to...", Toast.LENGTH_LONG).show();
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        ActivityCompat.requestPermissions(ActivityFavorites.this,
-                                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                                MY_PERMISSIONS_REQUEST_LOCATION);
-                    }
-                }, 3000);
-            } else {
-                // No explanation needed; request the permission
-                ActivityCompat.requestPermissions(ActivityFavorites.this,
-                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
-                // MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
+    private void fn_permission() {
+        if ((ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+            if ((!ActivityCompat.shouldShowRequestPermissionRationale(ActivityFavorites.this, Manifest.permission.ACCESS_FINE_LOCATION))) {
+                ActivityCompat.requestPermissions(ActivityFavorites.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
             }
         } else {
-            // Permission has already been granted
-            getLocation();
+            boolean_permission = true;
         }
-
-        createLocationRequest();
-        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(mLocationRequest);
-        SettingsClient client = LocationServices.getSettingsClient(ActivityFavorites.this);
-        final Task<LocationSettingsResponse> task = client.checkLocationSettings(builder.build());
-
-        task.toString();
-        task.addOnSuccessListener(ActivityFavorites.this, locationSettingsResponse -> {
-            // All location settings are satisfied. The client can initialize
-            // location requests here.
-            // ...
-            LocationSettingsStates locationSettingsStates = locationSettingsResponse.getLocationSettingsStates();
-//                Toast.makeText(MainActivity.this, "Great Success" + locationSettingsStates, Toast.LENGTH_LONG).show();
-        });
-
-        task.addOnFailureListener(ActivityFavorites.this, e -> {
-            if (e instanceof ResolvableApiException) {
-                // Location settings are not satisfied, but this can be fixed
-                // by showing the user a dialog.
-                try {
-                    // Show the dialog by calling startResolutionForResult(),
-                    // and check the result in onActivityResult().
-                    ResolvableApiException resolvable = (ResolvableApiException) e;
-                    resolvable.startResolutionForResult(ActivityFavorites.this,
-                            REQUEST_CHECK_SETTINGS);
-                } catch (IntentSender.SendIntentException sendEx) {
-                    // Ignore the error.
-                }
-            }
-        });
-    }
-
-    // Resume all of check location
-    @Override
-    protected void onActivityResult(final int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case REQUEST_CHECK_SETTINGS:
-//                Toast.makeText(MainActivity.this, "REQUEST_CHECK_SETTINGS result" + requestCode, Toast.LENGTH_LONG).show();
-                break;
-        }
-    }
-
-    @SuppressLint("MissingPermission")
-    private void getLocation() {
-        mFusedLocationClient.getLastLocation().addOnSuccessListener(this, location -> {
-            // Got last known location. In some rare situations this can be null.
-            if (location != null) {
-                // Logic to handle location object
-            }
-        });
-    }
-
-    public static void createLocationRequest() {
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(1000);
-        mLocationRequest.setFastestInterval(900);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-    }
-
-    public static void startLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(ConApp.getmContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(ConApp.getmContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null /* Looper */);
-    }
-
-//    private void stopLocationUpdates() {
-//        mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-//    }
-
-    @Override
-    public void onRequestPermissionsResult(final int requestCode, @NonNull String[] permissions, @NonNull final int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-                    getLocation();
-                } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                }
-                return;
-            }
-            // other 'case' lines to check for other
-            // permissions this app might request.
-        }
-    }
-
-    private boolean checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-                new AlertDialog.Builder(this)
-                        .setTitle("Location Confirmation")
-                        .setMessage("To use the location services in the app confirm this message")
-                        .setPositiveButton("Confirm", (dialogInterface, i) -> {
-                            //Prompt the user once explanation has been shown
-                            ActivityCompat.requestPermissions(ActivityFavorites.this,
-                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                                    MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
-                        })
-                        .create()
-                        .show();
-            } else {
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
-            }
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult arg0) {
-        Toast.makeText(this, "Failed to connect...", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onConnected(Bundle arg0) {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-
-        if (location != null) {
-        }
-    }
-
-    @Override
-    public void onConnectionSuspended(int arg0) {
-        Toast.makeText(this, "Connection suspended...", Toast.LENGTH_SHORT).show();
-    }
-
-    protected synchronized void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
     }
 
     //Return whether permissions is needed as boolean value.
@@ -418,23 +177,20 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
                 MY_PERMISSIONS_REQUEST_LOCATION);
     }
 
-    /**
-     * This method should be called after location permission is granted. It gets the recently available location,
-     * In some situations, when location, is not available, it may produce null result.
-     * WE used SuppressWarnings annotation to avoid the missing permission warning. You can comment the annotation
-     * and check the behaviour yourself.
-     */
-    @SuppressWarnings("MissingPermission")
-    private void getLastLocation() {
-        mFusedLocationClient.getLastLocation()
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful() && task.getResult() != null) {
-                        location = task.getResult();
-                    } else {
-                        Log.i(TAG, "Inside getLocation function. Error while getting location");
-                        System.out.println(TAG + task.getException());
-                    }
-                });
+    @Override
+    public void onRequestPermissionsResult(final int requestCode, @NonNull String[] permissions, @NonNull final int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    boolean_permission = true;
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please allow the permission", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
     }
 
     private GeofencingRequest getGeofencingRequest() {
@@ -451,6 +207,19 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
             return;
         }
         addGeofences();
+
+        if (boolean_permission) {
+            if (mPref.getString("service", "").matches("")) {
+                medit.putString("service", "service").commit();
+
+                Intent intent = new Intent(getApplicationContext(), GoogleService.class);
+                startService(intent);
+            } else {
+                Log.i(TAG, "Service is already running");
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), "Please enable the gps", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @SuppressWarnings("MissingPermission")
@@ -470,6 +239,9 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
             return;
         }
         removeGeofences();
+
+        Intent intent = new Intent(getApplicationContext(), GoogleService.class);
+        stopService(intent);
     }
 
     @SuppressWarnings("MissingPermission")

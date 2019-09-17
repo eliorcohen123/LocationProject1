@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.eliorcohen12345.locationproject"
-    android:versionCode="106"
+    android:versionCode="107"
     android:versionName="1.0.0">
 
     <uses-feature
@@ -77,6 +77,10 @@
             android:name=".GeofencePackage.GeofenceTransitionsJobIntentService"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <service
+            android:name=".MainAndOtherPackage.GoogleService"
+            android:exported="true" />
     </application>
 
 </manifest>
