@@ -90,7 +90,6 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
     private AlphaAnimation anim;
     private SharedPreferences prefsSeekGeo;
     private int myRadiusGeo;
-    private static Button mAddGeofencesButton, mRemoveGeofencesButton;
     private static LinearLayout linearLayoutYes, linearLayoutNo;
 
     @Nullable
@@ -130,9 +129,6 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
         linearList = mView.findViewById(R.id.listAll);
 
         textGeo = mView.findViewById(R.id.textGeo);
-
-        mAddGeofencesButton = mView.findViewById(R.id.btnYes);
-        mRemoveGeofencesButton = mView.findViewById(R.id.btnNo);
 
         linearLayoutYes = mView.findViewById(R.id.linYes);
         linearLayoutNo = mView.findViewById(R.id.linNo);

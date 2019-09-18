@@ -153,39 +153,34 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linYes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+                android:layout_marginEnd="10dp"
+                android:background="@color/whiteTransparent"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:background="@color/whiteTransparent"
-                    android:orientation="vertical">
+                <Button
+                    android:id="@+id/btnYes"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/ic_location_searching_green_24dp"
+                    android:onClick="addGeofencesButtonHandler" />
+            </LinearLayout>
 
-                    <Button
-                        android:id="@+id/btnYes"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:background="@drawable/ic_location_searching_green_24dp"
-                        android:onClick="addGeofencesButtonHandler" />
-                </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/whiteTransparent"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/whiteTransparent"
-                    android:orientation="vertical">
-
-                    <Button
-                        android:id="@+id/btnNo"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:background="@drawable/ic_location_disabled_green_24dp"
-                        android:onClick="removeGeofencesButtonHandler" />
-                </LinearLayout>
+                <Button
+                    android:id="@+id/btnNo"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/ic_location_disabled_green_24dp"
+                    android:onClick="removeGeofencesButtonHandler" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
