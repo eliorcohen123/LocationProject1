@@ -1,5 +1,6 @@
 package com.eliorcohen12345.locationproject.GeofencePackage;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -83,11 +84,15 @@ public class GeofenceTransitionsJobIntentService extends JobIntentService {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 
         builder.setSmallIcon(R.drawable.mapsicon)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.mapsicon))
-                .setColor(Color.RED)
                 .setContentTitle(notificationDetails)
                 .setContentText(getString(R.string.geofence_transition_notification_text))
-                .setContentIntent(notificationPendingIntent);
+                .setContentIntent(notificationPendingIntent)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setAutoCancel(true)
+                .setContentIntent(notificationPendingIntent)
+                .setTicker("Lovely Favorite Places")
+                .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
+                .setPriority(Notification.PRIORITY_HIGH);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             builder.setChannelId(CHANNEL_ID);
         }
