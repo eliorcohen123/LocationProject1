@@ -16,6 +16,8 @@ import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
 import com.eliorcohen12345.locationproject.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.Objects;
+
 public class EditPlace extends AppCompatActivity implements View.OnClickListener {
 
     private MapDBHelperFavorites mMapDBHelperFavorites;  // The SQLiteHelper of the app
@@ -37,7 +39,7 @@ public class EditPlace extends AppCompatActivity implements View.OnClickListener
     }
 
     private void initUI() {
-        id = getIntent().getExtras().getString(getString(R.string.map_id)); // GetSerializable for the ID
+        id = Objects.requireNonNull(getIntent().getExtras()).getString(getString(R.string.map_id)); // GetSerializable for the ID
         item = (PlaceModel) getIntent().getExtras().getSerializable(getString(R.string.map_edit)); // GetSerializable for the texts
 
         name = findViewById(R.id.editTextName);  // ID of the name

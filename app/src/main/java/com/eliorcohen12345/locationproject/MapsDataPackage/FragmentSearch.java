@@ -64,6 +64,7 @@ import com.eliorcohen12345.locationproject.R;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import eliorcohen.com.googlemapsapi.GoogleMapsApi;
 
@@ -185,7 +186,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     }
 
     private void getClearPrefs() {
-        prefsPage = getContext().getSharedPreferences("mysettingspage", Context.MODE_PRIVATE);
+        prefsPage = Objects.requireNonNull(getContext()).getSharedPreferences("mysettingspage", Context.MODE_PRIVATE);
         prefsPage.edit().clear().apply();
 
         editorPage = prefsPage.edit();
@@ -201,14 +202,14 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         // Refresh the MapDBHelper of app in RecyclerView of MainActivity
         swipeRefreshLayout.setOnRefreshListener(() -> {
             // Vibration for 0.1 second
-            Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+            Vibrator vibrator = (Vibrator) Objects.requireNonNull(getContext()).getSystemService(Context.VIBRATOR_SERVICE);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
             } else {
                 vibrator.vibrate(100);
             }
 
-            getActivity().finish();
+            Objects.requireNonNull(getActivity()).finish();
             startActivity(getActivity().getIntent());  // Refresh activity
 
             Toast toast = Toast.makeText(getContext(), "The list are refreshed!", Toast.LENGTH_LONG);
@@ -224,7 +225,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
     private static void getData(ArrayList<PlaceModel> list) {
         mMapList = list;
-        if (!isConnected(mFragmentSearch.getContext())) {
+        if (!isConnected(Objects.requireNonNull(mFragmentSearch.getContext()))) {
             mMapList = mMapDBHelperSearch.getAllMaps();
         }
         mAdapter = new PlaceCustomAdapterSearch(ConApp.getmContext(), mMapList);
@@ -306,15 +307,15 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
         // SearchView of FragmentSearch
         final MenuItem menuItem = menu.findItem(R.id.action_search);
-        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchManager searchManager = (SearchManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SEARCH_SERVICE);
 
         // Change colors of the searchView upper panel
         menuItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
                 // Set styles for expanded state here
-                if (((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
-                    ((AppCompatActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.DKGRAY));
+                if (((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar() != null) {
+                    Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(Color.DKGRAY));
                 }
                 return true;
             }
@@ -322,8 +323,8 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
                 // Set styles for collapsed state here
-                if (((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
-                    ((AppCompatActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
+                if (((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar() != null) {
+                    Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(Color.BLACK));
                 }
                 return true;
             }
@@ -499,7 +500,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     }
 
     private void getTypeQuery(String pageToken, String type, String query) {
-        if (!isConnected(getContext())) {
+        if (!isConnected(Objects.requireNonNull(getContext()))) {
             mMapList = mMapDBHelperSearch.getAllMaps();
             mAdapter = new PlaceCustomAdapterSearch(getActivity(), mMapList);
             mAdapter.setMapsCollections(mMapList);

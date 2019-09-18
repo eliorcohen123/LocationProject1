@@ -29,6 +29,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Objects;
+
 public class CustomMarkerFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mGoogleMap;
@@ -57,13 +59,13 @@ public class CustomMarkerFragment extends Fragment implements OnMapReadyCallback
     }
 
     private void initLocation() {
-        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) Objects.requireNonNull(getActivity()).getSystemService(Context.LOCATION_SERVICE);
         criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, true);
     }
 
     private void myUI() {
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
 
         mView.findViewById(R.id.myButton).setOnClickListener(v -> getActivity().onBackPressed());
     }
@@ -84,7 +86,7 @@ public class CustomMarkerFragment extends Fragment implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
 
         try {
-            MapsInitializer.initialize(getContext());
+            MapsInitializer.initialize(Objects.requireNonNull(getContext()));
             mGoogleMap = googleMap;
             addCustomMarker();
             googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);

@@ -10,6 +10,8 @@ import com.eliorcohen12345.locationproject.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 
+import java.util.Objects;
+
 public class CustomInfoWindowGoogleMapFavorites implements GoogleMap.InfoWindowAdapter {
 
     private Context context;
@@ -44,7 +46,7 @@ public class CustomInfoWindowGoogleMapFavorites implements GoogleMap.InfoWindowA
 //        img.setImageResource(imageId);
 
         try {
-            address.setText(infoWindowData.getVicinity());
+            address.setText(Objects.requireNonNull(infoWindowData).getVicinity());
             distance.setText(infoWindowData.getDistance());
         } catch (Exception e) {
 

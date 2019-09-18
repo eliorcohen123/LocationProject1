@@ -41,7 +41,7 @@ public class MySeekBarGeofence extends Preference implements OnSeekBarChangeList
         }
         seekBar.setMax(max);
         int currentProgress = this.sharedPreferences.getInt(getKey(), 0);
-        String stringBuilder = String.valueOf(currentProgress) + units;
+        String stringBuilder = currentProgress + units;
         setSummary(stringBuilder);
         seekBar.setProgress(currentProgress);
         seekBar.setOnSeekBarChangeListener(this);

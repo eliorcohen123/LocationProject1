@@ -15,6 +15,8 @@ import com.eliorcohen12345.locationproject.DataAppPackage.MapDBHelperFavorites;
 import com.eliorcohen12345.locationproject.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.Objects;
+
 public class AddMarkerFavorites extends AppCompatActivity implements View.OnClickListener {
 
     private MapDBHelperFavorites mapDBHelperFavorites;  // The SQLiteHelper of the app
@@ -35,7 +37,7 @@ public class AddMarkerFavorites extends AppCompatActivity implements View.OnClic
     }
 
     private void initUI() {
-        latS = getIntent().getExtras().getDouble(getString(R.string.lat_marker));
+        latS = Objects.requireNonNull(getIntent().getExtras()).getDouble(getString(R.string.lat_marker));
         lngS = getIntent().getExtras().getDouble(getString(R.string.lng_marker));
 
         name = findViewById(R.id.editTextName);  // ID of the name

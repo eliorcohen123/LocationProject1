@@ -10,6 +10,8 @@ import com.eliorcohen12345.locationproject.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 
+import java.util.Objects;
+
 public class CustomInfoWindowGoogleMapSearch implements GoogleMap.InfoWindowAdapter {
 
     private Context context;
@@ -46,9 +48,9 @@ public class CustomInfoWindowGoogleMapSearch implements GoogleMap.InfoWindowAdap
 //        img.setImageResource(imageId);
 
         try {
-            address.setText(infoWindowData.getVicinity());
-            rating.setText("Rating: " + String.valueOf(infoWindowData.getRating()));
-            ratingQua.setText("User ratings total: " + String.valueOf(infoWindowData.getUser_ratings_total()));
+            address.setText(Objects.requireNonNull(infoWindowData).getVicinity());
+            rating.setText("Rating: " + infoWindowData.getRating());
+            ratingQua.setText("User ratings total: " + infoWindowData.getUser_ratings_total());
             distance.setText(infoWindowData.getDistance());
         } catch (Exception e) {
 

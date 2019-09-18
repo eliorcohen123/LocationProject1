@@ -19,7 +19,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
-import com.eliorcohen12345.locationproject.MainAndOtherPackage.MainActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.core.app.ActivityCompat;
@@ -65,6 +64,7 @@ import com.google.maps.model.EncodedPolyline;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback, View.OnClickListener {
 
@@ -156,7 +156,7 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
     }
 
     private void initLocation() {
-        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) Objects.requireNonNull(getActivity()).getSystemService(Context.LOCATION_SERVICE);
         criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, true);
     }
@@ -178,7 +178,7 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
             mMapList = mMapDBHelperFavorites.getAllMaps();  // Put the getAllMaps of SQLiteHelper in the ArrayList of FragmentFavorites
 
             // Put AsyncTask in the RecyclerView of FragmentFavorites to execute the SQLiteHelper
-            mRecyclerView = new RecyclerView(getContext());
+            mRecyclerView = new RecyclerView(Objects.requireNonNull(getContext()));
             mGetMapsAsyncTaskFavorites = new GetMapsAsyncTaskFavorites(mRecyclerView);
             mGetMapsAsyncTaskFavorites.execute(mMapDBHelperFavorites);
         } catch (Exception e) {
@@ -201,7 +201,7 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         try {
-            MapsInitializer.initialize(getContext());
+            MapsInitializer.initialize(Objects.requireNonNull(getContext()));
             mGoogleMap = googleMap;
             addMarkerFavorites();
             googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
@@ -309,7 +309,7 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.backMapFavorites:
-                getActivity().onBackPressed();
+                Objects.requireNonNull(getActivity()).onBackPressed();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -318,7 +318,7 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
     private void getMoovit(final double des_lat, final double des_lng, final String name, final double orig_lat, final double orig_lng) {
         moovit.setOnClickListener(v -> {
             try {
-                PackageManager pm = getActivity().getPackageManager();
+                PackageManager pm = Objects.requireNonNull(getActivity()).getPackageManager();
                 pm.getPackageInfo("com.tranzmate", PackageManager.GET_ACTIVITIES);
                 String uri = "moovit://directions?dest_lat=" + des_lat + "&dest_lon=" + des_lng + "&dest_name=" + name + "&orig_lat=" + orig_lat + "&orig_lon=" + orig_lng + "&orig_name=Your current location&auto_run=true&partner_id=Lovely Favorite Places";
                 Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -335,10 +335,10 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
 
     private void getGetTaxi(final double des_lat, final double des_lng) {
         gett.setOnClickListener(v -> {
-            if (isPackageInstalled(getContext(), "com.gettaxi.android")) {
-                openLinkGetTaxi(getActivity(), "gett://order?pickup=my_location&dropoff_latitude=" + des_lat + "&dropoff_longitude=" + des_lng + "&product_id=0c1202f8-6c43-4330-9d8a-3b4fa66505fd");
+            if (isPackageInstalled(Objects.requireNonNull(getContext()))) {
+                openLinkGetTaxi(Objects.requireNonNull(getActivity()), "gett://order?pickup=my_location&dropoff_latitude=" + des_lat + "&dropoff_longitude=" + des_lng + "&product_id=0c1202f8-6c43-4330-9d8a-3b4fa66505fd");
             } else {
-                openLinkGetTaxi(getActivity(), "https://play.google.com/store/apps/details?id=" + "com.gettaxi.android");
+                openLinkGetTaxi(Objects.requireNonNull(getActivity()), "https://play.google.com/store/apps/details?id=" + "com.gettaxi.android");
             }
         });
     }
@@ -350,10 +350,10 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
         activity.startActivity(playStoreIntent);
     }
 
-    private static boolean isPackageInstalled(Context context, String packageId) {
+    private static boolean isPackageInstalled(Context context) {
         PackageManager pm = context.getPackageManager();
         try {
-            pm.getPackageInfo(packageId, PackageManager.GET_ACTIVITIES);
+            pm.getPackageInfo("com.gettaxi.android", PackageManager.GET_ACTIVITIES);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
 
@@ -375,7 +375,7 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
     }
 
     private void getNavigation(double getLat, double getLng, String getName, String getVicinity, Marker marker) {
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION);
         }// TODO: Consider calling
 //    ActivityCompat#requestPermissions
@@ -397,6 +397,7 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
                 locationB.setLongitude(location.getLongitude());
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
                 String result = prefs.getString("myKm", "1000.0");
+                assert result != null;
                 double val = Double.parseDouble(result);
                 distanceMe = locationA.distanceTo(locationB) / val;
 

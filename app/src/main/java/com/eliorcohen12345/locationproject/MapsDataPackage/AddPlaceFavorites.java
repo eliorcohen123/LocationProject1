@@ -16,6 +16,8 @@ import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
 import com.eliorcohen12345.locationproject.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.Objects;
+
 public class AddPlaceFavorites extends AppCompatActivity implements View.OnClickListener {
 
     private PlaceModel item;
@@ -37,7 +39,7 @@ public class AddPlaceFavorites extends AppCompatActivity implements View.OnClick
 
     private void initUI() {
         // GetSerializable for the texts
-        item = (PlaceModel) getIntent().getExtras().getSerializable(getString(R.string.map_add_from_internet));
+        item = (PlaceModel) Objects.requireNonNull(getIntent().getExtras()).getSerializable(getString(R.string.map_add_from_internet));
 
         name = findViewById(R.id.editTextName);  // ID of the name
         address = findViewById(R.id.editTextAddress);  // ID of the address

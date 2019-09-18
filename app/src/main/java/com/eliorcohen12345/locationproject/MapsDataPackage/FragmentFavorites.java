@@ -33,6 +33,7 @@ import com.eliorcohen12345.locationproject.MainAndOtherPackage.MainActivity;
 import com.eliorcohen12345.locationproject.R;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class FragmentFavorites extends Fragment implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -85,7 +86,7 @@ public class FragmentFavorites extends Fragment implements NavigationView.OnNavi
     }
 
     private void drawerLayout() {
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
 
         mView.findViewById(R.id.myButton).setOnClickListener(v -> {
             // open right drawer
@@ -105,7 +106,6 @@ public class FragmentFavorites extends Fragment implements NavigationView.OnNavi
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.

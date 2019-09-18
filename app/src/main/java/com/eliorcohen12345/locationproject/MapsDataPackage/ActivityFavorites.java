@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 // Activity of FragmentFavorites
 public class ActivityFavorites extends AppCompatActivity implements OnCompleteListener<Void> {
@@ -193,7 +194,7 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
         addGeofences();
 
         if (boolean_permission) {
-            if (mPref.getString("service", "").matches("")) {
+            if (Objects.requireNonNull(mPref.getString("service", "")).matches("")) {
                 mEdit.putString("service", "service").commit();
 
                 Intent intent = new Intent(getApplicationContext(), GoogleService.class);

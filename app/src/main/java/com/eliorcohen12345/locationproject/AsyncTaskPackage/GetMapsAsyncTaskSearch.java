@@ -15,6 +15,7 @@ import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -64,7 +65,7 @@ public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList
         }
         try {
             assert response.body() != null;
-            return getMapsListFromJson(response.body().string());
+            return getMapsListFromJson(Objects.requireNonNull(response.body()).string());
         } catch (IOException e) {
             e.printStackTrace();
         }

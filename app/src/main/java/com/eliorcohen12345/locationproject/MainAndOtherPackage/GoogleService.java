@@ -14,6 +14,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -102,7 +103,7 @@ public class GoogleService extends Service implements LocationListener {
 
             if (isGPSEnable) {
                 location = null;
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, this);
+                Objects.requireNonNull(locationManager).requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, this);
                 if (locationManager != null) {
                     location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                     if (location != null) {

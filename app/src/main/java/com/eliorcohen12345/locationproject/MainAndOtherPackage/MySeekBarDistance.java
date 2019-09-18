@@ -50,9 +50,7 @@ public class MySeekBarDistance extends Preference implements OnSeekBarChangeList
     }
 
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        StringBuilder result = new StringBuilder();
-        result.append(progress);
-        txtSummary.setText(result.toString());
+        txtSummary.setText(String.valueOf(progress));
         Editor editor = sharedPreferences.edit();
         editor.putInt(getKey(), progress);
         editor.apply();
