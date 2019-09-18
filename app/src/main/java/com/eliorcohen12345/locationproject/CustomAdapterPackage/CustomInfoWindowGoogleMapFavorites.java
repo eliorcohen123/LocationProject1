@@ -46,7 +46,8 @@ public class CustomInfoWindowGoogleMapFavorites implements GoogleMap.InfoWindowA
 //        img.setImageResource(imageId);
 
         try {
-            address.setText(Objects.requireNonNull(infoWindowData).getVicinity());
+            assert infoWindowData != null;
+            address.setText(infoWindowData.getVicinity());
             distance.setText(infoWindowData.getDistance());
         } catch (Exception e) {
 

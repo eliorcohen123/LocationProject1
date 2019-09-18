@@ -48,7 +48,8 @@ public class CustomInfoWindowGoogleMapSearch implements GoogleMap.InfoWindowAdap
 //        img.setImageResource(imageId);
 
         try {
-            address.setText(Objects.requireNonNull(infoWindowData).getVicinity());
+            assert infoWindowData != null;
+            address.setText(infoWindowData.getVicinity());
             rating.setText("Rating: " + infoWindowData.getRating());
             ratingQua.setText("User ratings total: " + infoWindowData.getUser_ratings_total());
             distance.setText(infoWindowData.getDistance());
