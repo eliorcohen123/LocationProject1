@@ -91,6 +91,7 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
     private SharedPreferences prefsSeekGeo;
     private int myRadiusGeo;
     private static Button mAddGeofencesButton, mRemoveGeofencesButton;
+    private static LinearLayout linearLayoutYes, linearLayoutNo;
 
     @Nullable
     @Override
@@ -132,6 +133,9 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
 
         mAddGeofencesButton = mView.findViewById(R.id.btnYes);
         mRemoveGeofencesButton = mView.findViewById(R.id.btnNo);
+
+        linearLayoutYes = mView.findViewById(R.id.linYes);
+        linearLayoutNo = mView.findViewById(R.id.linNo);
 
         linearList.setVisibility(View.GONE);
 
@@ -516,11 +520,11 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
 
     public static void setButtonsEnabledState() {
         if (ActivityFavorites.getGeofencesAdded()) {
-            mAddGeofencesButton.setEnabled(false);
-            mRemoveGeofencesButton.setEnabled(true);
+            linearLayoutYes.setVisibility(View.GONE);
+            linearLayoutNo.setVisibility(View.VISIBLE);
         } else {
-            mAddGeofencesButton.setEnabled(true);
-            mRemoveGeofencesButton.setEnabled(false);
+            linearLayoutYes.setVisibility(View.VISIBLE);
+            linearLayoutNo.setVisibility(View.GONE);
         }
     }
 
