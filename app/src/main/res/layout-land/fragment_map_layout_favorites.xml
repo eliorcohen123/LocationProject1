@@ -94,17 +94,15 @@
                         android:textSize="15sp" />
                 </LinearLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="5dp">
 
                     <LinearLayout
                         android:id="@+id/linYes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
                         android:background="@color/whiteTransparent"
                         android:orientation="vertical">
 
@@ -130,7 +128,7 @@
                             android:background="@drawable/ic_location_disabled_green_24dp"
                             android:onClick="removeGeofencesButtonHandler" />
                     </LinearLayout>
-                </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
 
