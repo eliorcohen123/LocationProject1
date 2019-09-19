@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void onStart() {
         super.onStart();
+
         if (!checkPermissions()) {
             Log.i(TAG, "Inside onStart function; requesting permission when permission is not available");
             requestPermissions();
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     protected void onResume() {
         super.onResume();
+
         startLocationUpdates();
     }
 
@@ -105,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     protected void onPause() {
         super.onPause();
+
         startLocationUpdates();
 //        stopLocationUpdates();
     }
@@ -173,6 +176,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         } else {
             fragmentTransaction.replace(R.id.fragmentContainer, fragmentSearch);
         }
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
