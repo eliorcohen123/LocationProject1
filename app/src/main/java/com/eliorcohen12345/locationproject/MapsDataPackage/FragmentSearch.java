@@ -223,7 +223,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         });
     }
 
-    private static void getData(ArrayList<PlaceModel> list) {
+    public static void getData(ArrayList<PlaceModel> list) {
         mMapList = list;
         if (!isConnected(Objects.requireNonNull(mFragmentSearch.getContext()))) {
             mMapList = mMapDBHelperSearch.getAllMaps();
@@ -239,7 +239,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             itemDecoration = new ItemDecoration(20);
             mRecyclerView.addItemDecoration(itemDecoration);
         }
-        mAdapter.setMapsCollections(mMapList);
+        mAdapter.setMapsCollections();
         mRecyclerView.setAdapter(mAdapter);
 
         ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener((recyclerView, position, v) -> {
@@ -267,12 +267,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         });
-    }
-
-    // Set maps in FragmentSearch
-    public static void setMaps(ArrayList<PlaceModel> list) {
-        mMapList = list;
-        getData(mMapList);
     }
 
     // Check network
@@ -503,7 +497,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         if (!isConnected(Objects.requireNonNull(getContext()))) {
             mMapList = mMapDBHelperSearch.getAllMaps();
             mAdapter = new PlaceCustomAdapterSearch(getActivity(), mMapList);
-            mAdapter.setMapsCollections(mMapList);
+            mAdapter.setMapsCollections();
             // Put AsyncTask in the RecyclerView of fragmentSearch to execute the SQLiteHelper
             mGetMapsAsyncTaskHistory = new GetMapsAsyncTaskHistory(mRecyclerView);
             mGetMapsAsyncTaskHistory.execute(mMapDBHelperSearch);

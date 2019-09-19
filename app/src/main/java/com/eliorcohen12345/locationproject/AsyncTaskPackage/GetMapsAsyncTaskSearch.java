@@ -115,10 +115,10 @@ public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList
         mapDBHelperSearch = new MapDBHelperSearch(ConApp.getmContext());
         try {
             mapDBHelperSearch.addMapList(placeModels);
-            FragmentSearch.setMaps(mapDBHelperSearch.getAllMaps());
-            FragmentSearch.setMaps(placeModels);
+            FragmentSearch.getData(mapDBHelperSearch.getAllMaps());
+            FragmentSearch.getData(placeModels);
         } catch (Exception e) {
-            FragmentSearch.setMaps(placeModels);
+            FragmentSearch.getData(placeModels);
         }
     }
 
