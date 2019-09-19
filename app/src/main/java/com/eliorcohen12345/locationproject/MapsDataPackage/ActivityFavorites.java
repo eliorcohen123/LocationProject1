@@ -97,6 +97,12 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
     private void initUI() {
         prefsSeekGeo = PreferenceManager.getDefaultSharedPreferences(this);
 
+        mMapDBHelperFavorites = new MapDBHelperFavorites(ConApp.getmContext());
+        mMapListFavorites = mMapDBHelperFavorites.getAllMaps();
+        mRecyclerView = new RecyclerView(ConApp.getmContext());
+        mGetMapsAsyncTaskFavorites = new GetMapsAsyncTaskFavorites(mRecyclerView);
+        mGetMapsAsyncTaskFavorites.execute(mMapDBHelperFavorites);
+
         mGeofenceList = new ArrayList<>();
         mGeofencePendingIntent = null;
 
@@ -262,12 +268,6 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
 
     private void populateGeofenceList() {
         myRadiusGeo = prefsSeekGeo.getInt("seek_geo", 500);
-
-        mMapDBHelperFavorites = new MapDBHelperFavorites(ConApp.getmContext());
-        mMapListFavorites = mMapDBHelperFavorites.getAllMaps();
-        mRecyclerView = new RecyclerView(ConApp.getmContext());
-        mGetMapsAsyncTaskFavorites = new GetMapsAsyncTaskFavorites(mRecyclerView);
-        mGetMapsAsyncTaskFavorites.execute(mMapDBHelperFavorites);
 
         HashMap<String, LatLng> BAY_AREA_LANDMARKS = new HashMap<>();
         locationManager = (LocationManager) ConApp.getmContext().getSystemService(Context.LOCATION_SERVICE);
