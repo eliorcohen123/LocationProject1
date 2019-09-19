@@ -91,30 +91,36 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
     public void onStart() {
         super.onStart();
 
-        performPendingGeofenceTask();
+        if (myRadiusGeo != 0) {
+            performPendingGeofenceTask();
+        }
     }
 
     private void initUI() {
-        prefsSeekGeo = PreferenceManager.getDefaultSharedPreferences(this);
-
         mMapDBHelperFavorites = new MapDBHelperFavorites(ConApp.getmContext());
         mMapListFavorites = mMapDBHelperFavorites.getAllMaps();
         mRecyclerView = new RecyclerView(ConApp.getmContext());
         mGetMapsAsyncTaskFavorites = new GetMapsAsyncTaskFavorites(mRecyclerView);
         mGetMapsAsyncTaskFavorites.execute(mMapDBHelperFavorites);
 
-        mGeofenceList = new ArrayList<>();
-        mGeofencePendingIntent = null;
+        prefsSeekGeo = PreferenceManager.getDefaultSharedPreferences(this);
+        myRadiusGeo = prefsSeekGeo.getInt("seek_geo", 500);
+        if (myRadiusGeo == 0) {
+            Toast.makeText(this, "Radius cannot be equal to 0", Toast.LENGTH_LONG).show();
+        } else {
+            mGeofenceList = new ArrayList<>();
+            mGeofencePendingIntent = null;
 
-        populateGeofenceList();
+            populateGeofenceList();
 
-        mGeofencingClient = LocationServices.getGeofencingClient(this);
+            mGeofencingClient = LocationServices.getGeofencingClient(this);
 
-        geocoder = new Geocoder(this, Locale.getDefault());
-        mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        mEdit = mPref.edit();
+            geocoder = new Geocoder(this, Locale.getDefault());
+            mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            mEdit = mPref.edit();
 
-        fn_permission();
+            fn_permission();
+        }
     }
 
     private void frg() {
@@ -197,7 +203,10 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
             requestPermissions();
             return;
         }
-        addGeofences();
+
+        if (myRadiusGeo != 0) {
+            addGeofences();
+        }
 
         if (boolean_permission) {
             if (Objects.requireNonNull(mPref.getString("service", "")).matches("")) {
@@ -228,7 +237,12 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
             requestPermissions();
             return;
         }
-        removeGeofences();
+
+        if (myRadiusGeo == 0) {
+            Toast.makeText(this, "Radius cannot be equal to 0", Toast.LENGTH_LONG).show();
+        } else {
+            removeGeofences();
+        }
 
         Intent intent = new Intent(getApplicationContext(), GoogleService.class);
         stopService(intent);
@@ -267,8 +281,6 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
     }
 
     private void populateGeofenceList() {
-        myRadiusGeo = prefsSeekGeo.getInt("seek_geo", 500);
-
         HashMap<String, LatLng> BAY_AREA_LANDMARKS = new HashMap<>();
         locationManager = (LocationManager) ConApp.getmContext().getSystemService(Context.LOCATION_SERVICE);
         criteria = new Criteria();
