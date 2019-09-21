@@ -490,7 +490,7 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
 
                 //Draw the polyline
                 if (path.size() > 0) {
-                    PolylineOptions opts = new PolylineOptions().addAll(path).color(Color.rgb(255, 255, 204)).width(5);
+                    PolylineOptions opts = new PolylineOptions().addAll(path).color(Color.rgb(153, 153, 102)).width(5);
                     mGoogleMap.addPolyline(opts);
                 }
             }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.eliorcohen12345.locationproject"
-    android:versionCode="121"
+    android:versionCode="122"
     android:versionName="1.0.0">
 
     <uses-feature
@@ -30,7 +30,8 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name="com.eliorcohen12345.locationproject.MainAndOtherPackage.MainActivity"
+        <activity
+            android:name="com.eliorcohen12345.locationproject.MainAndOtherPackage.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,7 +49,9 @@
                 <data android:mimeType="text/*" />
             </intent-filter>
         </activity>
-        <activity android:name="com.eliorcohen12345.locationproject.MapsDataPackage.ActivityFavorites" />
+        <activity
+            android:name="com.eliorcohen12345.locationproject.MapsDataPackage.ActivityFavorites"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity android:name="com.eliorcohen12345.locationproject.MainAndOtherPackage.Credits" />
         <activity android:name="com.eliorcohen12345.locationproject.MapsDataPackage.DeleteAllDataFavorites" />
         <activity android:name="com.eliorcohen12345.locationproject.MapsDataPackage.AddPlaceFavorites" />
