@@ -430,24 +430,7 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
 
                 marker.setTag(info);
                 marker.showInfoWindow();
-            }
-        }
 
-        Toast.makeText(getContext(), getName, Toast.LENGTH_LONG).show();
-
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-        }
-        if (provider != null) {
-            location = locationManager.getLastKnownLocation(provider);
-            if (location != null) {
                 double lat = location.getLatitude();
                 double lng = location.getLongitude();
                 String lat1 = String.valueOf(lat);
@@ -458,7 +441,7 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
 
                 //Execute Directions API request
                 GeoApiContext context = new GeoApiContext.Builder()
-                        .apiKey(getString(R.string.api_key_search))
+                        .apiKey(getString(R.string.api_key_geo))
                         .build();
                 DirectionsApiRequest req = DirectionsApi.getDirections(context, lat1 + ", " + lng1, getLat + ", " + getLng);
                 try {
@@ -512,6 +495,8 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
                 }
             }
         }
+
+        Toast.makeText(getContext(), getName, Toast.LENGTH_LONG).show();
     }
 
     public static void setButtonsEnabledState() {
