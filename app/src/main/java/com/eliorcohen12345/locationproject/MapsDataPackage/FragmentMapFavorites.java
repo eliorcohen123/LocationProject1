@@ -485,7 +485,7 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
                         }
                     }
                 } catch (Exception e) {
-                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
                 //Draw the polyline
