@@ -115,7 +115,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         super.onResume();
 
         getData(mMapList);
-        getResumeTypeQuery();
+        getCheckBtnSearch("", "");
     }
 
     private void initUI() {
@@ -360,10 +360,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
-    private void getResumeTypeQuery() {
-        getCheckBtnSearch("", "");
-    }
-
     private void getDataPrefsPage(String type, String query) {
         editorPage.putString("myStringQueryType", type);
         editorPage.putString("myStringQueryQuery", query);
@@ -531,28 +527,28 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                         // Get Pages
                         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                                 googleMapsApi.getStringGoogleMapsApi(location.getLatitude(), location.getLongitude(), myRadius, pageToken, myOpen, type, query, getString(R.string.api_key_search)), response -> {
-                                    try {
-                                        JSONObject mainObj = new JSONObject(response);
-                                        if (mainObj.has("next_page_token")) {
-                                            imageNext.setVisibility(View.VISIBLE);
-                                            hasPage = mainObj.getString("next_page_token");
-                                        } else {
-                                            imageNext.setVisibility(View.GONE);
-                                            hasPage = "";
-                                        }
-                                        editorPage.putString("myStringQueryPage", hasPage);
-                                        editorPage.apply();
+                            try {
+                                JSONObject mainObj = new JSONObject(response);
+                                if (mainObj.has("next_page_token")) {
+                                    imageNext.setVisibility(View.VISIBLE);
+                                    hasPage = mainObj.getString("next_page_token");
+                                } else {
+                                    imageNext.setVisibility(View.GONE);
+                                    hasPage = "";
+                                }
+                                editorPage.putString("myStringQueryPage", hasPage);
+                                editorPage.apply();
 
-                                        if (myPage == 1) {
-                                            editorPre.putString("mystringquerypre", hasPage);
-                                            editorPre.apply();
-                                        }
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                }, error -> {
+                                if (myPage == 1) {
+                                    editorPre.putString("mystringquerypre", hasPage);
+                                    editorPre.apply();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }, error -> {
 
-                                });
+                        });
                         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
                         requestQueue.add(stringRequest);
                     }
