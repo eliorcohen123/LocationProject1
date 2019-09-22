@@ -147,7 +147,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
         swipeRefreshLayout = mView.findViewById(R.id.swipe_containerFrag);
 
-        getClearPrefs();
+        initPrefs();
 
         mFragmentSearch = this;
 
@@ -187,7 +187,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         provider = locationManager.getBestProvider(criteria, true);
     }
 
-    private void getClearPrefs() {
+    private void initPrefs() {
         prefsPage = Objects.requireNonNull(getContext()).getSharedPreferences("mysettingspage", Context.MODE_PRIVATE);
         prefsPage.edit().clear().apply();
 
@@ -498,7 +498,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     }
 
     private void getCheckBtnSearch(String type, String query) {
-        getClearPrefs();
+        initPrefs();
         getTypeQuery("", type, query);
         getDataPrefsPage(type, query);
 
