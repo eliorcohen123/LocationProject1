@@ -360,9 +360,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     }
 
     private void getDataPrefsPage(String type, String query) {
-        editorPage.putString("myStringQueryType", type);
-        editorPage.putString("myStringQueryQuery", query);
-        editorPage.apply();
+        editorPage.putString("myStringQueryType", type).putString("myStringQueryQuery", query).apply();
     }
 
     @Override
