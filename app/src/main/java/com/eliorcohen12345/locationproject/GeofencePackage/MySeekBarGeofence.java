@@ -52,8 +52,7 @@ public class MySeekBarGeofence extends Preference implements OnSeekBarChangeList
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         txtSummary.setText(String.valueOf(progress));
         Editor editor = sharedPreferences.edit();
-        editor.putInt(getKey(), progress);
-        editor.apply();
+        editor.putInt(getKey(), progress).apply();
     }
 
     public void onStartTrackingTouch(SeekBar seekBar) {
