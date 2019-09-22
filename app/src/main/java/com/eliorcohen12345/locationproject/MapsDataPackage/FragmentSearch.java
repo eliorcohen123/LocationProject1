@@ -535,12 +535,10 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                                     imageNext.setVisibility(View.GONE);
                                     hasPage = "";
                                 }
-                                editorPage.putString("myStringQueryPage", hasPage);
-                                editorPage.apply();
+                                editorPage.putString("myStringQueryPage", hasPage).apply();
 
                                 if (myPage == 1) {
-                                    editorPre.putString("mystringquerypre", hasPage);
-                                    editorPre.apply();
+                                    editorPre.putString("mystringquerypre", hasPage).apply();
                                 }
                             } catch (Exception e) {
                                 e.printStackTrace();
