@@ -264,8 +264,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             } else {
                 fragmentTransaction.replace(R.id.fragmentContainer, fragmentMapSearch);
             }
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+            fragmentTransaction.addToBackStack(null).commit();
         });
     }
 

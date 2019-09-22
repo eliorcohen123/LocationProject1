@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     protected void onPause() {
         super.onPause();
-        
+
         startLocationUpdates();
 //        stopLocationUpdates();
     }
@@ -171,13 +171,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if (diagonalInches >= 6.5) {
-            fragmentTransaction.replace(R.id.fragmentSh, fragmentSearch);
-            fragmentTransaction.replace(R.id.fragmentLt, fragmentMapSearch);
+            fragmentTransaction.replace(R.id.fragmentSh, fragmentSearch).replace(R.id.fragmentLt, fragmentMapSearch);
         } else {
             fragmentTransaction.replace(R.id.fragmentContainer, fragmentSearch);
         }
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        fragmentTransaction.addToBackStack(null).commit();
     }
 
     private void getMyLocation() {
