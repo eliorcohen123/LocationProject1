@@ -90,7 +90,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     private TextView textPage;
     private static String provider;
     private String hasPage, myStringQueryPage, myStringQueryType, myStringQueryQuery, pageTokenPre, myType,
-            myTypeSearch, myOpen, myStringPageMe, myPageMeString = "";
+            myTypeSearch, myOpen, myStringPageMe, myPageMeString;
     private Button btnBank, btnBar, btnBeauty, btnBooks, btnBusStation, btnCars, btnClothing, btnDoctor, btnGasStation,
             btnGym, btnJewelry, btnPark, btnRestaurant, btnSchool, btnSpa;
     private GoogleMapsApi googleMapsApi;
@@ -117,7 +117,8 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         getData(mMapList);
 
         myType = prefsTypeSearch.getString("mystringtypesearch", "");
-        getCheckBtnSearch(myPage, myType, "");
+        myStringQueryQuery = prefsPage.getString("myStringQueryQuery", "");
+        getCheckBtnSearch(myPage, myType, myStringQueryQuery);
     }
 
     private void initUI() {
@@ -199,7 +200,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     private void initPrefs() {
         prefsPage = Objects.requireNonNull(getContext()).getSharedPreferences("mysettingspage", Context.MODE_PRIVATE);
         prefsPre = getContext().getSharedPreferences("mysettingspre", Context.MODE_PRIVATE);
-        prefsTypeSearch = getContext().getSharedPreferences("mysettingssearch", Context.MODE_PRIVATE);
+        prefsTypeSearch = getContext().getSharedPreferences("mysettingstypesearch", Context.MODE_PRIVATE);
         prefsPageMe = getContext().getSharedPreferences("mysettingspageme", Context.MODE_PRIVATE);
         prefsPageMy = getContext().getSharedPreferences("mysettingspagemy", Context.MODE_PRIVATE);
 
@@ -429,7 +430,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
                 myTypeSearch = "bar|night_club";
                 myPageMeString = "";
-
                 break;
             case R.id.btnBeauty:
                 prefsPageMe.edit().clear().apply();
@@ -599,17 +599,17 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             case R.id.imagePre:
                 startActivity(Objects.requireNonNull(getActivity()).getIntent());
 
-                getTypeQuery(pageTokenPre, myStringQueryType, myStringQueryQuery);
-
-                myPage--;
-
-                getAllCheckPage(myPage);
-
                 if (myPage == 2 || myPageMy == 2) {
                     pageTokenPre = "";
                 } else {
                     pageTokenPre = prefsPre.getString("mystringquerypre", "");
                 }
+
+                getTypeQuery(pageTokenPre, myStringQueryType, myStringQueryQuery);
+
+                myPage--;
+
+                getAllCheckPage(myPage);
 
                 myPageMeString = pageTokenPre;
                 break;
