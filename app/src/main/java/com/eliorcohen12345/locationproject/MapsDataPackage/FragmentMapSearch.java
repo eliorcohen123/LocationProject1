@@ -203,6 +203,7 @@ public class FragmentMapSearch extends Fragment implements OnMapReadyCallback, V
                                 getString(R.string.api_key_search);
                         mGetMapsAsyncTaskSearch = new GetMapsAsyncTaskSearch();
                         mGetMapsAsyncTaskSearch.execute(myQuery);
+                        FragmentSearch.stopShowingProgressDialog();
                     }
                 }
             }
