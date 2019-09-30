@@ -83,7 +83,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     private static LocationManager locationManager;
     private Criteria criteria;
     private SharedPreferences prefsSeek, prefsOpen, prefsPage, prefsPre, prefsTypeSearch;
-    private SharedPreferences.Editor editorPage, editorPre, editorTypeQuerySearch;
+    private SharedPreferences.Editor editorPage, editorPre, editorTypeSearch;
     private static ItemDecoration itemDecoration;
     private int myRadius, myPage = 1;
     private ImageView imagePre, imageNext, imagePreFirst;
@@ -199,7 +199,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
         prefsTypeSearch = getContext().getSharedPreferences("mysettingssearch", Context.MODE_PRIVATE);
 
-        editorTypeQuerySearch = prefsTypeSearch.edit();
+        editorTypeSearch = prefsTypeSearch.edit();
     }
 
     private void refreshUI() {
@@ -360,7 +360,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             case R.id.nearByMe:
                 getCheckBtnSearch("", "");
 
-                editorTypeQuerySearch.putString("mystringtypesearch", "").apply();
+                editorTypeSearch.putString("mystringtypesearch", "").apply();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -479,7 +479,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 getAllCheckPage(myPage);
                 break;
         }
-        editorTypeQuerySearch.putString("mystringtypesearch", myTypeSearch).apply();
+        editorTypeSearch.putString("mystringtypesearch", myTypeSearch).apply();
     }
 
     private void getCheckBtnSearch(String type, String query) {
