@@ -152,8 +152,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         mFragmentSearch = this;
 
         mMapDBHelperSearch = new MapDBHelperSearch(getActivity());
-        prefsSeek = PreferenceManager.getDefaultSharedPreferences(getContext());
-        prefsOpen = PreferenceManager.getDefaultSharedPreferences(getContext());
         mMapList = new ArrayList<>();
         googleMapsApi = new GoogleMapsApi();
 
@@ -197,6 +195,9 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     }
 
     private void initPrefs() {
+        prefsSeek = PreferenceManager.getDefaultSharedPreferences(getContext());
+        prefsOpen = PreferenceManager.getDefaultSharedPreferences(getContext());
+
         prefsQuery = Objects.requireNonNull(getContext()).getSharedPreferences("mysettingsquery", Context.MODE_PRIVATE);
         prefsPage = Objects.requireNonNull(getContext()).getSharedPreferences("mysettingspage", Context.MODE_PRIVATE);
         prefsPre = getContext().getSharedPreferences("mysettingspre", Context.MODE_PRIVATE);
