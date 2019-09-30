@@ -498,7 +498,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     }
 
     private void getCheckBtnSearch(String type, String query) {
-        initPrefs();
         getTypeQuery("", type, query);
         getDataPrefsPage(type, query);
 
