@@ -396,10 +396,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
-    private void getDataPrefsPage(String type, String query) {
-        editorPage.putString("myStringQueryType", type).putString("myStringQueryQuery", query).apply();
-    }
-
     @Override
     public void onClick(View v) {
         myStringQueryPage = prefsPage.getString("myStringQueryPage", "");
@@ -633,7 +629,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     private void getCheckBtnSearch(int page, String type, String query) {
         myStringPageMe = prefsPageMe.getString("mystringpageme", "");
         getTypeQuery(myStringPageMe, type, query);
-        getDataPrefsPage(type, query);
         getAllCheckPage(page);
     }
 

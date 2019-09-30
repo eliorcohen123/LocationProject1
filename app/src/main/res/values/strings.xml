@@ -27,9 +27,9 @@
     <string name="key_units">myKm</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="api_key_geo">API_KEY</string>
-    <string name="api_key_search">API_KEY</string>
-    <string name="api_key_map">API_KEY</string>
+    <string name="api_key_geo">AIzaSyAVdsuXFE3Ca3vwy_lopgMUHTfJLdd3_Ck</string>
+    <string name="api_key_search">AIzaSyCiH1NZGzqJE2T_X5CphQD3iazzrjJbL4A</string>
+    <string name="api_key_map">AIzaSyDc7oNJ8FQZc6xmDVEvj-vewU5-ohnlwR0</string>
     <string name="places_key">types=accounting|airport|amusement_park|aquarium|art_gallery|atm|bakery|" +
                                 "bank|bar|beauty_salon|bicycle_store|bowling_alley|bus_station|cafe|campground|car_dealer|car_rental|car_repair|car_wash|casino|" +
                                 "cemetery|church|city_hall|clothing_store|convenience_store|courthouse|dentist|department_store|doctor|electrician|electronics_store|" +

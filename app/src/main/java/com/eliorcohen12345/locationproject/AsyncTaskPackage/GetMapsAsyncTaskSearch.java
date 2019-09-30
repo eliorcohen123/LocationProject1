@@ -38,7 +38,7 @@ public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList
         float yInches = metrics.heightPixels / metrics.ydpi;
         float xInches = metrics.widthPixels / metrics.xdpi;
         diagonalInches = Math.sqrt(xInches * xInches + yInches * yInches);
-        if (diagonalInches < 6.5) {
+        if (diagonalInches <= 6.5) {
             FragmentSearch.startShowingProgressDialog();
         }
     }
