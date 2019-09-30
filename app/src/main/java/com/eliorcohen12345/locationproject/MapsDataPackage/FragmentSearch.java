@@ -82,8 +82,8 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     private static Location location;
     private static LocationManager locationManager;
     private Criteria criteria;
-    private SharedPreferences prefsSeek, prefsOpen, prefsQuery, prefsPage, prefsPre, prefsTypeSearch, prefsPageMe, prefsPageMy;
-    private SharedPreferences.Editor editorQuery, editorPage, editorPre, editorTypeSearch, editorPageMe, editorPageMy;
+    private SharedPreferences prefsSeek, prefsOpen, prefsQuery, prefsPage, prefsPre, prefsType, prefsPageMe, prefsPageMy;
+    private SharedPreferences.Editor editorQuery, editorPage, editorPre, editorType, editorPageMe, editorPageMy;
     private static ItemDecoration itemDecoration;
     private int myRadius, myPage, myPageMy;
     private ImageView imagePre, imageNext, imagePreFirst;
@@ -115,7 +115,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
         getData(mMapList);
 
-        myType = prefsTypeSearch.getString("mystringtypesearch", "");
+        myType = prefsType.getString("mystringtypesearch", "");
         myStringQuery = prefsQuery.getString("mystringquerysearch", "");
         getCheckBtnSearch(myPage, myType, myStringQuery);
     }
@@ -200,14 +200,14 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         prefsQuery = Objects.requireNonNull(getContext()).getSharedPreferences("mysettingsquery", Context.MODE_PRIVATE);
         prefsPage = Objects.requireNonNull(getContext()).getSharedPreferences("mysettingspage", Context.MODE_PRIVATE);
         prefsPre = getContext().getSharedPreferences("mysettingspre", Context.MODE_PRIVATE);
-        prefsTypeSearch = getContext().getSharedPreferences("mysettingstypesearch", Context.MODE_PRIVATE);
+        prefsType = getContext().getSharedPreferences("mysettingstype", Context.MODE_PRIVATE);
         prefsPageMe = getContext().getSharedPreferences("mysettingspageme", Context.MODE_PRIVATE);
         prefsPageMy = getContext().getSharedPreferences("mysettingspagemy", Context.MODE_PRIVATE);
 
         editorQuery = prefsQuery.edit();
         editorPage = prefsPage.edit();
         editorPre = prefsPre.edit();
-        editorTypeSearch = prefsTypeSearch.edit();
+        editorType = prefsType.edit();
         editorPageMe = prefsPageMe.edit();
         editorPageMy = prefsPageMy.edit();
     }
@@ -360,7 +360,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
                     myPageMeString = "";
 
-                    editorTypeSearch.putString("mystringtypesearch", "").apply();
+                    editorType.putString("mystringtypesearch", "").apply();
                     editorQuery.putString("mystringquerysearch", newText).apply();
                     editorPageMe.putString("mystringpageme", myPageMeString).apply();
                     editorPageMy.putInt("mystringpagemy", myPage).apply();
@@ -387,7 +387,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
                 myPageMeString = "";
 
-                editorTypeSearch.putString("mystringtypesearch", "").apply();
+                editorType.putString("mystringtypesearch", "").apply();
                 editorQuery.putString("mystringquerysearch", "").apply();
                 editorPageMe.putString("mystringpageme", myPageMeString).apply();
                 editorPageMy.putInt("mystringpagemy", myPage).apply();
@@ -399,7 +399,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         myStringQuery = prefsQuery.getString("mystringquerysearch", "");
-        myType = prefsTypeSearch.getString("mystringtypesearch", "");
+        myType = prefsType.getString("mystringtypesearch", "");
         myPageMy = prefsPageMy.getInt("mystringpagemy", 1);
         switch (v.getId()) {
             case R.id.btnBank:
@@ -603,7 +603,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 myPageMeString = "";
                 break;
         }
-        editorTypeSearch.putString("mystringtypesearch", myTypeSearch).apply();
+        editorType.putString("mystringtypesearch", myTypeSearch).apply();
         editorQuery.putString("mystringquerysearch", myQuery).apply();
         editorPageMe.putString("mystringpageme", myPageMeString).apply();
         editorPageMy.putInt("mystringpagemy", myPage).apply();
