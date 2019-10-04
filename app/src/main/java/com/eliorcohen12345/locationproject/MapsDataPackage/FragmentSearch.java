@@ -404,169 +404,49 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         myPageMy = prefsPageMy.getInt("mystringpagemy", 1);
         switch (v.getId()) {
             case R.id.btnBank:
-                prefsPageMe.edit().clear().apply();
-                prefsPageMy.edit().clear().apply();
-
-                myPage = 1;
-                getCheckBtnSearch(myPage, "bank", "");
-
-                myTypeSearch = "bank";
-                myPageMeString = "";
-                myQuery = "";
+                getConfigureBtn("bank");
                 break;
             case R.id.btnBar:
-                prefsPageMe.edit().clear().apply();
-                prefsPageMy.edit().clear().apply();
-
-                myPage = 1;
-                getCheckBtnSearch(myPage, "bar|night_club", "");
-
-                myTypeSearch = "bar|night_club";
-                myPageMeString = "";
-                myQuery = "";
+                getConfigureBtn("bar|night_club");
                 break;
             case R.id.btnBeauty:
-                prefsPageMe.edit().clear().apply();
-                prefsPageMy.edit().clear().apply();
-
-                myPage = 1;
-                getCheckBtnSearch(myPage, "beauty_salon|hair_care", "");
-
-                myTypeSearch = "beauty_salon|hair_care";
-                myPageMeString = "";
-                myQuery = "";
+                getConfigureBtn("beauty_salon|hair_care");
                 break;
             case R.id.btnBooks:
-                prefsPageMe.edit().clear().apply();
-                prefsPageMy.edit().clear().apply();
-
-                myPage = 1;
-                getCheckBtnSearch(myPage, "book_store|library", "");
-
-                myTypeSearch = "book_store|library";
-                myPageMeString = "";
-                myQuery = "";
+                getConfigureBtn("book_store|library");
                 break;
             case R.id.btnBusStation:
-                prefsPageMe.edit().clear().apply();
-                prefsPageMy.edit().clear().apply();
-
-                myPage = 1;
-                getCheckBtnSearch(myPage, "bus_station", "");
-
-                myTypeSearch = "bus_station";
-                myPageMeString = "";
-                myQuery = "";
+                getConfigureBtn("bus_station");
                 break;
             case R.id.btnCars:
-                prefsPageMe.edit().clear().apply();
-                prefsPageMy.edit().clear().apply();
-
-                myPage = 1;
-                getCheckBtnSearch(myPage, "car_dealer|car_rental|car_repair|car_wash", "");
-
-                myTypeSearch = "car_dealer|car_rental|car_repair|car_wash";
-                myPageMeString = "";
-                myQuery = "";
+                getConfigureBtn("car_dealer|car_rental|car_repair|car_wash");
                 break;
             case R.id.btnClothing:
-                prefsPageMe.edit().clear().apply();
-                prefsPageMy.edit().clear().apply();
-
-                myPage = 1;
-                getCheckBtnSearch(myPage, "clothing_store", "");
-
-                myTypeSearch = "clothing_store";
-                myPageMeString = "";
-                myQuery = "";
+                getConfigureBtn("clothing_store");
                 break;
             case R.id.btnDoctor:
-                prefsPageMe.edit().clear().apply();
-                prefsPageMy.edit().clear().apply();
-
-                myPage = 1;
-                getCheckBtnSearch(myPage, "doctor", "");
-
-                myTypeSearch = "doctor";
-                myPageMeString = "";
-                myQuery = "";
+                getConfigureBtn("doctor");
                 break;
             case R.id.btnGasStation:
-                prefsPageMe.edit().clear().apply();
-                prefsPageMy.edit().clear().apply();
-
-                myPage = 1;
-                getCheckBtnSearch(myPage, "gas_station", "");
-
-                myTypeSearch = "gas_station";
-                myPageMeString = "";
-                myQuery = "";
+                getConfigureBtn("gas_station");
                 break;
             case R.id.btnGym:
-                prefsPageMe.edit().clear().apply();
-                prefsPageMy.edit().clear().apply();
-
-                myPage = 1;
-                getCheckBtnSearch(myPage, "gym", "");
-
-                myTypeSearch = "gym";
-                myPageMeString = "";
-                myQuery = "";
+                getConfigureBtn("gym");
                 break;
             case R.id.btnJewelry:
-                prefsPageMe.edit().clear().apply();
-                prefsPageMy.edit().clear().apply();
-
-                myPage = 1;
-                getCheckBtnSearch(myPage, "jewelry_store", "");
-
-                myTypeSearch = "jewelry_store";
-                myPageMeString = "";
-                myQuery = "";
+                getConfigureBtn("jewelry_store");
                 break;
             case R.id.btnPark:
-                prefsPageMe.edit().clear().apply();
-                prefsPageMy.edit().clear().apply();
-
-                myPage = 1;
-                getCheckBtnSearch(myPage, "park|amusement_park|parking|rv_park", "");
-
-                myTypeSearch = "park|amusement_park|parking|rv_park";
-                myPageMeString = "";
-                myQuery = "";
+                getConfigureBtn("park|amusement_park|parking|rv_park");
                 break;
             case R.id.btnRestaurant:
-                prefsPageMe.edit().clear().apply();
-                prefsPageMy.edit().clear().apply();
-
-                myPage = 1;
-                getCheckBtnSearch(myPage, "food|restaurant|cafe|bakery", "");
-
-                myTypeSearch = "food|restaurant|cafe|bakery";
-                myPageMeString = "";
-                myQuery = "";
+                getConfigureBtn("food|restaurant|cafe|bakery");
                 break;
             case R.id.btnSchool:
-                prefsPageMe.edit().clear().apply();
-                prefsPageMy.edit().clear().apply();
-
-                myPage = 1;
-                getCheckBtnSearch(myPage, "school", "");
-
-                myTypeSearch = "school";
-                myPageMeString = "";
-                myQuery = "";
+                getConfigureBtn("school");
                 break;
             case R.id.btnSpa:
-                prefsPageMe.edit().clear().apply();
-                prefsPageMy.edit().clear().apply();
-
-                myPage = 1;
-                getCheckBtnSearch(myPage, "spa", "");
-
-                myTypeSearch = "spa";
-                myPageMeString = "";
-                myQuery = "";
+                getConfigureBtn("spa");
                 break;
             case R.id.imageNext:
                 myStringPage = prefsPage.getString("myStringPage", "");
@@ -608,6 +488,18 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         editorQuery.putString("mystringquerysearch", myQuery).apply();
         editorPageMe.putString("mystringpageme", myPageMeString).apply();
         editorPageMy.putInt("mystringpagemy", myPage).apply();
+    }
+
+    private void getConfigureBtn(String type) {
+        prefsPageMe.edit().clear().apply();
+        prefsPageMy.edit().clear().apply();
+
+        myPage = 1;
+        getCheckBtnSearch(myPage, type, "");
+
+        myTypeSearch = type;
+        myPageMeString = "";
+        myQuery = "";
     }
 
     private void getCheckBtnSearch(int page, String type, String query) {
