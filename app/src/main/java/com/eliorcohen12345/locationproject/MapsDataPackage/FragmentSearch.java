@@ -353,18 +353,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
                 @Override
                 public boolean onQueryTextChange(String newText) {
-                    prefsPageMe.edit().clear().apply();
-                    prefsPageMy.edit().clear().apply();
-
-                    myPage = 1;
-                    getCheckBtnSearch(myPage, "", newText);
-
-                    myPageMeString = "";
-
-                    editorType.putString("mystringtypesearch", "").apply();
-                    editorQuery.putString("mystringquerysearch", newText).apply();
-                    editorPageMe.putString("mystringpageme", myPageMeString).apply();
-                    editorPageMy.putInt("mystringpagemy", myPage).apply();
+                    getConfigureSearchNearby(newText);
 
                     stopShowingProgressDialog();
                     return true;
@@ -380,18 +369,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             case R.id.action_search:
                 break;
             case R.id.nearByMe:
-                prefsPageMe.edit().clear().apply();
-                prefsPageMy.edit().clear().apply();
-
-                myPage = 1;
-                getCheckBtnSearch(myPage, "", "");
-
-                myPageMeString = "";
-
-                editorType.putString("mystringtypesearch", "").apply();
-                editorQuery.putString("mystringquerysearch", "").apply();
-                editorPageMe.putString("mystringpageme", myPageMeString).apply();
-                editorPageMy.putInt("mystringpagemy", myPage).apply();
+                getConfigureSearchNearby("");
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -486,6 +464,21 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         }
         editorType.putString("mystringtypesearch", myTypeSearch).apply();
         editorQuery.putString("mystringquerysearch", myQuery).apply();
+        editorPageMe.putString("mystringpageme", myPageMeString).apply();
+        editorPageMy.putInt("mystringpagemy", myPage).apply();
+    }
+
+    private void getConfigureSearchNearby(String query) {
+        prefsPageMe.edit().clear().apply();
+        prefsPageMy.edit().clear().apply();
+
+        myPage = 1;
+        getCheckBtnSearch(myPage, "", query);
+
+        myPageMeString = "";
+
+        editorType.putString("mystringtypesearch", "").apply();
+        editorQuery.putString("mystringquerysearch", query).apply();
         editorPageMe.putString("mystringpageme", myPageMeString).apply();
         editorPageMy.putInt("mystringpagemy", myPage).apply();
     }
