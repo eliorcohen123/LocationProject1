@@ -95,9 +95,9 @@ public class MapDBHelperFavorites extends SQLiteOpenHelper {
         values.put(MAP_LNG, lng);
         values.put(MAP_PHOTOS, photo);
 
-        int rowNumber3 = db.update(MAP_TABLE_NAME, values, MAP_ID + " = ?", new String[]{String.valueOf(id)});
+        int rowNumber = db.update(MAP_TABLE_NAME, values, MAP_ID + " = ?", new String[]{String.valueOf(id)});
         try {
-            Log.d("MapDBHelperFavorites", "update new map with id: " + rowNumber3 +
+            Log.d("MapDBHelperFavorites", "update new map with id: " + rowNumber +
                     ", Name: " + name);
         } catch (SQLiteException ex) {
             Log.e("MapDBHelperFavorites", ex.getMessage());
