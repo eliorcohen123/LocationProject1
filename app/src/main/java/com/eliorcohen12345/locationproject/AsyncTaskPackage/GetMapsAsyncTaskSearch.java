@@ -79,8 +79,7 @@ public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList
         Gson gson = new GsonBuilder().create();
         MapResponse response = gson.fromJson(jsonResponse, MapResponse.class);
         stubMapData = response.results;
-        ArrayList<PlaceModel> arrList = new ArrayList<>();
-        arrList.addAll(stubMapData);
+        ArrayList<PlaceModel> arrList = new ArrayList<>(stubMapData);
 
         return arrList;
     }
