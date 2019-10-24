@@ -113,6 +113,8 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
 
+        itemDecoration = null;
+
         getData(mMapList);
 
         myType = prefsType.getString("mystringtypesearch", "");

@@ -68,6 +68,7 @@ public class FragmentFavorites extends Fragment implements NavigationView.OnNavi
         toolbar = mView.findViewById(R.id.toolbar);
 
         mMapDBHelperFavorites = new MapDBHelperFavorites(getContext());  // Put the SQLiteHelper in FragmentFavorites
+        itemDecoration = null;
     }
 
     private void getData() {
