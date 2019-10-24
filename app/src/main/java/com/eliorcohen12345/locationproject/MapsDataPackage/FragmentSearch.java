@@ -105,6 +105,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         initListeners();
         initLocation();
         refreshUI();
+        getData(mMapList);
 
         return mView;
     }
@@ -112,10 +113,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-
-        itemDecoration = null;
-
-        getData(mMapList);
 
         myType = prefsType.getString("mystringtypesearch", "");
         myStringQuery = prefsQuery.getString("mystringquerysearch", "");
@@ -156,6 +153,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         mMapDBHelperSearch = new MapDBHelperSearch(getActivity());
         mMapList = new ArrayList<>();
         googleMapsApi = new GoogleMapsApi();
+        itemDecoration = null;
 
         myPageMy = prefsPageMy.getInt("mystringpagemy", 1);
         if (myPageMy == 1) {
