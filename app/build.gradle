@@ -6,7 +6,7 @@ android {
         applicationId "com.eliorcohen12345.locationproject"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 128
+        versionCode 129
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
