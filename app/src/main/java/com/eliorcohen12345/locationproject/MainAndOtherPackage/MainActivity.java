@@ -187,8 +187,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         if (mGoogleApiClient != null) {
             mGoogleApiClient.connect();
-        } else
+        } else {
             Toast.makeText(this, "Not connected...", Toast.LENGTH_SHORT).show();
+        }
 
         String locationProviders = Settings.Secure.getString(getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
         if (locationProviders == null || locationProviders.equals("")) {
