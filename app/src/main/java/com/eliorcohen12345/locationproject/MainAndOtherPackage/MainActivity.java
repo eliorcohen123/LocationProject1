@@ -143,8 +143,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             // open right drawer
             if (drawer.isDrawerOpen(GravityCompat.END)) {
                 drawer.closeDrawer(GravityCompat.END);
-            } else
+            } else {
                 drawer.openDrawer(GravityCompat.END);
+            }
         });
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
