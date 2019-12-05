@@ -33,13 +33,13 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.material:material:1.0.0'
-    implementation "android.arch.lifecycle:extensions:1.1.1"
-    implementation "android.arch.lifecycle:viewmodel:1.1.1"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.1.0'
     implementation 'com.squareup.okhttp3:okhttp:4.0.1'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'android.arch.navigation:navigation-fragment:1.0.0'
-    implementation 'android.arch.navigation:navigation-ui:1.0.0'
+    implementation 'androidx.navigation:navigation-fragment:2.2.0-rc03'
+    implementation 'androidx.navigation:navigation-ui:2.2.0-rc03'
     implementation 'com.mcxiaoke.volley:library:1.0.19'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.google.maps:google-maps-services:0.2.5'
