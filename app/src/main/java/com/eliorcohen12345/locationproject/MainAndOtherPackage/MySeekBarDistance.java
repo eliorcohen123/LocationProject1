@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.eliorcohen12345.locationproject.R;
 
-  // The main class of the SeekBar
+// The main class of the SeekBar
 public class MySeekBarDistance extends Preference implements OnSeekBarChangeListener, OnPreferenceChangeListener {
 
     private SeekBar seekBar;
@@ -36,12 +36,9 @@ public class MySeekBarDistance extends Preference implements OnSeekBarChangeList
         txtSummary = view.findViewById(R.id.summary);
         units = this.sharedPreferences.getString(getContext().getString(R.string.key_units), getContext().getResources().getStringArray(R.array.distanceValues)[0]);
         int max = 50000;
-        if (this.units.equals(getContext().getResources().getStringArray(R.array.distanceValues)[1])) {
-            max = (int) ((50000) / 0.9144d);
-        }
         seekBar.setMax(max);
         int currentProgress = this.sharedPreferences.getInt(getKey(), 0);
-        String stringBuilder = String.valueOf(currentProgress) + units;
+        String stringBuilder = currentProgress + units;
         setSummary(stringBuilder);
         seekBar.setProgress(currentProgress);
         seekBar.setOnSeekBarChangeListener(this);
@@ -64,11 +61,9 @@ public class MySeekBarDistance extends Preference implements OnSeekBarChangeList
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         String value = String.valueOf(newValue);
         int currentProgress = this.seekBar.getProgress();
-        if (value.equals(getContext().getResources().getStringArray(R.array.distanceValues)[0]) && currentProgress != 0) {
-            seekBar.setProgress((int) (currentProgress / 0.9144d));
-        }
-        if (value.equals(getContext().getResources().getStringArray(R.array.distanceValues)[1]) && currentProgress != 0) {
-            seekBar.setProgress((int) (currentProgress / 0.9144d));
+        if ((value.equals(getContext().getResources().getStringArray(R.array.distanceValues)[0]) && currentProgress != 0) ||
+                (value.equals(getContext().getResources().getStringArray(R.array.distanceValues)[1]) && currentProgress != 0)) {
+            seekBar.setProgress((int) (currentProgress * 0.9144d));
         }
         return true;
     }

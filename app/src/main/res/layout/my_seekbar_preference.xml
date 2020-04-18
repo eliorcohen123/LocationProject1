@@ -30,18 +30,18 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/summary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            <TextView
+                android:id="@+id/summary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-        <TextView
-            android:id="@+id/textKm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Km"
-            android:layout_weight="1" />
+            <TextView
+                android:id="@+id/textKm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Meters" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
