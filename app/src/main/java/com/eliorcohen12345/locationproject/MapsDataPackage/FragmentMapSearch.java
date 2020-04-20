@@ -565,6 +565,7 @@ public class FragmentMapSearch extends Fragment implements OnMapReadyCallback, V
 
                 //Define list to get all latLng for the route
                 ArrayList<LatLng> path = new ArrayList<LatLng>();
+                path.clear();
 
                 //Execute Directions API request
                 GeoApiContext context = new GeoApiContext.Builder()
