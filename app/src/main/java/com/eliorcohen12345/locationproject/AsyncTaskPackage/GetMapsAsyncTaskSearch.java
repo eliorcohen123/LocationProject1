@@ -5,8 +5,8 @@ import android.os.AsyncTask;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
-import com.eliorcohen12345.locationproject.DataAppPackage.MapDBHelperSearch;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelSearchDB;
 import com.eliorcohen12345.locationproject.MapsDataPackage.FragmentSearch;
 import com.eliorcohen12345.locationproject.MainAndOtherPackage.ConApp;
 import com.google.gson.Gson;
@@ -23,7 +23,7 @@ import okhttp3.Response;
 
 public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList<PlaceModel>> {
 
-    private MapDBHelperSearch mapDBHelperSearch;
+    private PlaceViewModelSearchDB placeViewModelSearchDB;
     private double diagonalInches;
 
     // startShowingProgressDialog of FragmentSearch
@@ -111,9 +111,9 @@ public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList
             FragmentSearch.stopShowingProgressDialog();
         }
 
-        mapDBHelperSearch = new MapDBHelperSearch(ConApp.getApplication());
+        placeViewModelSearchDB = new PlaceViewModelSearchDB(ConApp.getApplication());
         try {
-            mapDBHelperSearch.addMapList(placeModels);
+            placeViewModelSearchDB.addMapPlaces(placeModels);
             FragmentSearch.getData(placeModels);
         } catch (Exception e) {
             FragmentSearch.getData(placeModels);

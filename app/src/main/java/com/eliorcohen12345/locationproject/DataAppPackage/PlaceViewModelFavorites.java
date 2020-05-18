@@ -9,21 +9,19 @@ import androidx.lifecycle.AndroidViewModel;
 public class PlaceViewModelFavorites extends AndroidViewModel {
 
     private MapDBHelperFavorites mapDBHelperFavorites;  // The SQLiteHelper of the app
-    private ArrayList<PlaceModel> mAllPlacesFavorites;
 
     public PlaceViewModelFavorites(Application application) {
         super(application);
 
         mapDBHelperFavorites = new MapDBHelperFavorites(application);
-        mAllPlacesFavorites = mapDBHelperFavorites.getAllMaps();
     }
 
     public ArrayList<PlaceModel> getAllPlaces() {
-        return mAllPlacesFavorites;
+        return mapDBHelperFavorites.getAllMaps();
     }
 
     public void insertPlace(String name, String address, Double lat, Double lng, String photo) {
-        mapDBHelperFavorites.addMapFav(name, address, lat, lng, photo);
+        mapDBHelperFavorites.addMap(name, address, lat, lng, photo);
     }
 
     public void deleteAll() {

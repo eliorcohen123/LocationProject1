@@ -5,12 +5,12 @@ import android.os.AsyncTask;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eliorcohen12345.locationproject.CustomAdapterPackage.PlaceCustomAdapterSearch;
-import com.eliorcohen12345.locationproject.DataAppPackage.MapDBHelperSearch;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelSearchDB;
 
 import java.util.ArrayList;
 
-public class GetMapsAsyncTaskHistory extends AsyncTask<MapDBHelperSearch, Integer, ArrayList<PlaceModel>> {
+public class GetMapsAsyncTaskHistory extends AsyncTask<PlaceViewModelSearchDB, Integer, ArrayList<PlaceModel>> {
 
     private RecyclerView mRecyclerView;
     private PlaceCustomAdapterSearch mPlaceCustomAdapterSearch;  // Adapter
@@ -23,9 +23,9 @@ public class GetMapsAsyncTaskHistory extends AsyncTask<MapDBHelperSearch, Intege
 
     // DoInBackground of the ArrayList of PlaceModel that put the getAllMaps in the SQLiteHelper in the ArrayList of PlaceModel
     @Override
-    protected ArrayList<PlaceModel> doInBackground(MapDBHelperSearch... mapDBHelperSearches) {
-        MapDBHelperSearch myDb = mapDBHelperSearches[0];
-        mMapList = myDb.getAllMaps();
+    protected ArrayList<PlaceModel> doInBackground(PlaceViewModelSearchDB... placeViewModelSearchDBS) {
+        PlaceViewModelSearchDB myDb = placeViewModelSearchDBS[0];
+        mMapList = myDb.getAllPlaces();
 
         return mMapList;
     }

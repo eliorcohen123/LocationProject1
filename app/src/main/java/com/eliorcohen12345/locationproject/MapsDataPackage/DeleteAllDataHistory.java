@@ -11,14 +11,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.eliorcohen12345.locationproject.DataAppPackage.MapDBHelperSearch;
+import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelSearchDB;
+import com.eliorcohen12345.locationproject.MainAndOtherPackage.ConApp;
 import com.eliorcohen12345.locationproject.MainAndOtherPackage.MainActivity;
 import com.eliorcohen12345.locationproject.R;
 
 public class DeleteAllDataHistory extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnOK, btnCancel;
-    private MapDBHelperSearch mapDBHelperHistory;  // The SQLiteHelper of the Search/History
+    private PlaceViewModelSearchDB placeViewModelSearchDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class DeleteAllDataHistory extends AppCompatActivity implements View.OnCl
         btnOK = findViewById(R.id.btnOK);
         btnCancel = findViewById(R.id.btnCancel);
 
-        mapDBHelperHistory = new MapDBHelperSearch(this);  // Put the SQLiteHelper in DeleteAllDataHistory
+        placeViewModelSearchDB = new PlaceViewModelSearchDB(ConApp.getApplication());
     }
 
     private void initListeners() {
@@ -45,7 +46,7 @@ public class DeleteAllDataHistory extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnOK:
-                mapDBHelperHistory.deleteData();
+                placeViewModelSearchDB.deleteAll();
 
                 Toast toast = Toast.makeText(DeleteAllDataHistory.this, "All the data of history are deleted!", Toast.LENGTH_LONG);
                 View view = toast.getView();

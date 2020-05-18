@@ -54,7 +54,7 @@ public class MapDBHelperFavorites extends SQLiteOpenHelper {
     }
 
     //Add info items
-    public void addMapFav(String name, String address, Double lat, Double lng, String photo) {
+    public void addMap(String name, String address, Double lat, Double lng, String photo) {
 
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();

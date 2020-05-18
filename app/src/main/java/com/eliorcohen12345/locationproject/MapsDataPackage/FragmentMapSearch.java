@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
+import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelSearchDB;
 import com.eliorcohen12345.locationproject.MainAndOtherPackage.ConApp;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -43,7 +44,6 @@ import android.widget.Toast;
 import com.eliorcohen12345.locationproject.AsyncTaskPackage.GetMapsAsyncTaskHistory;
 import com.eliorcohen12345.locationproject.AsyncTaskPackage.GetMapsAsyncTaskSearch;
 import com.eliorcohen12345.locationproject.CustomAdapterPackage.CustomInfoWindowGoogleMapSearch;
-import com.eliorcohen12345.locationproject.DataAppPackage.MapDBHelperSearch;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
 import com.eliorcohen12345.locationproject.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -84,7 +84,7 @@ public class FragmentMapSearch extends Fragment implements OnMapReadyCallback, V
     private ImageView moovit, gett, waze, num1, num2, num3, num4, num5, btnOpenList;
     private GetMapsAsyncTaskSearch mGetMapsAsyncTaskSearch;
     private GetMapsAsyncTaskHistory mGetMapsAsyncTaskHistory;
-    private MapDBHelperSearch mMapDBHelperSearch;
+    private PlaceViewModelSearchDB placeViewModelSearchDB;
     private ArrayList<PlaceModel> mMapList;
     private List<Marker> markers;
     private RecyclerView mRecyclerView;
@@ -132,7 +132,7 @@ public class FragmentMapSearch extends Fragment implements OnMapReadyCallback, V
         linearList.setVisibility(View.GONE);
 
         markers = new ArrayList<Marker>();
-        mMapDBHelperSearch = new MapDBHelperSearch(getActivity());
+        placeViewModelSearchDB = new PlaceViewModelSearchDB(ConApp.getApplication());
 
         isClicked = true;
     }
@@ -164,11 +164,11 @@ public class FragmentMapSearch extends Fragment implements OnMapReadyCallback, V
     private void getData() {
         try {
             if (!isConnected(Objects.requireNonNull(getContext()))) {
-                mMapList = mMapDBHelperSearch.getAllMaps();
+                mMapList = placeViewModelSearchDB.getAllPlaces();
                 // Put AsyncTask in the RecyclerView of MainActivity to execute the SQLiteHelper
                 mRecyclerView = new RecyclerView(getContext());
                 mGetMapsAsyncTaskHistory = new GetMapsAsyncTaskHistory(mRecyclerView);
-                mGetMapsAsyncTaskHistory.execute(mMapDBHelperSearch);
+                mGetMapsAsyncTaskHistory.execute(placeViewModelSearchDB);
                 // Tablet/Phone mode
                 DisplayMetrics metrics = new DisplayMetrics();
                 ((WindowManager) ConApp.getApplication().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(metrics);
@@ -195,8 +195,7 @@ public class FragmentMapSearch extends Fragment implements OnMapReadyCallback, V
                     if (location != null) {
                         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
                         int myRadius = prefs.getInt("seek", 5000);
-                        mMapList = mMapDBHelperSearch.getAllMaps();
-                        mMapDBHelperSearch.deleteData();
+                        mMapList = placeViewModelSearchDB.getAllPlaces();
                         String myQuery = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" +
                                 location.getLatitude() + "," + location.getLongitude() +
                                 "&radius=" + myRadius + "&sensor=true&rankby=prominence&types=&keyword=&key=" +

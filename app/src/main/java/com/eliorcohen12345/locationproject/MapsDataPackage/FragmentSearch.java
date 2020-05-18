@@ -54,8 +54,8 @@ import com.android.volley.toolbox.Volley;
 import com.eliorcohen12345.locationproject.AsyncTaskPackage.GetMapsAsyncTaskHistory;
 import com.eliorcohen12345.locationproject.AsyncTaskPackage.GetMapsAsyncTaskSearch;
 import com.eliorcohen12345.locationproject.CustomAdapterPackage.PlaceCustomAdapterSearch;
-import com.eliorcohen12345.locationproject.DataAppPackage.MapDBHelperSearch;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelSearchDB;
 import com.eliorcohen12345.locationproject.MainAndOtherPackage.ConApp;
 import com.eliorcohen12345.locationproject.MainAndOtherPackage.ItemDecoration;
 import com.eliorcohen12345.locationproject.R;
@@ -72,7 +72,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     private static ArrayList<PlaceModel> mMapList;
     private static PlaceCustomAdapterSearch mAdapter;
     private static RecyclerView mRecyclerView;
-    private static MapDBHelperSearch mMapDBHelperSearch;
+    private static PlaceViewModelSearchDB placeViewModelSearchDB;
     private static ProgressDialog mProgressDialogInternet;
     private static FragmentSearch mFragmentSearch;
     private GetMapsAsyncTaskSearch mGetMapsAsyncTaskSearch;
@@ -150,7 +150,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
         mFragmentSearch = this;
 
-        mMapDBHelperSearch = new MapDBHelperSearch(getActivity());
+        placeViewModelSearchDB = new PlaceViewModelSearchDB(ConApp.getApplication());
         mMapList = new ArrayList<>();
         googleMapsApi = new GoogleMapsApi();
         itemDecoration = null;
@@ -242,7 +242,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     public static void getData(ArrayList<PlaceModel> list) {
         mMapList = list;
         if (!isConnected(mFragmentSearch.requireContext())) {
-            mMapList = mMapDBHelperSearch.getAllMaps();
+            mMapList = placeViewModelSearchDB.getAllPlaces();
         }
         mAdapter = new PlaceCustomAdapterSearch(ConApp.getApplication(), mMapList);
         if (mAdapter.getItemCount() != 0) {
@@ -539,12 +539,12 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
     private void getTypeQuery(String pageToken, String type, String query) {
         if (!isConnected(requireContext())) {
-            mMapList = mMapDBHelperSearch.getAllMaps();
+            mMapList = placeViewModelSearchDB.getAllPlaces();
             mAdapter = new PlaceCustomAdapterSearch(getActivity(), mMapList);
             mAdapter.setMapsCollections();
             // Put AsyncTask in the RecyclerView of fragmentSearch to execute the SQLiteHelper
             mGetMapsAsyncTaskHistory = new GetMapsAsyncTaskHistory(mRecyclerView);
-            mGetMapsAsyncTaskHistory.execute(mMapDBHelperSearch);
+            mGetMapsAsyncTaskHistory.execute(placeViewModelSearchDB);
             buildDialog(getContext()).show();
         } else {
             if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -567,7 +567,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                             myRadius = 50000;
                         }
                         myOpen = prefsOpen.getString("open", "");
-                        mMapDBHelperSearch.deleteData();
+                        placeViewModelSearchDB.deleteAll();
                         String myQuery = googleMapsApi.getStringGoogleMapsApi(location.getLatitude(), location.getLongitude(), myRadius, pageToken, myOpen, type, query, getString(R.string.api_key_search));
                         mGetMapsAsyncTaskSearch = new GetMapsAsyncTaskSearch();
                         mGetMapsAsyncTaskSearch.execute(myQuery);
