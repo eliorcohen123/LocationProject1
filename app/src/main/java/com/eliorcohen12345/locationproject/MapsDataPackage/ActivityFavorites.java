@@ -21,12 +21,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eliorcohen12345.locationproject.AsyncTaskPackage.GetMapsAsyncTaskFavorites;
-import com.eliorcohen12345.locationproject.DataAppPackage.MapDBHelperFavorites;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelFavorites;
 import com.eliorcohen12345.locationproject.GeofencePackage.Constants;
 import com.eliorcohen12345.locationproject.GeofencePackage.GeofenceBroadcastReceiver;
 import com.eliorcohen12345.locationproject.GeofencePackage.GeofenceErrorMessages;
@@ -65,7 +64,7 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
     private Criteria criteria;
     private String provider;
     private GetMapsAsyncTaskFavorites mGetMapsAsyncTaskFavorites;
-    private MapDBHelperFavorites mMapDBHelperFavorites;
+    private PlaceViewModelFavorites placeViewModelFavorites;
     private RecyclerView mRecyclerView;
     private ArrayList<PlaceModel> mMapListFavorites;
     private boolean boolean_permission;
@@ -97,11 +96,11 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
     }
 
     private void initUI() {
-        mMapDBHelperFavorites = new MapDBHelperFavorites(ConApp.getmContext());
-        mMapListFavorites = mMapDBHelperFavorites.getAllMaps();
-        mRecyclerView = new RecyclerView(ConApp.getmContext());
+        placeViewModelFavorites = new PlaceViewModelFavorites(ConApp.getApplication());
+        mMapListFavorites = placeViewModelFavorites.getAllPlaces();
+        mRecyclerView = new RecyclerView(ConApp.getApplication());
         mGetMapsAsyncTaskFavorites = new GetMapsAsyncTaskFavorites(mRecyclerView);
-        mGetMapsAsyncTaskFavorites.execute(mMapDBHelperFavorites);
+        mGetMapsAsyncTaskFavorites.execute(placeViewModelFavorites);
 
         prefsSeekGeo = PreferenceManager.getDefaultSharedPreferences(this);
         myRadiusGeo = prefsSeekGeo.getInt("seek_geo", 500);
@@ -280,11 +279,11 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
 
     private void populateGeofenceList() {
         HashMap<String, LatLng> BAY_AREA_LANDMARKS = new HashMap<>();
-        locationManager = (LocationManager) ConApp.getmContext().getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) ConApp.getApplication().getSystemService(Context.LOCATION_SERVICE);
         criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, true);
-        if (ActivityCompat.checkSelfPermission(ConApp.getmContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.checkSelfPermission(ConApp.getmContext(), Manifest.permission.ACCESS_COARSE_LOCATION);
+        if (ActivityCompat.checkSelfPermission(ConApp.getApplication(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.checkSelfPermission(ConApp.getApplication(), Manifest.permission.ACCESS_COARSE_LOCATION);
         }// TODO: Consider calling
 //    ActivityCompat#requestPermissions
 // here to request the missing permissions, and then overriding
@@ -328,7 +327,7 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
     }
 
     public static boolean getGeofencesAdded() {
-        return PreferenceManager.getDefaultSharedPreferences(ConApp.getmContext()).getBoolean(
+        return PreferenceManager.getDefaultSharedPreferences(ConApp.getApplication()).getBoolean(
                 Constants.GEOFENCES_ADDED_KEY, false);
     }
 

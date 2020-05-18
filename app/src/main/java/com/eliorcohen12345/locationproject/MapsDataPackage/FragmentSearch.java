@@ -244,7 +244,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         if (!isConnected(mFragmentSearch.requireContext())) {
             mMapList = mMapDBHelperSearch.getAllMaps();
         }
-        mAdapter = new PlaceCustomAdapterSearch(ConApp.getmContext(), mMapList);
+        mAdapter = new PlaceCustomAdapterSearch(ConApp.getApplication(), mMapList);
         if (mAdapter.getItemCount() != 0) {
             handScrollDownImage.setVisibility(View.GONE);
         } else {

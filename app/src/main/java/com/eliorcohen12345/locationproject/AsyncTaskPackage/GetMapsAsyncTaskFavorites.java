@@ -5,12 +5,12 @@ import android.os.AsyncTask;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eliorcohen12345.locationproject.CustomAdapterPackage.PlaceCustomAdapterFavorites;
-import com.eliorcohen12345.locationproject.DataAppPackage.MapDBHelperFavorites;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelFavorites;
 
 import java.util.ArrayList;
 
-public class GetMapsAsyncTaskFavorites extends AsyncTask<MapDBHelperFavorites, Integer, ArrayList<PlaceModel>> {
+public class GetMapsAsyncTaskFavorites extends AsyncTask<PlaceViewModelFavorites, Integer, ArrayList<PlaceModel>> {
 
     private RecyclerView mRecyclerView;
     private PlaceCustomAdapterFavorites mPlaceCustomAdapterFavorites;  // Adapter
@@ -23,9 +23,9 @@ public class GetMapsAsyncTaskFavorites extends AsyncTask<MapDBHelperFavorites, I
 
     // DoInBackground of the ArrayList of PlaceModel that put the getAllMaps in the SQLiteHelper in the ArrayList of PlaceModel
     @Override
-    protected ArrayList<PlaceModel> doInBackground(MapDBHelperFavorites... mapDBHelperFavorites) {
-        MapDBHelperFavorites myDb = mapDBHelperFavorites[0];
-        mMapList = myDb.getAllMaps();
+    protected ArrayList<PlaceModel> doInBackground(PlaceViewModelFavorites... placeViewModelFavorite) {
+        PlaceViewModelFavorites placeViewModelFavorites = placeViewModelFavorite[0];
+        mMapList = placeViewModelFavorites.getAllPlaces();
 
         return mMapList;
     }

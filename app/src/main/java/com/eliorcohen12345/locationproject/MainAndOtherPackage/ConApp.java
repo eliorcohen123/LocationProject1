@@ -6,17 +6,17 @@ import android.content.Context;
 // Summary of getContext
 public class ConApp extends Application {
 
-    private static Context mContext;
+    private static Application application;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        mContext = this;
+        application = this;
     }
 
-    public static Context getmContext() {
-        return mContext;
+    public static Application getApplication() {
+        return application;
     }
 
 }

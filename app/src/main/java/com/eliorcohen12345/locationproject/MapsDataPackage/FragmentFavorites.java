@@ -5,6 +5,8 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelFavorites;
+import com.eliorcohen12345.locationproject.MainAndOtherPackage.ConApp;
 import com.eliorcohen12345.locationproject.MainAndOtherPackage.ItemDecoration;
 import com.google.android.material.navigation.NavigationView;
 
@@ -27,13 +29,11 @@ import android.view.ViewGroup;
 
 import com.eliorcohen12345.locationproject.AsyncTaskPackage.GetMapsAsyncTaskFavorites;
 import com.eliorcohen12345.locationproject.CustomAdapterPackage.PlaceCustomAdapterFavorites;
-import com.eliorcohen12345.locationproject.DataAppPackage.MapDBHelperFavorites;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
 import com.eliorcohen12345.locationproject.MainAndOtherPackage.MainActivity;
 import com.eliorcohen12345.locationproject.R;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class FragmentFavorites extends Fragment implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -41,7 +41,7 @@ public class FragmentFavorites extends Fragment implements NavigationView.OnNavi
     private PlaceCustomAdapterFavorites mAdapter;  // CustomAdapter of FragmentFavorites
     private GetMapsAsyncTaskFavorites mGetMapsAsyncTaskFavorites;  // AsyncTask for AddMap to add place to FragmentFavorites
     private RecyclerView mRecyclerView;  // RecyclerView of FragmentFavorites
-    private MapDBHelperFavorites mMapDBHelperFavorites;  // The SQLiteHelper of the FragmentFavorites
+    private PlaceViewModelFavorites placeViewModelFavorites;
     private View mView;
     private DrawerLayout drawer;
     private NavigationView navigationView;
@@ -67,12 +67,12 @@ public class FragmentFavorites extends Fragment implements NavigationView.OnNavi
         navigationView = mView.findViewById(R.id.nav_view);
         toolbar = mView.findViewById(R.id.toolbar);
 
-        mMapDBHelperFavorites = new MapDBHelperFavorites(getContext());  // Put the SQLiteHelper in FragmentFavorites
+        placeViewModelFavorites = new PlaceViewModelFavorites(ConApp.getApplication());  // Put the SQLiteHelper in FragmentFavorites
         itemDecoration = null;
     }
 
     private void getData() {
-        mMapList = mMapDBHelperFavorites.getAllMaps();  // Put the getAllMaps of SQLiteHelper in the ArrayList of FragmentFavorites
+        mMapList = placeViewModelFavorites.getAllPlaces();  // Put the getAllMaps of SQLiteHelper in the ArrayList of FragmentFavorites
         mAdapter = new PlaceCustomAdapterFavorites(getContext(), mMapList);  // Comparing the ArrayList of FragmentFavorites to the CustomAdapter
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if (itemDecoration == null) {
@@ -83,11 +83,11 @@ public class FragmentFavorites extends Fragment implements NavigationView.OnNavi
 
         // Put AsyncTask in the RecyclerView of FragmentFavorites to execute the SQLiteHelper
         mGetMapsAsyncTaskFavorites = new GetMapsAsyncTaskFavorites(mRecyclerView);
-        mGetMapsAsyncTaskFavorites.execute(mMapDBHelperFavorites);
+        mGetMapsAsyncTaskFavorites.execute(placeViewModelFavorites);
     }
 
     private void drawerLayout() {
-        ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
 
         mView.findViewById(R.id.myButton).setOnClickListener(v -> {
             // open right drawer

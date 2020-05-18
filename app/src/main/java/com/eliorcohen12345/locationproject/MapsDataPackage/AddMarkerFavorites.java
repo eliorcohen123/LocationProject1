@@ -11,7 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.eliorcohen12345.locationproject.DataAppPackage.MapDBHelperFavorites;
+import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelFavorites;
+import com.eliorcohen12345.locationproject.MainAndOtherPackage.ConApp;
 import com.eliorcohen12345.locationproject.R;
 import com.squareup.picasso.Picasso;
 
@@ -19,7 +20,7 @@ import java.util.Objects;
 
 public class AddMarkerFavorites extends AppCompatActivity implements View.OnClickListener {
 
-    private MapDBHelperFavorites mapDBHelperFavorites;  // The SQLiteHelper of the app
+    private PlaceViewModelFavorites placeViewModelFavorites;
     private double latS, lngS;
     private EditText name, address, lat, lng, photo;
     private TextView textViewOK, textViewShow;
@@ -54,7 +55,7 @@ public class AddMarkerFavorites extends AppCompatActivity implements View.OnClic
 
         btnBack = findViewById(R.id.btnBack);
 
-        mapDBHelperFavorites = new MapDBHelperFavorites(this);
+        placeViewModelFavorites = new PlaceViewModelFavorites(ConApp.getApplication());
     }
 
     private void initListeners() {
@@ -93,7 +94,7 @@ public class AddMarkerFavorites extends AppCompatActivity implements View.OnClic
                 double lng2 = Double.parseDouble(lng1);
 
                 // The texts in the SQLiteHelper
-                mapDBHelperFavorites.addMapFav(name1, address1, lat2, lng2, photo1);
+                placeViewModelFavorites.insertPlace(name1, address1, lat2, lng2, photo1);
 
                 // Pass from AddMapFromInternet to ActivityFavorites
                 Intent intentAddInternetToMain = new Intent(AddMarkerFavorites.this, ActivityFavorites.class);

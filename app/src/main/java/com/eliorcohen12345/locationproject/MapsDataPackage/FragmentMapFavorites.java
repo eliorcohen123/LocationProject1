@@ -19,6 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
+import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelFavorites;
+import com.eliorcohen12345.locationproject.MainAndOtherPackage.ConApp;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.core.app.ActivityCompat;
@@ -40,7 +42,6 @@ import android.widget.Toast;
 
 import com.eliorcohen12345.locationproject.AsyncTaskPackage.GetMapsAsyncTaskFavorites;
 import com.eliorcohen12345.locationproject.CustomAdapterPackage.CustomInfoWindowGoogleMapFavorites;
-import com.eliorcohen12345.locationproject.DataAppPackage.MapDBHelperFavorites;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
 import com.eliorcohen12345.locationproject.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -79,7 +80,7 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
     private String provider;
     private ImageView moovit, gett, waze, num1, num2, num3, num4, num5, btnOpenList;
     private TextView textGeo;
-    private MapDBHelperFavorites mMapDBHelperFavorites;
+    private PlaceViewModelFavorites placeViewModelFavorites;
     private GetMapsAsyncTaskFavorites mGetMapsAsyncTaskFavorites;
     private ArrayList<PlaceModel> mMapList;  // ArrayList of PlaceModel
     private RecyclerView mRecyclerView;  // RecyclerView of FragmentMapFavorites
@@ -136,7 +137,7 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
         linearList.setVisibility(View.GONE);
 
         markers = new ArrayList<Marker>();
-        mMapDBHelperFavorites = new MapDBHelperFavorites(getContext());
+        placeViewModelFavorites = new PlaceViewModelFavorites(ConApp.getApplication());
         prefsSeekGeo = PreferenceManager.getDefaultSharedPreferences(getContext());
         myRadiusGeo = prefsSeekGeo.getInt("seek_geo", 500);
         textGeo.setText("Geofence? (" + myRadiusGeo + "m)");
@@ -175,12 +176,12 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
 
     private void getData() {
         try {
-            mMapList = mMapDBHelperFavorites.getAllMaps();  // Put the getAllMaps of SQLiteHelper in the ArrayList of FragmentFavorites
+            mMapList = placeViewModelFavorites.getAllPlaces();  // Put the getAllMaps of SQLiteHelper in the ArrayList of FragmentFavorites
 
             // Put AsyncTask in the RecyclerView of FragmentFavorites to execute the SQLiteHelper
             mRecyclerView = new RecyclerView(Objects.requireNonNull(getContext()));
             mGetMapsAsyncTaskFavorites = new GetMapsAsyncTaskFavorites(mRecyclerView);
-            mGetMapsAsyncTaskFavorites.execute(mMapDBHelperFavorites);
+            mGetMapsAsyncTaskFavorites.execute(placeViewModelFavorites);
         } catch (Exception e) {
 
         }

@@ -33,7 +33,7 @@ public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList
 
         // Tablet/Phone mode
         DisplayMetrics metrics = new DisplayMetrics();
-        ((WindowManager) ConApp.getmContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(metrics);
+        ((WindowManager) ConApp.getApplication().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(metrics);
 
         float yInches = metrics.heightPixels / metrics.ydpi;
         float xInches = metrics.widthPixels / metrics.xdpi;
@@ -102,7 +102,7 @@ public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList
 
         // Tablet/Phone mode
         DisplayMetrics metrics = new DisplayMetrics();
-        ((WindowManager) ConApp.getmContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(metrics);
+        ((WindowManager) ConApp.getApplication().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(metrics);
 
         float yInches = metrics.heightPixels / metrics.ydpi;
         float xInches = metrics.widthPixels / metrics.xdpi;
@@ -111,7 +111,7 @@ public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList
             FragmentSearch.stopShowingProgressDialog();
         }
 
-        mapDBHelperSearch = new MapDBHelperSearch(ConApp.getmContext());
+        mapDBHelperSearch = new MapDBHelperSearch(ConApp.getApplication());
         try {
             mapDBHelperSearch.addMapList(placeModels);
             FragmentSearch.getData(placeModels);

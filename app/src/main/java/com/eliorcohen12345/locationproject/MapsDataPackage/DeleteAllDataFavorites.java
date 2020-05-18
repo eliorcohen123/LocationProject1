@@ -12,13 +12,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.eliorcohen12345.locationproject.DataAppPackage.MapDBHelperFavorites;
+import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelFavorites;
+import com.eliorcohen12345.locationproject.MainAndOtherPackage.ConApp;
 import com.eliorcohen12345.locationproject.MainAndOtherPackage.MainActivity;
 import com.eliorcohen12345.locationproject.R;
 
 public class DeleteAllDataFavorites extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnOK, btnCancel;
-    private MapDBHelperFavorites mapDBHelperFavorites;  // The SQLiteHelper of the Favorites
+    private PlaceViewModelFavorites placeViewModelFavorites;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,7 @@ public class DeleteAllDataFavorites extends AppCompatActivity implements View.On
         btnOK = findViewById(R.id.btnOK);
         btnCancel = findViewById(R.id.btnCancel);
 
-        mapDBHelperFavorites = new MapDBHelperFavorites(this);  // Put the SQLiteHelper in DeleteAllDataFavorites
+        placeViewModelFavorites = new PlaceViewModelFavorites(ConApp.getApplication());
     }
 
     private void initListeners() {
@@ -45,7 +47,7 @@ public class DeleteAllDataFavorites extends AppCompatActivity implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnOK:
-                mapDBHelperFavorites.deleteData();
+                placeViewModelFavorites.deleteAll();
 
                 Toast toast = Toast.makeText(DeleteAllDataFavorites.this, "All the data of favorites are deleted!", Toast.LENGTH_LONG);
                 View view = toast.getView();

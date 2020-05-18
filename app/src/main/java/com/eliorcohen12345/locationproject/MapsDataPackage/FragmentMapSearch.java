@@ -171,7 +171,7 @@ public class FragmentMapSearch extends Fragment implements OnMapReadyCallback, V
                 mGetMapsAsyncTaskHistory.execute(mMapDBHelperSearch);
                 // Tablet/Phone mode
                 DisplayMetrics metrics = new DisplayMetrics();
-                ((WindowManager) ConApp.getmContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(metrics);
+                ((WindowManager) ConApp.getApplication().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(metrics);
 
                 float yInches = metrics.heightPixels / metrics.ydpi;
                 float xInches = metrics.widthPixels / metrics.xdpi;

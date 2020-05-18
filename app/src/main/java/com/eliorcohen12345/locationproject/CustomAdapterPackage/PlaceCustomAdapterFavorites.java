@@ -30,6 +30,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.eliorcohen12345.locationproject.DataAppPackage.MapDBHelperFavorites;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelFavorites;
+import com.eliorcohen12345.locationproject.MainAndOtherPackage.ConApp;
 import com.eliorcohen12345.locationproject.MapsDataPackage.DeletePlace;
 import com.eliorcohen12345.locationproject.MapsDataPackage.EditPlace;
 import com.eliorcohen12345.locationproject.MapsDataPackage.FragmentMapFavorites;
@@ -92,8 +94,8 @@ public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCusto
                         mInflater.getContext().startActivity(sendIntent);
                         break;
                     case 3:
-                        mMapDBHelperFavorites = new MapDBHelperFavorites(mInflater.getContext());
-                        mMapDBHelperFavorites.deleteMap(current);
+                        placeViewModelFavorites = new PlaceViewModelFavorites(ConApp.getApplication());
+                        placeViewModelFavorites.deletePlace(current);
 
                         Intent intentDeleteData = new Intent(mInflater.getContext(), DeletePlace.class);
                         mInflater.getContext().startActivity(intentDeleteData);
@@ -110,7 +112,7 @@ public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCusto
     private LocationManager locationManager;
     private Criteria criteria;
     private String provider;
-    private MapDBHelperFavorites mMapDBHelperFavorites;
+    private PlaceViewModelFavorites placeViewModelFavorites;
 
     public PlaceCustomAdapterFavorites(Context context, ArrayList<PlaceModel> dataList) {
         mInflater = LayoutInflater.from(context);

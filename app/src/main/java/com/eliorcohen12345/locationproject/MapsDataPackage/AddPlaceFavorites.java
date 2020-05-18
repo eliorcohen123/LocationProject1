@@ -11,8 +11,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.eliorcohen12345.locationproject.DataAppPackage.MapDBHelperFavorites;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelFavorites;
+import com.eliorcohen12345.locationproject.MainAndOtherPackage.ConApp;
 import com.eliorcohen12345.locationproject.R;
 import com.squareup.picasso.Picasso;
 
@@ -21,7 +22,7 @@ import java.util.Objects;
 public class AddPlaceFavorites extends AppCompatActivity implements View.OnClickListener {
 
     private PlaceModel item;
-    private MapDBHelperFavorites mapDBHelperFavorites;  // The SQLiteHelper of the app
+    private PlaceViewModelFavorites placeViewModelFavorites;
     private EditText name, address, lat, lng, photo;
     private TextView textViewOK, textViewShow;
     private Button btnBack;
@@ -54,7 +55,7 @@ public class AddPlaceFavorites extends AppCompatActivity implements View.OnClick
 
         imageView = findViewById(R.id.imageViewMe);
 
-        mapDBHelperFavorites = new MapDBHelperFavorites(this);
+        placeViewModelFavorites = new PlaceViewModelFavorites(ConApp.getApplication());
     }
 
     private void initListeners() {
@@ -99,7 +100,7 @@ public class AddPlaceFavorites extends AppCompatActivity implements View.OnClick
                 double lng2 = Double.parseDouble(lng1);
 
                 // The texts in the SQLiteHelper
-                mapDBHelperFavorites.addMapFav(name1, address1, lat2, lng2, photo1);
+                placeViewModelFavorites.insertPlace(name1, address1, lat2, lng2, photo1);
 
                 // Pass from AddMapFromInternet to ActivityFavorites
                 Intent intentAddInternetToMain = new Intent(AddPlaceFavorites.this, ActivityFavorites.class);
