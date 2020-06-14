@@ -45,6 +45,7 @@ class ChatActivity : AppCompatActivity() {
         list_chat.layoutManager = LinearLayoutManager(this)
         val adapter = ChatAdapter(chatMessages, user.uid)
         list_chat.adapter = adapter
+
         listenForChatMessages()
     }
 
