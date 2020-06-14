@@ -35,9 +35,7 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun setViewListeners() {
-        button_send.setOnClickListener {
-            sendChatMessage()
-        }
+        button_send.setOnClickListener { sendChatMessage() }
     }
 
     private fun initList() {
