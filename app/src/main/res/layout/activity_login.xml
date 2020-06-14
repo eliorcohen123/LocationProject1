@@ -36,17 +36,28 @@
         <Button
             android:id="@+id/button_login"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginTop="48dp"
-            android:paddingStart="48dp"
-            android:paddingEnd="48dp"
+            android:background="#D81B60"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:text="Log In" />
+
+        <TextView
+            android:id="@+id/textview_forgot"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:text="Forgot password? Press here"
+            android:textAllCaps="false"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/textview_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="15dp"
             android:text="Not logged in yet? Register here" />
 
         <TextView

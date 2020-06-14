@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.eliorcohen12345.locationproject"
-    android:versionCode="132"
+    android:versionCode="133"
     android:versionName="1.0.0">
 
     <uses-feature
@@ -63,8 +63,10 @@
         <activity android:name="com.eliorcohen12345.locationproject.MainAndOtherPackage.SettingsActivity" />
         <activity android:name="com.eliorcohen12345.locationproject.MapsDataPackage.RegisterActivity" />
         <activity android:name="com.eliorcohen12345.locationproject.MapsDataPackage.ChatActivity" />
-        <activity android:name="com.eliorcohen12345.locationproject.MainAndOtherPackage.MainActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name="com.eliorcohen12345.locationproject.MapsDataPackage.ForgotPasswordActivity" />
+        <activity
+            android:name="com.eliorcohen12345.locationproject.MainAndOtherPackage.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

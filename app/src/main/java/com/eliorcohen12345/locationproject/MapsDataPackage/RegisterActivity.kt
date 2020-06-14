@@ -4,13 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.eliorcohen12345.locationproject.MainAndOtherPackage.EmailValidator
 import com.eliorcohen12345.locationproject.MainAndOtherPackage.MainActivity
 import com.eliorcohen12345.locationproject.R
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.edittext_email
 import kotlinx.android.synthetic.main.activity_login.edittext_password
 import kotlinx.android.synthetic.main.activity_register.*
-import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -50,14 +50,7 @@ class RegisterActivity : AppCompatActivity() {
                 && !password.isNullOrEmpty()
                 && !confirmPassword.isNullOrEmpty()
                 && password == confirmPassword
-                && isEmailValid(email!!)
-    }
-
-    private fun isEmailValid(email: String): Boolean {
-        val expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$"
-        val pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE)
-        val matcher = pattern.matcher(email)
-        return matcher.matches()
+                && EmailValidator.getInstance().isValidEmail(email!!)
     }
 
     private fun register() {

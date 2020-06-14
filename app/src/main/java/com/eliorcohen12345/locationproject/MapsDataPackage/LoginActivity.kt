@@ -4,13 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.eliorcohen12345.locationproject.MainAndOtherPackage.EmailValidator
 import com.eliorcohen12345.locationproject.MainAndOtherPackage.MainActivity
 import com.eliorcohen12345.locationproject.R
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.edittext_email
 import kotlinx.android.synthetic.main.activity_login.edittext_password
-import java.util.regex.Pattern
 
 class LoginActivity : AppCompatActivity() {
 
@@ -33,6 +33,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setViewListeners() {
         button_login.setOnClickListener { submit() }
+        textview_forgot.setOnClickListener { launchForgot() }
         textview_register.setOnClickListener { launchRegister() }
     }
 
@@ -52,14 +53,7 @@ class LoginActivity : AppCompatActivity() {
     private fun validate(): Boolean {
         return !email.isNullOrEmpty()
                 && !password.isNullOrEmpty()
-                && isEmailValid(email!!)
-    }
-
-    private fun isEmailValid(email: String): Boolean {
-        val expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$"
-        val pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE)
-        val matcher = pattern.matcher(email)
-        return matcher.matches()
+                && EmailValidator.getInstance().isValidEmail(email!!)
     }
 
     private fun login() {
@@ -81,6 +75,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun launchRegister() {
         startActivity(Intent(this, RegisterActivity::class.java))
+    }
+
+    private fun launchForgot() {
+        startActivity(Intent(this, ForgotPasswordActivity::class.java))
     }
 
     private fun showErrorMessage() {
