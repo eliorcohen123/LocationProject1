@@ -1,6 +1,5 @@
 package com.eliorcohen12345.locationproject.MapsDataPackage
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,10 +23,15 @@ class ChatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_room)
-        checkUser()
 
         initList()
         setViewListeners()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        chatRegistration?.remove()
     }
 
     private fun setViewListeners() {
@@ -83,24 +87,6 @@ class ChatActivity : AppCompatActivity() {
                             Pair("timestamp", Timestamp.now())
                     ))
         }
-    }
-
-    private fun checkUser() {
-        if (user == null)
-            launchLogin()
-    }
-
-    private fun launchLogin() {
-        val intent = Intent(this, LoginActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-        finish()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        chatRegistration?.remove()
     }
 
 }

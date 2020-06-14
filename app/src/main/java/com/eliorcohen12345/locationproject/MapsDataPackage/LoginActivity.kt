@@ -25,6 +25,12 @@ class LoginActivity : AppCompatActivity() {
         setViewListeners()
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        checkUser()
+    }
+
     private fun setViewListeners() {
         button_login.setOnClickListener { submit() }
         textview_register.setOnClickListener { launchRegister() }
@@ -85,12 +91,6 @@ class LoginActivity : AppCompatActivity() {
     private fun checkUser() {
         if (auth.currentUser != null)
             launchMain()
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        checkUser()
     }
 
 }
