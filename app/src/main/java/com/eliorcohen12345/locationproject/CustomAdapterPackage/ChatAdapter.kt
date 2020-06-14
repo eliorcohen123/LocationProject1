@@ -33,7 +33,6 @@ class ChatAdapter(val chatMessages: List<ChatMessage>, val uid: String) : Recycl
         }
     }
 
-
     class ViewHolder(inflater: LayoutInflater, parent: ViewGroup) : RecyclerView.ViewHolder(
             inflater.inflate(R.layout.list_item_chat, parent, false)
     )
