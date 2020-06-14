@@ -42,7 +42,9 @@ class ChatActivity : AppCompatActivity() {
         if (user == null)
             return
 
-        list_chat.layoutManager = LinearLayoutManager(this)
+        val layoutManager = LinearLayoutManager(this)
+        layoutManager.reverseLayout = true
+        list_chat.layoutManager = layoutManager
         val adapter = ChatAdapter(chatMessages, user.uid)
         list_chat.adapter = adapter
 
@@ -68,7 +70,7 @@ class ChatActivity : AppCompatActivity() {
                                 ))
                     }
 
-                    chatMessages.sortBy { it.timestamp }
+                    chatMessages.sortByDescending { it.timestamp }
                     list_chat.adapter?.notifyDataSetChanged()
                 }
     }
