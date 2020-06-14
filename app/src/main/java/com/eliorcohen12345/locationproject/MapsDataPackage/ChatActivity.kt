@@ -13,7 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import kotlinx.android.synthetic.main.activity_room.*
 
-class RoomActivity : AppCompatActivity() {
+class ChatActivity : AppCompatActivity() {
 
     val auth = FirebaseAuth.getInstance()
     val user = auth.currentUser

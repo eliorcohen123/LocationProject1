@@ -27,7 +27,7 @@ import com.eliorcohen12345.locationproject.MapsDataPackage.FragmentMapSearch;
 import com.eliorcohen12345.locationproject.MapsDataPackage.FragmentSearch;
 import com.eliorcohen12345.locationproject.MapsDataPackage.LoginActivity;
 import com.eliorcohen12345.locationproject.MapsDataPackage.PlaceCustomActivity;
-import com.eliorcohen12345.locationproject.MapsDataPackage.RoomActivity;
+import com.eliorcohen12345.locationproject.MapsDataPackage.ChatActivity;
 import com.eliorcohen12345.locationproject.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             Intent intentFavorite = new Intent(this, ActivityFavorites.class);
             startActivity(intentFavorite);
         } else if (id == R.id.liveMessages) {
-            Intent intentFavorite = new Intent(this, RoomActivity.class);
+            Intent intentFavorite = new Intent(this, ChatActivity.class);
             startActivity(intentFavorite);
         } else if (id == R.id.customFragment) {
             Intent intentCustomFragment = new Intent(this, PlaceCustomActivity.class);

@@ -62,7 +62,7 @@
         <activity android:name="com.eliorcohen12345.locationproject.MapsDataPackage.DeleteAllDataHistory" />
         <activity android:name="com.eliorcohen12345.locationproject.MainAndOtherPackage.SettingsActivity" />
         <activity android:name="com.eliorcohen12345.locationproject.MapsDataPackage.RegisterActivity" />
-        <activity android:name="com.eliorcohen12345.locationproject.MapsDataPackage.RoomActivity" />
+        <activity android:name="com.eliorcohen12345.locationproject.MapsDataPackage.ChatActivity" />
         <activity android:name="com.eliorcohen12345.locationproject.MainAndOtherPackage.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
 
