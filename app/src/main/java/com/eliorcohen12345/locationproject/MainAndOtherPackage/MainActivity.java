@@ -25,7 +25,9 @@ import com.eliorcohen12345.locationproject.MapsDataPackage.DeleteAllDataFavorite
 import com.eliorcohen12345.locationproject.MapsDataPackage.DeleteAllDataHistory;
 import com.eliorcohen12345.locationproject.MapsDataPackage.FragmentMapSearch;
 import com.eliorcohen12345.locationproject.MapsDataPackage.FragmentSearch;
+import com.eliorcohen12345.locationproject.MapsDataPackage.LoginActivity;
 import com.eliorcohen12345.locationproject.MapsDataPackage.PlaceCustomActivity;
+import com.eliorcohen12345.locationproject.MapsDataPackage.RoomActivity;
 import com.eliorcohen12345.locationproject.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -35,8 +37,11 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import guy4444.smartrate.SmartRate;
+
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, NavigationView.OnNavigationItemSelectedListener {
@@ -52,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private DrawerLayout drawer;
     private Toolbar toolbar;
     private NavigationView navigationView;
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,6 +199,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         } else if (id == R.id.favorites) {
             Intent intentFavorite = new Intent(this, ActivityFavorites.class);
             startActivity(intentFavorite);
+        } else if (id == R.id.liveMessages) {
+            Intent intentFavorite = new Intent(this, RoomActivity.class);
+            startActivity(intentFavorite);
         } else if (id == R.id.customFragment) {
             Intent intentCustomFragment = new Intent(this, PlaceCustomActivity.class);
             startActivity(intentCustomFragment);
@@ -212,6 +221,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     "Hey check out my app at: https://play.google.com/store/apps/details?id=com.eliorcohen12345.locationproject");
             sendIntent.setType("text/plain");
             startActivity(sendIntent);
+        } else if (id == R.id.signOut) {
+            signOut();
         } else if (id == R.id.exit) {
             ActivityCompat.finishAffinity(this);
         }
@@ -219,6 +230,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.END);
         return true;
+    }
+
+    private void signOut() {
+        auth.signOut();
+
+        launchLogin();
+    }
+
+    private void launchLogin() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 
     protected void createLocationRequest() {

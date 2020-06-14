@@ -19,6 +19,11 @@
                 android:title="Favorites" />
 
             <item
+                android:id="@+id/liveMessages"
+                android:icon="@drawable/ic_settings_lightblue_24dp"
+                android:title="Live Messages" />
+
+            <item
                 android:id="@+id/customFragment"
                 android:icon="@drawable/ic_create_lightblue_24dp"
                 android:title="Add custom marker" />
@@ -42,6 +47,11 @@
                 android:id="@+id/shareIntentApp"
                 android:icon="@drawable/ic_share_lightblue_24dp"
                 android:title="Share the app" />
+
+            <item
+                android:id="@+id/signOut"
+                android:icon="@drawable/ic_share_lightblue_24dp"
+                android:title="Sign Out" />
 
             <item
                 android:id="@+id/exit"

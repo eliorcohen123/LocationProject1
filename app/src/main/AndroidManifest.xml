@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.eliorcohen12345.locationproject"
-    android:versionCode="131"
+    android:versionCode="132"
     android:versionName="1.0.0">
 
     <uses-feature
@@ -31,7 +31,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="com.eliorcohen12345.locationproject.MainAndOtherPackage.MainActivity"
+            android:name="com.eliorcohen12345.locationproject.MapsDataPackage.LoginActivity"
             android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,6 +61,10 @@
         <activity android:name="com.eliorcohen12345.locationproject.MapsDataPackage.PlaceCustomActivity" />
         <activity android:name="com.eliorcohen12345.locationproject.MapsDataPackage.DeleteAllDataHistory" />
         <activity android:name="com.eliorcohen12345.locationproject.MainAndOtherPackage.SettingsActivity" />
+        <activity android:name="com.eliorcohen12345.locationproject.MapsDataPackage.RegisterActivity" />
+        <activity android:name="com.eliorcohen12345.locationproject.MapsDataPackage.RoomActivity" />
+        <activity android:name="com.eliorcohen12345.locationproject.MainAndOtherPackage.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
