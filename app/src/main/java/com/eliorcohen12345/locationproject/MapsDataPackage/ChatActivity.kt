@@ -52,7 +52,7 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun listenForChatMessages() {
-        chatRegistration = firestore.collection("messages")
+        chatRegistration = firestore.collection("messages").limit(50)
                 .addSnapshotListener { messageSnapshot, exception ->
 
                     if (messageSnapshot == null || messageSnapshot.isEmpty)
