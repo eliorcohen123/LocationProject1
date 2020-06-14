@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.eliorcohen12345.locationproject.MainAndOtherPackage.EmailValidator
+import com.eliorcohen12345.locationproject.MainAndOtherPackage.EmailPasswordValidator
 import com.eliorcohen12345.locationproject.MainAndOtherPackage.MainActivity
 import com.eliorcohen12345.locationproject.R
 import com.google.firebase.auth.FirebaseAuth
@@ -53,7 +53,8 @@ class LoginActivity : AppCompatActivity() {
     private fun validate(): Boolean {
         return !email.isNullOrEmpty()
                 && !password.isNullOrEmpty()
-                && EmailValidator.getInstance().isValidEmail(email!!)
+                && EmailPasswordValidator.getInstance().isValidEmail(email!!)
+                && EmailPasswordValidator.getInstance().isValidPassword(password!!)
     }
 
     private fun login() {

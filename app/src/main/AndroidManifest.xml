@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.eliorcohen12345.locationproject"
-    android:versionCode="133"
+    android:versionCode="134"
     android:versionName="1.0.0">
 
     <uses-feature
@@ -32,7 +32,7 @@
 
         <activity
             android:name="com.eliorcohen12345.locationproject.MapsDataPackage.LoginActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -61,9 +61,13 @@
         <activity android:name="com.eliorcohen12345.locationproject.MapsDataPackage.PlaceCustomActivity" />
         <activity android:name="com.eliorcohen12345.locationproject.MapsDataPackage.DeleteAllDataHistory" />
         <activity android:name="com.eliorcohen12345.locationproject.MainAndOtherPackage.SettingsActivity" />
-        <activity android:name="com.eliorcohen12345.locationproject.MapsDataPackage.RegisterActivity" />
+        <activity
+            android:name="com.eliorcohen12345.locationproject.MapsDataPackage.RegisterActivity"
+            android:screenOrientation="portrait" />
         <activity android:name="com.eliorcohen12345.locationproject.MapsDataPackage.ChatActivity" />
-        <activity android:name="com.eliorcohen12345.locationproject.MapsDataPackage.ForgotPasswordActivity" />
+        <activity
+            android:name="com.eliorcohen12345.locationproject.MapsDataPackage.ForgotPasswordActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.eliorcohen12345.locationproject.MainAndOtherPackage.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />

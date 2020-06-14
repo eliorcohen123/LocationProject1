@@ -3,20 +3,20 @@ package com.eliorcohen12345.locationproject.MainAndOtherPackage;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class EmailValidator {
+public class EmailPasswordValidator {
 
-    private static volatile EmailValidator sInstance;
+    private static volatile EmailPasswordValidator sInstance;
 
-    private EmailValidator() {
+    private EmailPasswordValidator() {
         if (sInstance != null) {
             throw new RuntimeException("Use getInstance() method to get the single instance of this class.");
         }
     }
 
-    public static EmailValidator getInstance() {
+    public static EmailPasswordValidator getInstance() {
         if (sInstance == null) {
-            synchronized (EmailValidator.class) {
-                if (sInstance == null) sInstance = new EmailValidator();
+            synchronized (EmailPasswordValidator.class) {
+                if (sInstance == null) sInstance = new EmailPasswordValidator();
             }
         }
 
@@ -39,6 +39,14 @@ public class EmailValidator {
         matcher = pattern.matcher(password);
 
         return matcher.matches();
+    }
+
+    public boolean isValidPassword(final String password) {
+        if (password.length() < 8) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }

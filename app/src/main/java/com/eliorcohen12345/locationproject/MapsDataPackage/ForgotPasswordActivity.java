@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.eliorcohen12345.locationproject.MainAndOtherPackage.EmailValidator;
+import com.eliorcohen12345.locationproject.MainAndOtherPackage.EmailPasswordValidator;
 import com.eliorcohen12345.locationproject.R;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -44,7 +44,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
         switch (v.getId()) {
             case R.id.btnForgot:
                 String myEmailForgot = editTextForgot.getText().toString();
-                if (!EmailValidator.getInstance().isValidEmail(myEmailForgot)) {
+                if (!EmailPasswordValidator.getInstance().isValidEmail(myEmailForgot)) {
                     Toast.makeText(this, "Invalid email...", Toast.LENGTH_SHORT).show();
                 } else {
                     FirebaseAuth.getInstance().sendPasswordResetEmail(myEmailForgot)
