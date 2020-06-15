@@ -305,6 +305,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful() && task.getResult() != null) {
                         mLastLocation = task.getResult();
+                        Log.i(TAG, "Latitude: " + mLastLocation.getLatitude() + ", Longitude: " + mLastLocation.getLongitude());
                     } else {
                         Log.i(TAG, "Inside getLocation function. Error while getting location");
                         System.out.println(TAG + task.getException());
