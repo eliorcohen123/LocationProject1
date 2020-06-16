@@ -9,6 +9,11 @@
         app:showAsAction="ifRoom">
         <menu>
             <item
+                android:id="@+id/mainList"
+                android:icon="@drawable/ic_baseline_list_24"
+                android:title="Main List" />
+
+            <item
                 android:id="@+id/credits"
                 android:icon="@drawable/ic_copyright_lightblue_24dp"
                 android:title="Credits" />

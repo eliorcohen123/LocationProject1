@@ -39,6 +39,7 @@ import com.eliorcohen12345.locationproject.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCustomAdapterFavorites.PlaceViewHolder> {
 
@@ -200,6 +201,41 @@ public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCusto
             // Covers the case of data not being ready yet.
             holder.name3.setText("No Places");
         }
+    }
+
+    public void setMapsCollections() {
+        initLocation();
+        if (ActivityCompat.checkSelfPermission(mInflater.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.checkSelfPermission(mInflater.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION);
+        }// TODO: Consider calling
+//    ActivityCompat#requestPermissions
+// here to request the missing permissions, and then overriding
+//   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                                          int[] grantResults)
+// to handle the case where the user grants the permission. See the documentation
+// for ActivityCompat#requestPermissions for more details.
+        if (provider != null) {
+            location = locationManager.getLastKnownLocation(provider);
+            if (location != null) {
+                Collections.sort(mPlacesFavoritesList, (obj1, obj2) -> {
+                    // ## Ascending order
+//                return obj1.getDistance().compareToIgnoreCase(obj2.getDistance()); // To compare string values
+                    return Double.compare(Math.sqrt(Math.pow(obj1.getLat() - location.getLatitude(), 2) + Math.pow(obj1.getLng() - location.getLongitude(), 2)),
+                            Math.sqrt(Math.pow(obj2.getLat() - location.getLatitude(), 2) + Math.pow(obj2.getLng() - location.getLongitude(), 2))); // To compare integer values
+
+                    // ## Descending order
+                    // return obj2.getCompanyName().compareToIgnoreCase(obj1.getCompanyName()); // To compare string values
+                    // return Integer.valueOf(obj2.getId()).compareTo(obj1.getId()); // To compare integer values
+                });
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    private void initLocation() {
+        locationManager = (LocationManager) mInflater.getContext().getSystemService(Context.LOCATION_SERVICE);
+        criteria = new Criteria();
+        provider = locationManager.getBestProvider(criteria, true);
     }
 
     // getItemCount() is called many times, and when it is first called,

@@ -84,8 +84,8 @@ public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList
         return arrList;
     }
 
-    //The response of the JSON
-    private class MapResponse {
+    // The response of the JSON
+    private static class MapResponse {
 
         private List<PlaceModel> results;
 
@@ -95,7 +95,7 @@ public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList
 
     }
 
-    // execute the following:
+    // Execute the following:
     @Override
     protected void onPostExecute(ArrayList<PlaceModel> placeModels) {
         super.onPostExecute(placeModels);

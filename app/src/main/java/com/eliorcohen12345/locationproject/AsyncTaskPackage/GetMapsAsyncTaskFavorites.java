@@ -1,6 +1,7 @@
 package com.eliorcohen12345.locationproject.AsyncTaskPackage;
 
 import android.os.AsyncTask;
+import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,13 +31,18 @@ public class GetMapsAsyncTaskFavorites extends AsyncTask<PlaceViewModelFavorites
         return mMapList;
     }
 
-    // execute to add maps manually
+    // Execute to add maps manually
     @Override
     protected void onPostExecute(ArrayList<PlaceModel> placeModels) {
         super.onPostExecute(placeModels);
 
         mMapList = placeModels;
         mPlaceCustomAdapterFavorites = new PlaceCustomAdapterFavorites(mRecyclerView.getContext(), mMapList);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setItemViewCacheSize(20);
+        mRecyclerView.setDrawingCacheEnabled(true);
+        mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        mPlaceCustomAdapterFavorites.setMapsCollections();
         mRecyclerView.setAdapter(mPlaceCustomAdapterFavorites);
     }
 

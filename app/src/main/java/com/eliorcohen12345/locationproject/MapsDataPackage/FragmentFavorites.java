@@ -54,8 +54,8 @@ public class FragmentFavorites extends Fragment implements NavigationView.OnNavi
         mView = inflater.inflate(R.layout.fragment_favorites_layout, container, false);
 
         initUI();
-        getData();
         drawerLayout();
+        getData();
 
         return mView;
     }
@@ -69,9 +69,12 @@ public class FragmentFavorites extends Fragment implements NavigationView.OnNavi
 
         placeViewModelFavorites = new PlaceViewModelFavorites(ConApp.getApplication());  // Put the SQLiteHelper in FragmentFavorites
         itemDecoration = null;
+
+        mMapList = new ArrayList<>();
     }
 
     private void getData() {
+        mMapList.clear();
         mMapList = placeViewModelFavorites.getAllPlaces();  // Put the getAllMaps of SQLiteHelper in the ArrayList of FragmentFavorites
         mAdapter = new PlaceCustomAdapterFavorites(getContext(), mMapList);  // Comparing the ArrayList of FragmentFavorites to the CustomAdapter
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -79,6 +82,7 @@ public class FragmentFavorites extends Fragment implements NavigationView.OnNavi
             itemDecoration = new ItemDecoration(20);
             mRecyclerView.addItemDecoration(itemDecoration);
         }
+        mAdapter.setMapsCollections();
         mRecyclerView.setAdapter(mAdapter);
 
         // Put AsyncTask in the RecyclerView of FragmentFavorites to execute the SQLiteHelper

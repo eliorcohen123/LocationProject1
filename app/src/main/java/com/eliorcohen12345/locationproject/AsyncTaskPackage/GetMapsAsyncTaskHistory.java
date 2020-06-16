@@ -30,12 +30,14 @@ public class GetMapsAsyncTaskHistory extends AsyncTask<PlaceViewModelSearchDB, I
         return mMapList;
     }
 
-    // execute to add places manually
+    // Execute to add places manually
     @Override
     protected void onPostExecute(ArrayList<PlaceModel> placeModels) {
         super.onPostExecute(placeModels);
 
-        mPlaceCustomAdapterSearch = new PlaceCustomAdapterSearch(mRecyclerView.getContext(), placeModels);
+        mMapList = placeModels;
+        mPlaceCustomAdapterSearch = new PlaceCustomAdapterSearch(mRecyclerView.getContext(), mMapList);
+        mRecyclerView.setHasFixedSize(true);
         mPlaceCustomAdapterSearch.setMapsCollections();
         mRecyclerView.setAdapter(mPlaceCustomAdapterSearch);
     }

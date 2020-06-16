@@ -106,17 +106,9 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         initLocation();
         refreshUI();
         getData(mMapList);
+        getCheckBtnSearch(myPage, myType, myStringQuery);
 
         return mView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        myType = prefsType.getString("mystringtypesearch", "");
-        myStringQuery = prefsQuery.getString("mystringquerysearch", "");
-        getCheckBtnSearch(myPage, myType, myStringQuery);
     }
 
     private void initUI() {
@@ -155,7 +147,10 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         googleMapsApi = new GoogleMapsApi();
         itemDecoration = null;
 
+        myType = prefsType.getString("mystringtypesearch", "");
+        myStringQuery = prefsQuery.getString("mystringquerysearch", "");
         myPageMy = prefsPageMy.getInt("mystringpagemy", 1);
+
         if (myPageMy == 1) {
             myPage = 1;
         } else if (myPageMy == 2) {
@@ -255,6 +250,10 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             itemDecoration = new ItemDecoration(20);
             mRecyclerView.addItemDecoration(itemDecoration);
         }
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setItemViewCacheSize(20);
+        mRecyclerView.setDrawingCacheEnabled(true);
+        mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         mAdapter.setMapsCollections();
         mRecyclerView.setAdapter(mAdapter);
 
@@ -539,9 +538,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
     private void getTypeQuery(String pageToken, String type, String query) {
         if (!isConnected(requireContext())) {
-            mMapList = placeViewModelSearchDB.getAllPlaces();
-            mAdapter = new PlaceCustomAdapterSearch(getActivity(), mMapList);
-            mAdapter.setMapsCollections();
             // Put AsyncTask in the RecyclerView of fragmentSearch to execute the SQLiteHelper
             mGetMapsAsyncTaskHistory = new GetMapsAsyncTaskHistory(mRecyclerView);
             mGetMapsAsyncTaskHistory.execute(placeViewModelSearchDB);
