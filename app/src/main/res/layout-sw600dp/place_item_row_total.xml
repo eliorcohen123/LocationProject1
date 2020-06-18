@@ -4,8 +4,7 @@
     android:id="@+id/relative1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:descendantFocusability="blocksDescendants"
-    android:orientation="vertical">
+    android:descendantFocusability="blocksDescendants">
 
     <ImageView
         android:id="@+id/image1"
