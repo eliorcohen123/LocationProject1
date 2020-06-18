@@ -188,6 +188,7 @@ public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCusto
                     }
                 }
             }
+
             holder.relativeLayout3.setOnClickListener(v -> {
                 FragmentMapFavorites fragmentMapFavorites = new FragmentMapFavorites();
                 Bundle bundle = new Bundle();

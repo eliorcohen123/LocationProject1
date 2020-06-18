@@ -240,8 +240,10 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         mAdapter = new PlaceCustomAdapterSearch(ConApp.getApplication(), mMapList);
         if (mAdapter.getItemCount() != 0) {
             handScrollDownImage.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
         } else {
             handScrollDownImage.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
         }
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mFragmentSearch.getContext()));
         if (itemDecoration == null) {
