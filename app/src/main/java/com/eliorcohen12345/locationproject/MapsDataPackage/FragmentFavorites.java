@@ -27,7 +27,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.eliorcohen12345.locationproject.AsyncTaskPackage.GetMapsAsyncTaskFavorites;
 import com.eliorcohen12345.locationproject.CustomAdapterPackage.PlaceCustomAdapterFavorites;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
 import com.eliorcohen12345.locationproject.MainAndOtherPackage.MainActivity;
@@ -39,7 +38,6 @@ public class FragmentFavorites extends Fragment implements NavigationView.OnNavi
 
     private ArrayList<PlaceModel> mMapList;  // ArrayList of PlaceModel
     private PlaceCustomAdapterFavorites mAdapter;  // CustomAdapter of FragmentFavorites
-    private GetMapsAsyncTaskFavorites mGetMapsAsyncTaskFavorites;  // AsyncTask for AddMap to add place to FragmentFavorites
     private RecyclerView mRecyclerView;  // RecyclerView of FragmentFavorites
     private PlaceViewModelFavorites placeViewModelFavorites;
     private View mView;
@@ -82,12 +80,12 @@ public class FragmentFavorites extends Fragment implements NavigationView.OnNavi
             itemDecoration = new ItemDecoration(20);
             mRecyclerView.addItemDecoration(itemDecoration);
         }
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setItemViewCacheSize(20);
+        mRecyclerView.setDrawingCacheEnabled(true);
+        mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         mAdapter.setMapsCollections();
         mRecyclerView.setAdapter(mAdapter);
-
-        // Put AsyncTask in the RecyclerView of FragmentFavorites to execute the SQLiteHelper
-        mGetMapsAsyncTaskFavorites = new GetMapsAsyncTaskFavorites(mRecyclerView);
-        mGetMapsAsyncTaskFavorites.execute(placeViewModelFavorites);
     }
 
     private void drawerLayout() {

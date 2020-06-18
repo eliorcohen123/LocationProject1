@@ -25,7 +25,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -40,7 +39,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.eliorcohen12345.locationproject.AsyncTaskPackage.GetMapsAsyncTaskFavorites;
 import com.eliorcohen12345.locationproject.CustomAdapterPackage.CustomInfoWindowGoogleMapFavorites;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
 import com.eliorcohen12345.locationproject.R;
@@ -81,9 +79,7 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
     private ImageView moovit, gett, waze, num1, num2, num3, num4, num5, btnOpenList;
     private TextView textGeo;
     private PlaceViewModelFavorites placeViewModelFavorites;
-    private GetMapsAsyncTaskFavorites mGetMapsAsyncTaskFavorites;
-    private ArrayList<PlaceModel> mMapList;  // ArrayList of PlaceModel
-    private RecyclerView mRecyclerView;  // RecyclerView of FragmentMapFavorites
+    private ArrayList<PlaceModel> mMapList = new ArrayList<>();  // ArrayList of PlaceModel
     private List<Marker> markers;
     private CoordinatorLayout coordinatorLayout;
     private LinearLayout linearList;
@@ -177,11 +173,6 @@ public class FragmentMapFavorites extends Fragment implements OnMapReadyCallback
     private void getData() {
         try {
             mMapList = placeViewModelFavorites.getAllPlaces();  // Put the getAllMaps of SQLiteHelper in the ArrayList of FragmentFavorites
-
-            // Put AsyncTask in the RecyclerView of FragmentFavorites to execute the SQLiteHelper
-            mRecyclerView = new RecyclerView(Objects.requireNonNull(getContext()));
-            mGetMapsAsyncTaskFavorites = new GetMapsAsyncTaskFavorites(mRecyclerView);
-            mGetMapsAsyncTaskFavorites.execute(placeViewModelFavorites);
         } catch (Exception e) {
 
         }

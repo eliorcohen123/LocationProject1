@@ -25,6 +25,7 @@ public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList
 
     private PlaceViewModelSearchDB placeViewModelSearchDB;
     private double diagonalInches;
+    private ArrayList<PlaceModel> mPlaceModels = new ArrayList<>();
 
     // startShowingProgressDialog of FragmentSearch
     @Override
@@ -65,12 +66,12 @@ public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList
         }
         try {
             assert response.body() != null;
-            return getMapsListFromJson(Objects.requireNonNull(response.body()).string());
+            mPlaceModels = getMapsListFromJson(Objects.requireNonNull(response.body()).string());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return mPlaceModels;
     }
 
     // Get places from the JSON

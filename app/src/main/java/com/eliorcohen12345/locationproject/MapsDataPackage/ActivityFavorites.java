@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -23,7 +22,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.eliorcohen12345.locationproject.AsyncTaskPackage.GetMapsAsyncTaskFavorites;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelFavorites;
 import com.eliorcohen12345.locationproject.GeofencePackage.Constants;
@@ -43,7 +41,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -63,14 +60,12 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
     private LocationManager locationManager;
     private Criteria criteria;
     private String provider;
-    private GetMapsAsyncTaskFavorites mGetMapsAsyncTaskFavorites;
     private PlaceViewModelFavorites placeViewModelFavorites;
     private RecyclerView mRecyclerView;
     private ArrayList<PlaceModel> mMapListFavorites;
     private boolean boolean_permission;
     private SharedPreferences mPref;
     private SharedPreferences.Editor mEdit;
-    private Geocoder geocoder;
 
     private enum PendingGeofenceTask {
         ADD, REMOVE, NONE
@@ -98,9 +93,6 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
     private void initUI() {
         placeViewModelFavorites = new PlaceViewModelFavorites(ConApp.getApplication());
         mMapListFavorites = placeViewModelFavorites.getAllPlaces();
-        mRecyclerView = new RecyclerView(ConApp.getApplication());
-        mGetMapsAsyncTaskFavorites = new GetMapsAsyncTaskFavorites(mRecyclerView);
-        mGetMapsAsyncTaskFavorites.execute(placeViewModelFavorites);
 
         prefsSeekGeo = PreferenceManager.getDefaultSharedPreferences(this);
         myRadiusGeo = prefsSeekGeo.getInt("seek_geo", 500);
@@ -114,7 +106,6 @@ public class ActivityFavorites extends AppCompatActivity implements OnCompleteLi
 
             mGeofencingClient = LocationServices.getGeofencingClient(this);
 
-            geocoder = new Geocoder(this, Locale.getDefault());
             mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             mEdit = mPref.edit();
 

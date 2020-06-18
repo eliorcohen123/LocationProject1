@@ -51,7 +51,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.eliorcohen12345.locationproject.AsyncTaskPackage.GetMapsAsyncTaskHistory;
 import com.eliorcohen12345.locationproject.AsyncTaskPackage.GetMapsAsyncTaskSearch;
 import com.eliorcohen12345.locationproject.CustomAdapterPackage.PlaceCustomAdapterSearch;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
@@ -76,7 +75,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     private static ProgressDialog mProgressDialogInternet;
     private static FragmentSearch mFragmentSearch;
     private GetMapsAsyncTaskSearch mGetMapsAsyncTaskSearch;
-    private GetMapsAsyncTaskHistory mGetMapsAsyncTaskHistory;
     private View mView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private static Location location;
@@ -539,8 +537,8 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     private void getTypeQuery(String pageToken, String type, String query) {
         if (!isConnected(requireContext())) {
             // Put AsyncTask in the RecyclerView of fragmentSearch to execute the SQLiteHelper
-            mGetMapsAsyncTaskHistory = new GetMapsAsyncTaskHistory(mRecyclerView);
-            mGetMapsAsyncTaskHistory.execute(placeViewModelSearchDB);
+            mMapList = placeViewModelSearchDB.getAllPlaces();
+
             buildDialog(getContext()).show();
         } else {
             if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

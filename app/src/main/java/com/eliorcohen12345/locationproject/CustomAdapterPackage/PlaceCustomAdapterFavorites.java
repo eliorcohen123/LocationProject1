@@ -129,6 +129,7 @@ public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCusto
     @Override
     public void onBindViewHolder(final PlaceViewHolder holder, final int position) {
         if (mPlacesFavoritesList != null) {
+            initLocation();
             final PlaceModel current = mPlacesFavoritesList.get(position);
             locationManager = (LocationManager) mInflater.getContext().getSystemService(Context.LOCATION_SERVICE);
             criteria = new Criteria();

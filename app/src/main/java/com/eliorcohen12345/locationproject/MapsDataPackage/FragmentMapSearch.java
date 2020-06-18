@@ -41,7 +41,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.eliorcohen12345.locationproject.AsyncTaskPackage.GetMapsAsyncTaskHistory;
 import com.eliorcohen12345.locationproject.AsyncTaskPackage.GetMapsAsyncTaskSearch;
 import com.eliorcohen12345.locationproject.CustomAdapterPackage.CustomInfoWindowGoogleMapSearch;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
@@ -83,7 +82,6 @@ public class FragmentMapSearch extends Fragment implements OnMapReadyCallback, V
     private String provider;
     private ImageView moovit, gett, waze, num1, num2, num3, num4, num5, btnOpenList;
     private GetMapsAsyncTaskSearch mGetMapsAsyncTaskSearch;
-    private GetMapsAsyncTaskHistory mGetMapsAsyncTaskHistory;
     private PlaceViewModelSearchDB placeViewModelSearchDB;
     private ArrayList<PlaceModel> mMapList;
     private List<Marker> markers;
@@ -165,10 +163,7 @@ public class FragmentMapSearch extends Fragment implements OnMapReadyCallback, V
         try {
             if (!isConnected(Objects.requireNonNull(getContext()))) {
                 mMapList = placeViewModelSearchDB.getAllPlaces();
-                // Put AsyncTask in the RecyclerView of MainActivity to execute the SQLiteHelper
-                mRecyclerView = new RecyclerView(getContext());
-                mGetMapsAsyncTaskHistory = new GetMapsAsyncTaskHistory(mRecyclerView);
-                mGetMapsAsyncTaskHistory.execute(placeViewModelSearchDB);
+
                 // Tablet/Phone mode
                 DisplayMetrics metrics = new DisplayMetrics();
                 ((WindowManager) ConApp.getApplication().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(metrics);

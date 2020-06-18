@@ -109,8 +109,8 @@ public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAd
     @Override
     public void onBindViewHolder(final PlaceViewHolder holder, final int position) {
         if (mPlacesSearchList != null) {
-            final PlaceModel current = mPlacesSearchList.get(position);
             initLocation();
+            final PlaceModel current = mPlacesSearchList.get(position);
             if (ActivityCompat.checkSelfPermission(mInflater.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.checkSelfPermission(mInflater.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION);
             }// TODO: Consider calling
