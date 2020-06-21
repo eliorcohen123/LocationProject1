@@ -1,88 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/relative1"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:descendantFocusability="blocksDescendants">
+    android:layout_height="150dp"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical"
+    android:tint="#6F000000">
 
-    <ImageView
-        android:id="@+id/image1"
+    <LinearLayout
+        android:id="@+id/linear1"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:scaleType="fitXY"
-        android:tint="#6F000000" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:src="@drawable/line4" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/line4" />
 
-    <TextView
-        android:id="@+id/name1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="70dp"
-        android:shadowColor="@color/colorTransparentGrey"
-        android:shadowDx="3"
-        android:shadowDy="3"
-        android:shadowRadius="1.5"
-        android:textColor="@color/colorWhite"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/name1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="75dp"
+            android:shadowColor="@color/colorTransparentGrey"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="1.5"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/address1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="110dp"
-        android:shadowColor="@color/colorTransparentGrey"
-        android:shadowDx="3"
-        android:shadowDy="3"
-        android:shadowRadius="1.5"
-        android:textColor="@color/colorWhite" />
+        <TextView
+            android:id="@+id/address1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:shadowColor="@color/colorTransparentGrey"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="1.5"
+            android:textColor="@color/colorWhite" />
 
-    <TextView
-        android:id="@+id/kmMe1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="112dp"
-        android:shadowColor="@color/colorTransparentGrey"
-        android:shadowDx="3"
-        android:shadowDy="3"
-        android:shadowRadius="1.5"
-        android:textColor="@color/colorWhite" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/isOpen1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="129dp"
-        android:shadowColor="@color/colorTransparentGrey"
-        android:shadowDx="3"
-        android:shadowDy="3"
-        android:shadowRadius="1.5"
-        android:textColor="@color/colorBrown" />
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="17dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_location_on_white_24dp" />
 
-    <ImageView
-        android:layout_width="15dp"
-        android:layout_height="17dp"
-        android:layout_marginTop="130dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_location_on_white_24dp" />
+            <TextView
+                android:id="@+id/kmMe1"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:layout_marginStart="2dp"
+                android:shadowColor="@color/colorTransparentGrey"
+                android:shadowDx="3"
+                android:shadowDy="3"
+                android:shadowRadius="1.5"
+                android:textColor="@color/colorWhite" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/line4" />
-</RelativeLayout>
+            <TextView
+                android:id="@+id/isOpen1"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:layout_marginStart="10dp"
+                android:shadowColor="@color/colorTransparentGrey"
+                android:shadowDx="3"
+                android:shadowDy="3"
+                android:shadowRadius="1.5"
+                android:textColor="@color/colorBrown" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="3dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/line4" />
+    </LinearLayout>
+</LinearLayout>

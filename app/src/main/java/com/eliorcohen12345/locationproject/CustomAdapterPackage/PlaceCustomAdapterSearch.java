@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -16,7 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
@@ -26,6 +29,7 @@ import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
 import com.eliorcohen12345.locationproject.MapsDataPackage.AddPlaceFavorites;
 import com.eliorcohen12345.locationproject.R;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,7 +40,7 @@ public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAd
     class PlaceViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         private TextView name1, address1, kmMe1, isOpen1;
-        private ImageView image1;
+        private LinearLayout linear1;
 
         private PlaceViewHolder(View itemView) {
             super(itemView);
@@ -44,7 +48,7 @@ public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAd
             address1 = itemView.findViewById(R.id.address1);
             kmMe1 = itemView.findViewById(R.id.kmMe1);
             isOpen1 = itemView.findViewById(R.id.isOpen1);
-            image1 = itemView.findViewById(R.id.image1);
+            linear1 = itemView.findViewById(R.id.linear1);
 
             itemView.setOnCreateContextMenuListener(this);
         }
@@ -136,23 +140,23 @@ public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAd
                     String result = prefs.getString("myKm", "1000.0");
                     assert result != null;
                     double val = Double.parseDouble(result);
-                    distanceMe = locationA.distanceTo(locationB) / val;   // in km
+                    distanceMe = locationA.distanceTo(locationB) / val; // In Km
                     String distanceKm1;
                     String disMile;
                     if (val == 1000.0) {
                         if (distanceMe < 1) {
                             int dis = (int) (distanceMe * 1000);
-                            distanceKm1 = "\n" + "Meters: " + String.valueOf(dis);
+                            distanceKm1 = "Meters: " + String.valueOf(dis);
                             holder.kmMe1.setText(distanceKm1);
                         } else if (distanceMe >= 1) {
                             String disM = String.format("%.2f", distanceMe);
-                            distanceKm1 = "\n" + "Km: " + String.valueOf(disM);
+                            distanceKm1 = "Km: " + String.valueOf(disM);
                             // Put the text in kmMe1
                             holder.kmMe1.setText(distanceKm1);
                         }
                     } else if (val == 1609.344) {
                         String distanceMile1 = String.format("%.2f", distanceMe);
-                        disMile = "\n" + "Miles: " + String.valueOf(distanceMile1);
+                        disMile = "Miles: " + String.valueOf(distanceMile1);
                         // Put the text in kmMe1
                         holder.kmMe1.setText(disMile);
                     }
@@ -170,14 +174,29 @@ public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAd
                     try {
                         Picasso.get().load("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference="
                                 + current.getPhoto_reference() +
-                                "&key=" + mInflater.getContext().getString(R.string.api_key_search)).into(holder.image1);
+                                "&key=" + mInflater.getContext().getString(R.string.api_key_search)).into(new Target() {
+                            @Override
+                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                holder.linear1.setBackground(new BitmapDrawable(bitmap));
+                            }
+
+                            @Override
+                            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                                holder.linear1.setBackgroundResource(R.drawable.no_image_available);
+                            }
+
+                            @Override
+                            public void onPrepareLoad(Drawable placeHolderDrawable) {
+                                holder.linear1.setBackgroundResource(R.drawable.no_image_available);
+                            }
+                        });
                     } catch (Exception e) {
-                        holder.image1.setImageResource(R.drawable.no_image_available);
+                        holder.linear1.setBackgroundResource(R.drawable.no_image_available);
                     }
                 }
             }
 
-            setFadeAnimation(holder.itemView);
+//            setFadeAnimation(holder.itemView);
         } else {
             // Covers the case of data not being ready yet.
             holder.name1.setText("No Places");
@@ -226,12 +245,6 @@ public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAd
         if (mPlacesSearchList != null)
             return mPlacesSearchList.size();
         else return 0;
-    }
-
-    private void setFadeAnimation(View view) {
-        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
-        anim.setDuration(1500);
-        view.startAnimation(anim);
     }
 
 }

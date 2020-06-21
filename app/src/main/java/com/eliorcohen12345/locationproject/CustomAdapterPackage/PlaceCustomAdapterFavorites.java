@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -18,17 +21,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.eliorcohen12345.locationproject.DataAppPackage.MapDBHelperFavorites;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelFavorites;
 import com.eliorcohen12345.locationproject.MainAndOtherPackage.ConApp;
@@ -37,6 +37,7 @@ import com.eliorcohen12345.locationproject.MapsDataPackage.EditPlace;
 import com.eliorcohen12345.locationproject.MapsDataPackage.FragmentMapFavorites;
 import com.eliorcohen12345.locationproject.R;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,16 +47,14 @@ public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCusto
     class PlaceViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         private TextView name3, address3, kmMe3;
-        private ImageView image3;
-        private RelativeLayout relativeLayout3;
+        private LinearLayout linear3;
 
         private PlaceViewHolder(View itemView) {
             super(itemView);
             name3 = itemView.findViewById(R.id.name1);
             address3 = itemView.findViewById(R.id.address1);
             kmMe3 = itemView.findViewById(R.id.kmMe1);
-            image3 = itemView.findViewById(R.id.image1);
-            relativeLayout3 = itemView.findViewById(R.id.relative1);
+            linear3 = itemView.findViewById(R.id.linear1);
 
             itemView.setOnCreateContextMenuListener(this);
         }
@@ -165,31 +164,46 @@ public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCusto
                     if (val == 1000.0) {
                         if (distanceMe < 1) {
                             int dis = (int) (distanceMe * 1000);
-                            distanceKm1 = "\n" + "Meters: " + String.valueOf(dis);
+                            distanceKm1 = "Meters: " + dis;
                             holder.kmMe3.setText(distanceKm1);
                         } else if (distanceMe >= 1) {
                             String disM = String.format("%.2f", distanceMe);
-                            distanceKm1 = "\n" + "Km: " + String.valueOf(disM);
+                            distanceKm1 = "Km: " + disM;
                             // Put the text in kmMe3
                             holder.kmMe3.setText(distanceKm1);
                         }
                     } else if (val == 1609.344) {
                         String distanceMile1 = String.format("%.2f", distanceMe);
-                        disMile = "\n" + "Miles: " + String.valueOf(distanceMile1);
+                        disMile = "Miles: " + distanceMile1;
                         // Put the text in kmMe3
                         holder.kmMe3.setText(disMile);
                     }
-                    if (!current.getPhoto_reference().equals("")) {
+                    try {
                         Picasso.get().load("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference="
                                 + current.getPhoto_reference() +
-                                "&key=" + mInflater.getContext().getString(R.string.api_key_search)).into(holder.image3);
-                    } else {
-                        holder.image3.setImageResource(R.drawable.no_image_available);
+                                "&key=" + mInflater.getContext().getString(R.string.api_key_search)).into(new Target() {
+                            @Override
+                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                holder.linear3.setBackground(new BitmapDrawable(bitmap));
+                            }
+
+                            @Override
+                            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                                holder.linear3.setBackgroundResource(R.drawable.no_image_available);
+                            }
+
+                            @Override
+                            public void onPrepareLoad(Drawable placeHolderDrawable) {
+                                holder.linear3.setBackgroundResource(R.drawable.no_image_available);
+                            }
+                        });
+                    } catch (Exception e) {
+                        holder.linear3.setBackgroundResource(R.drawable.no_image_available);
                     }
                 }
             }
 
-            holder.relativeLayout3.setOnClickListener(v -> {
+            holder.linear3.setOnClickListener(v -> {
                 FragmentMapFavorites fragmentMapFavorites = new FragmentMapFavorites();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(mInflater.getContext().getString(R.string.map_favorites_key), current);
@@ -197,8 +211,6 @@ public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCusto
                 FragmentManager fragmentManager = ((AppCompatActivity) mInflater.getContext()).getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.fragmentFavoritesContainer, fragmentMapFavorites).addToBackStack(null).commit();
             });
-
-            setFadeAnimation(holder.itemView);
         } else {
             // Covers the case of data not being ready yet.
             holder.name3.setText("No Places");
@@ -247,12 +259,6 @@ public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCusto
         if (mPlacesFavoritesList != null)
             return mPlacesFavoritesList.size();
         else return 0;
-    }
-
-    private void setFadeAnimation(View view) {
-        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
-        anim.setDuration(1500);
-        view.startAnimation(anim);
     }
 
 }
