@@ -14,11 +14,11 @@ import kotlinx.android.synthetic.main.activity_chat.*
 
 class ChatActivity : AppCompatActivity() {
 
-    val auth = FirebaseAuth.getInstance()
-    val user = auth.currentUser
-    val firestore = FirebaseFirestore.getInstance()
-    val chatMessages = ArrayList<ChatMessage>()
-    var chatRegistration: ListenerRegistration? = null
+    private val auth = FirebaseAuth.getInstance()
+    private val user = auth.currentUser
+    private val firestore = FirebaseFirestore.getInstance()
+    private val chatMessages = ArrayList<ChatMessage>()
+    private var chatRegistration: ListenerRegistration? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

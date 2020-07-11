@@ -14,10 +14,10 @@ import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
 
-    val auth = FirebaseAuth.getInstance()
-    var email: String? = null
-    var password: String? = null
-    var confirmPassword: String? = null
+    private val auth = FirebaseAuth.getInstance()
+    private var email: String? = null
+    private var password: String? = null
+    private var confirmPassword: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

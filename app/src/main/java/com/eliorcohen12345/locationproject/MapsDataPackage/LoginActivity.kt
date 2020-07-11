@@ -14,9 +14,9 @@ import kotlinx.android.synthetic.main.activity_login.edittext_password
 
 class LoginActivity : AppCompatActivity() {
 
-    val auth = FirebaseAuth.getInstance()
-    var email: String? = null
-    var password: String? = null
+    private val auth = FirebaseAuth.getInstance()
+    private var email: String? = null
+    private var password: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
