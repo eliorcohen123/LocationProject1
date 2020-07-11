@@ -59,6 +59,7 @@ import com.eliorcohen12345.locationproject.MainAndOtherPackage.ConApp;
 import com.eliorcohen12345.locationproject.MainAndOtherPackage.ItemDecoration;
 import com.eliorcohen12345.locationproject.R;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -291,9 +292,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
             android.net.NetworkInfo wifi = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
             android.net.NetworkInfo mobile = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-            if ((mobile != null && mobile.isConnectedOrConnecting()) || (wifi != null && wifi.isConnectedOrConnecting()))
-                return true;
-            else return false;
+            return (mobile != null && mobile.isConnectedOrConnecting()) || (wifi != null && wifi.isConnectedOrConnecting());
         } else
             return false;
     }
@@ -461,6 +460,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 myPageMeString = "";
                 break;
         }
+
         editorType.putString("mystringtypesearch", myTypeSearch).apply();
         editorQuery.putString("mystringquerysearch", myQuery).apply();
         editorPageMe.putString("mystringpageme", myPageMeString).apply();
@@ -501,23 +501,19 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     }
 
     private void getAllCheckPage(int page) {
-        getPage0(page);
-        getPage1(page);
+        getPage(page);
         getPageText();
     }
 
-    private void getPage0(int page) {
+    private void getPage(int page) {
         myPageMy = prefsPageMy.getInt("mystringpagemy", 1);
+
         if (page <= 0 || myPageMy <= 0) {
             myPage = 1;
         } else {
             imagePre.setVisibility(View.VISIBLE);
         }
-        editorPageMy.putInt("mystringpagemy", myPage).apply();
-    }
 
-    private void getPage1(int page) {
-        myPageMy = prefsPageMy.getInt("mystringpagemy", 1);
         if (page == 1 || myPageMy == 1) {
             imagePre.setVisibility(View.GONE);
         } else {
@@ -529,6 +525,8 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         } else {
             imagePreFirst.setVisibility(View.GONE);
         }
+
+        editorPageMy.putInt("mystringpagemy", myPage).apply();
     }
 
     private void getPageText() {
@@ -619,7 +617,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
         private final RecyclerView mRecyclerView;
         private OnItemClickListener mOnItemClickListener;
-        private OnItemLongClickListener mOnItemLongClickListener;
+        private static OnItemLongClickListener mOnItemLongClickListener;
 
         private View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
@@ -646,7 +644,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
         private RecyclerView.OnChildAttachStateChangeListener mAttachListener = new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
-            public void onChildViewAttachedToWindow(View view) {
+            public void onChildViewAttachedToWindow(@NotNull View view) {
                 // every time a new child view is attached add click listeners to it
                 if (mOnItemClickListener != null) {
                     view.setOnClickListener(mOnClickListener);
@@ -662,8 +660,9 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             }
         };
 
-        private ItemClickSupport(RecyclerView recyclerView) {
+        private ItemClickSupport(RecyclerView recyclerView, OnItemLongClickListener mOnItemLongClickListener) {
             mRecyclerView = recyclerView;
+            ItemClickSupport.mOnItemLongClickListener = mOnItemLongClickListener;
             // the ID must be declared in XML, used to avoid
             // replacing the ItemClickSupport without removing
             // the old one from the RecyclerView
@@ -676,7 +675,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             // to this RecyclerView do not replace it, use it
             ItemClickSupport support = (ItemClickSupport) view.getTag(R.id.item_click_support);
             if (support == null) {
-                support = new ItemClickSupport(view);
+                support = new ItemClickSupport(view, mOnItemLongClickListener);
             }
             return support;
         }
@@ -689,14 +688,8 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             return support;
         }
 
-        private ItemClickSupport setOnItemClickListener(OnItemClickListener listener) {
+        private void setOnItemClickListener(OnItemClickListener listener) {
             mOnItemClickListener = listener;
-            return this;
-        }
-
-        private ItemClickSupport setOnItemLongClickListener(OnItemLongClickListener listener) {
-            mOnItemLongClickListener = listener;
-            return this;
         }
 
         private void detach(RecyclerView view) {
