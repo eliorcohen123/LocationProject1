@@ -44,9 +44,9 @@ class ChatActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         layoutManager.reverseLayout = true
-        list_chat.layoutManager = layoutManager
+        recyclerView.layoutManager = layoutManager
         val adapter = ChatAdapter(chatMessages, user.uid)
-        list_chat.adapter = adapter
+        recyclerView.adapter = adapter
 
         listenForChatMessages()
     }
@@ -71,7 +71,7 @@ class ChatActivity : AppCompatActivity() {
                     }
 
                     chatMessages.sortByDescending { it.timestamp }
-                    list_chat.adapter?.notifyDataSetChanged()
+                    recyclerView.adapter?.notifyDataSetChanged()
                 }
     }
 
