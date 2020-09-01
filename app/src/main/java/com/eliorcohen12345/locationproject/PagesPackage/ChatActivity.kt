@@ -3,7 +3,7 @@ package com.eliorcohen12345.locationproject.PagesPackage
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.eliorcohen12345.locationproject.CustomAdapterPackage.ChatAdapter
+import com.eliorcohen12345.locationproject.CustomAdaptersPackage.ChatAdapter
 import com.eliorcohen12345.locationproject.ModelsPackage.ChatMessage
 import com.eliorcohen12345.locationproject.R
 import com.google.firebase.Timestamp

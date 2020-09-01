@@ -1,4 +1,4 @@
-package com.eliorcohen12345.locationproject.CustomAdapterPackage
+package com.eliorcohen12345.locationproject.CustomAdaptersPackage
 
 import android.view.LayoutInflater
 import android.view.View

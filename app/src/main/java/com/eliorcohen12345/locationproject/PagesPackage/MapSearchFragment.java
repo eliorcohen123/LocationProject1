@@ -41,8 +41,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.eliorcohen12345.locationproject.AsyncTaskPackage.GetMapsAsyncTaskSearch;
-import com.eliorcohen12345.locationproject.CustomAdapterPackage.CustomInfoWindowGoogleMapSearch;
+import com.eliorcohen12345.locationproject.AsyncTasksPackage.GetMapsAsyncTaskSearch;
+import com.eliorcohen12345.locationproject.CustomAdaptersPackage.CustomInfoWindowGoogleMapSearch;
 import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
 import com.eliorcohen12345.locationproject.R;
 import com.google.android.gms.maps.CameraUpdateFactory;

@@ -27,7 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.eliorcohen12345.locationproject.CustomAdapterPackage.PlaceCustomAdapterFavorites;
+import com.eliorcohen12345.locationproject.CustomAdaptersPackage.PlaceCustomAdapterFavorites;
 import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
 import com.eliorcohen12345.locationproject.R;
 

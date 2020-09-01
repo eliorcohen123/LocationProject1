@@ -1,4 +1,4 @@
-package com.eliorcohen12345.locationproject.AsyncTaskPackage;
+package com.eliorcohen12345.locationproject.AsyncTasksPackage;
 
 import android.content.Context;
 import android.os.AsyncTask;
