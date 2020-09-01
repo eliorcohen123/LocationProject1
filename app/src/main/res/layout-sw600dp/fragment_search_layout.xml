@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context=".MapsDataPackage.FragmentSearch">
+    tools:context=".PagesPackage.SearchFragment">
 
     <HorizontalScrollView
         android:layout_width="match_parent"

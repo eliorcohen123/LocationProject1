@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import androidx.lifecycle.AndroidViewModel;
 
+import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
+
 public class PlaceViewModelFavorites extends AndroidViewModel {
 
     private MapDBHelperFavorites mapDBHelperFavorites;  // The SQLiteHelper of the app

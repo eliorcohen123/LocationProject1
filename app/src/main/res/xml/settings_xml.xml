@@ -17,11 +17,11 @@
             android:key="myKm"
             android:summary="Choose Distance: KM/Miles"
             android:title="KM/Miles" />
-        <com.eliorcohen12345.locationproject.MainAndOtherPackage.MySeekBarDistance
+        <com.eliorcohen12345.locationproject.OthersPackage.MySeekBarDistance
             android:defaultValue="5000"
             android:key="seek"
             android:title="Radius" />
-        <com.eliorcohen12345.locationproject.GeofencePackage.MySeekBarGeofence
+        <com.eliorcohen12345.locationproject.OthersPackage.GeofencePackage.MySeekBarGeofence
             android:defaultValue="500"
             android:key="seek_geo"
             android:title="Geofence" />

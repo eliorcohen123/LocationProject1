@@ -25,8 +25,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
-import com.eliorcohen12345.locationproject.MapsDataPackage.AddPlaceFavorites;
+import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.PagesPackage.AddPlaceFavoritesActivity;
 import com.eliorcohen12345.locationproject.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -69,7 +69,7 @@ public class PlaceCustomAdapterSearch extends RecyclerView.Adapter<PlaceCustomAd
                 PlaceModel current = mPlacesSearchList.get(getAdapterPosition());
                 switch (item.getItemId()) {
                     case 1:
-                        Intent intent = new Intent(mInflater.getContext(), AddPlaceFavorites.class);
+                        Intent intent = new Intent(mInflater.getContext(), AddPlaceFavoritesActivity.class);
                         intent.putExtra(mInflater.getContext().getString(R.string.map_add_from_internet), current);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         mInflater.getContext().startActivity(intent);

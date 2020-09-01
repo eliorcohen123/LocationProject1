@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.eliorcohen12345.locationproject.DataAppPackage.ChatMessage
+import com.eliorcohen12345.locationproject.ModelsPackage.ChatMessage
 import com.eliorcohen12345.locationproject.R
 import kotlinx.android.synthetic.main.list_item_chat.view.*
 

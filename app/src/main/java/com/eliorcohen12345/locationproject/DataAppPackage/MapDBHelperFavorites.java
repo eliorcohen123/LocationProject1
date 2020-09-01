@@ -9,6 +9,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.eliorcohen12345.locationproject.ModelsPackage.Geometry;
+import com.eliorcohen12345.locationproject.ModelsPackage.Location;
+import com.eliorcohen12345.locationproject.ModelsPackage.Photos;
+import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
+
 import java.util.ArrayList;
 import java.util.List;
 

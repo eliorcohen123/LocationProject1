@@ -8,6 +8,11 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.eliorcohen12345.locationproject.ModelsPackage.Geometry;
+import com.eliorcohen12345.locationproject.ModelsPackage.Location;
+import com.eliorcohen12345.locationproject.ModelsPackage.Photos;
+import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
+
 import java.util.ArrayList;
 import java.util.List;
 

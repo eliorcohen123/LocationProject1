@@ -5,10 +5,10 @@ import android.os.AsyncTask;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
-import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
-import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelSearchDB;
-import com.eliorcohen12345.locationproject.MapsDataPackage.FragmentSearch;
-import com.eliorcohen12345.locationproject.MainAndOtherPackage.ConApp;
+import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.ViewModelsPackage.PlaceViewModelSearchDB;
+import com.eliorcohen12345.locationproject.PagesPackage.SearchFragment;
+import com.eliorcohen12345.locationproject.OthersPackage.ConApp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -40,7 +40,7 @@ public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList
         float xInches = metrics.widthPixels / metrics.xdpi;
         diagonalInches = Math.sqrt(xInches * xInches + yInches * yInches);
         if (diagonalInches <= 6.5) {
-            FragmentSearch.startShowingProgressDialog();
+            SearchFragment.startShowingProgressDialog();
         }
     }
 
@@ -109,15 +109,15 @@ public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList
         float xInches = metrics.widthPixels / metrics.xdpi;
         diagonalInches = Math.sqrt(xInches * xInches + yInches * yInches);
         if (diagonalInches <= 6.5) {
-            FragmentSearch.stopShowingProgressDialog();
+            SearchFragment.stopShowingProgressDialog();
         }
 
         placeViewModelSearchDB = new PlaceViewModelSearchDB(ConApp.getApplication());
         try {
             placeViewModelSearchDB.addMapPlaces(placeModels);
-            FragmentSearch.getData(placeModels);
+            SearchFragment.getData(placeModels);
         } catch (Exception e) {
-            FragmentSearch.getData(placeModels);
+            SearchFragment.getData(placeModels);
         }
     }
 

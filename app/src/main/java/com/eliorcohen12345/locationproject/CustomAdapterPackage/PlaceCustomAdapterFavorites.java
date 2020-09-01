@@ -28,12 +28,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelFavorites;
-import com.eliorcohen12345.locationproject.MainAndOtherPackage.ConApp;
-import com.eliorcohen12345.locationproject.MapsDataPackage.DeletePlace;
-import com.eliorcohen12345.locationproject.MapsDataPackage.EditPlace;
-import com.eliorcohen12345.locationproject.MapsDataPackage.FragmentMapFavorites;
+import com.eliorcohen12345.locationproject.OthersPackage.ConApp;
+import com.eliorcohen12345.locationproject.PagesPackage.DeletePlaceActivity;
+import com.eliorcohen12345.locationproject.PagesPackage.EditPlaceActivity;
+import com.eliorcohen12345.locationproject.PagesPackage.MapFavoritesFragment;
 import com.eliorcohen12345.locationproject.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -76,7 +76,7 @@ public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCusto
                 PlaceModel current = mPlacesFavoritesList.get(getAdapterPosition());
                 switch (item.getItemId()) {
                     case 1:
-                        Intent intent = new Intent(mInflater.getContext(), EditPlace.class);
+                        Intent intent = new Intent(mInflater.getContext(), EditPlaceActivity.class);
                         intent.putExtra(mInflater.getContext().getString(R.string.map_id), current.getId());
                         intent.putExtra(mInflater.getContext().getString(R.string.map_edit), current);
                         mInflater.getContext().startActivity(intent);
@@ -96,7 +96,7 @@ public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCusto
                         placeViewModelFavorites = new PlaceViewModelFavorites(ConApp.getApplication());
                         placeViewModelFavorites.deletePlace(current);
 
-                        Intent intentDeleteData = new Intent(mInflater.getContext(), DeletePlace.class);
+                        Intent intentDeleteData = new Intent(mInflater.getContext(), DeletePlaceActivity.class);
                         mInflater.getContext().startActivity(intentDeleteData);
                         break;
                 }
@@ -194,12 +194,12 @@ public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCusto
             }
 
             holder.linear3.setOnClickListener(v -> {
-                FragmentMapFavorites fragmentMapFavorites = new FragmentMapFavorites();
+                MapFavoritesFragment mapFavoritesFragment = new MapFavoritesFragment();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(mInflater.getContext().getString(R.string.map_favorites_key), current);
-                fragmentMapFavorites.setArguments(bundle);
+                mapFavoritesFragment.setArguments(bundle);
                 FragmentManager fragmentManager = ((AppCompatActivity) mInflater.getContext()).getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.fragmentFavoritesContainer, fragmentMapFavorites).addToBackStack(null).commit();
+                fragmentManager.beginTransaction().replace(R.id.fragmentFavoritesContainer, mapFavoritesFragment).addToBackStack(null).commit();
             });
         } else {
             // Covers the case of data not being ready yet.

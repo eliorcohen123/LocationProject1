@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context=".MapsDataPackage.PlaceCustomActivity">
+    tools:context=".PagesPackage.PlaceCustomActivity">
 
     <fragment
         android:id="@+id/fragment"
-        android:name="com.eliorcohen12345.locationproject.MapsDataPackage.CustomMarkerFragment"
+        android:name="com.eliorcohen12345.locationproject.PagesPackage.CustomMarkerFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

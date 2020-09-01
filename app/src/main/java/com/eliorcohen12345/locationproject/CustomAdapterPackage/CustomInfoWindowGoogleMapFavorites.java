@@ -5,12 +5,10 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
-import com.eliorcohen12345.locationproject.DataAppPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
 import com.eliorcohen12345.locationproject.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
-
-import java.util.Objects;
 
 public class CustomInfoWindowGoogleMapFavorites implements GoogleMap.InfoWindowAdapter {
 
