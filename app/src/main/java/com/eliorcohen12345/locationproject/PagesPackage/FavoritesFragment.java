@@ -27,7 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.eliorcohen12345.locationproject.CustomAdaptersPackage.PlaceCustomAdapterFavorites;
+import com.eliorcohen12345.locationproject.CustomAdaptersPackage.CustomAdapterFavorites;
 import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
 import com.eliorcohen12345.locationproject.R;
 
@@ -36,7 +36,7 @@ import java.util.ArrayList;
 public class FavoritesFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener {
 
     private ArrayList<PlaceModel> mMapList;  // ArrayList of PlaceModel
-    private PlaceCustomAdapterFavorites mAdapter;  // CustomAdapter of FragmentFavorites
+    private CustomAdapterFavorites mAdapter;  // CustomAdapter of FragmentFavorites
     private RecyclerView mRecyclerView;  // RecyclerView of FragmentFavorites
     private PlaceViewModelFavorites placeViewModelFavorites;
     private View mView;
@@ -73,7 +73,7 @@ public class FavoritesFragment extends Fragment implements NavigationView.OnNavi
     private void getData() {
         mMapList.clear();
         mMapList = placeViewModelFavorites.getAllPlaces();  // Put the getAllMaps of SQLiteHelper in the ArrayList of FragmentFavorites
-        mAdapter = new PlaceCustomAdapterFavorites(getContext(), mMapList);  // Comparing the ArrayList of FragmentFavorites to the CustomAdapter
+        mAdapter = new CustomAdapterFavorites(getContext(), mMapList);  // Comparing the ArrayList of FragmentFavorites to the CustomAdapter
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if (itemDecoration == null) {
             itemDecoration = new ItemDecoration(20);

@@ -52,7 +52,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.eliorcohen12345.locationproject.AsyncTasksPackage.GetMapsAsyncTaskSearch;
-import com.eliorcohen12345.locationproject.CustomAdaptersPackage.PlaceCustomAdapterSearch;
+import com.eliorcohen12345.locationproject.CustomAdaptersPackage.CustomAdapterSearch;
 import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
 import com.eliorcohen12345.locationproject.ViewModelsPackage.PlaceViewModelSearchDB;
 import com.eliorcohen12345.locationproject.OthersPackage.ConApp;
@@ -70,7 +70,7 @@ import eliorcohen.com.googlemapsapi.GoogleMapsApi;
 public class SearchFragment extends Fragment implements View.OnClickListener {
 
     private static ArrayList<PlaceModel> mMapList;
-    private static PlaceCustomAdapterSearch mAdapter;
+    private static CustomAdapterSearch mAdapter;
     private static RecyclerView mRecyclerView;
     private static PlaceViewModelSearchDB placeViewModelSearchDB;
     private static ProgressDialog mProgressDialogInternet;
@@ -238,7 +238,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         if (!isConnected(mSearchFragment.requireContext())) {
             mMapList = placeViewModelSearchDB.getAllPlaces();
         }
-        mAdapter = new PlaceCustomAdapterSearch(ConApp.getApplication(), mMapList);
+        mAdapter = new CustomAdapterSearch(ConApp.getApplication(), mMapList);
         if (mAdapter.getItemCount() != 0) {
             handScrollDownImage.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.VISIBLE);

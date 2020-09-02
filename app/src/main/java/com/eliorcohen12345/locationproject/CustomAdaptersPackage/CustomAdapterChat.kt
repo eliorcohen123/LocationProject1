@@ -8,7 +8,7 @@ import com.eliorcohen12345.locationproject.ModelsPackage.ChatMessage
 import com.eliorcohen12345.locationproject.R
 import kotlinx.android.synthetic.main.list_item_chat.view.*
 
-class ChatAdapter(private val chatMessages: List<ChatMessage>, private val uid: String) : RecyclerView.Adapter<ChatAdapter.ViewHolder>() {
+class CustomAdapterChat(private val chatMessages: List<ChatMessage>, private val uid: String) : RecyclerView.Adapter<CustomAdapterChat.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)

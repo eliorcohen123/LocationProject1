@@ -3,7 +3,7 @@ package com.eliorcohen12345.locationproject.PagesPackage
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.eliorcohen12345.locationproject.CustomAdaptersPackage.ChatAdapter
+import com.eliorcohen12345.locationproject.CustomAdaptersPackage.CustomAdapterChat
 import com.eliorcohen12345.locationproject.ModelsPackage.ChatMessage
 import com.eliorcohen12345.locationproject.R
 import com.google.firebase.Timestamp
@@ -45,7 +45,7 @@ class ChatActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         layoutManager.reverseLayout = true
         recyclerView.layoutManager = layoutManager
-        val adapter = ChatAdapter(chatMessages, user.uid)
+        val adapter = CustomAdapterChat(chatMessages, user.uid)
         recyclerView.adapter = adapter
 
         listenForChatMessages()

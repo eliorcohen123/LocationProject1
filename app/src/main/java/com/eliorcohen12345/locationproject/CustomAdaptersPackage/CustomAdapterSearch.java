@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -20,40 +19,36 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
-import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelFavorites;
-import com.eliorcohen12345.locationproject.OthersPackage.ConApp;
-import com.eliorcohen12345.locationproject.PagesPackage.DeletePlaceActivity;
-import com.eliorcohen12345.locationproject.PagesPackage.EditPlaceActivity;
-import com.eliorcohen12345.locationproject.PagesPackage.MapFavoritesFragment;
+import com.eliorcohen12345.locationproject.PagesPackage.AddPlaceFavoritesActivity;
 import com.eliorcohen12345.locationproject.R;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
-public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCustomAdapterFavorites.PlaceViewHolder> {
+public class CustomAdapterSearch extends RecyclerView.Adapter<CustomAdapterSearch.PlaceViewHolder> {
 
     class PlaceViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
-        private TextView name3, address3, kmMe3;
-        private LinearLayout linear3;
+        private TextView name1, address1, kmMe1, isOpen1;
+        private LinearLayout linear1;
 
         private PlaceViewHolder(View itemView) {
             super(itemView);
-            name3 = itemView.findViewById(R.id.name1);
-            address3 = itemView.findViewById(R.id.address1);
-            kmMe3 = itemView.findViewById(R.id.kmMe1);
-            linear3 = itemView.findViewById(R.id.linear1);
+            name1 = itemView.findViewById(R.id.name1);
+            address1 = itemView.findViewById(R.id.address1);
+            kmMe1 = itemView.findViewById(R.id.kmMe1);
+            isOpen1 = itemView.findViewById(R.id.isOpen1);
+            linear1 = itemView.findViewById(R.id.linear1);
 
             itemView.setOnCreateContextMenuListener(this);
         }
@@ -61,24 +56,22 @@ public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCusto
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             menu.setHeaderTitle("Select Action");
-            MenuItem edit = menu.add(Menu.NONE, 1, 1, "Edit");
+            MenuItem add_to_favorites = menu.add(Menu.NONE, 1, 1, "Add to favorites");
             MenuItem share = menu.add(Menu.NONE, 2, 2, "Share");
-            MenuItem delete = menu.add(Menu.NONE, 3, 3, "Delete");
 
-            edit.setOnMenuItemClickListener(onChange);
+            add_to_favorites.setOnMenuItemClickListener(onChange);
             share.setOnMenuItemClickListener(onChange);
-            delete.setOnMenuItemClickListener(onChange);
         }
 
         private final MenuItem.OnMenuItemClickListener onChange = new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                PlaceModel current = mPlacesFavoritesList.get(getAdapterPosition());
+                PlaceModel current = mPlacesSearchList.get(getAdapterPosition());
                 switch (item.getItemId()) {
                     case 1:
-                        Intent intent = new Intent(mInflater.getContext(), EditPlaceActivity.class);
-                        intent.putExtra(mInflater.getContext().getString(R.string.map_id), current.getId());
-                        intent.putExtra(mInflater.getContext().getString(R.string.map_edit), current);
+                        Intent intent = new Intent(mInflater.getContext(), AddPlaceFavoritesActivity.class);
+                        intent.putExtra(mInflater.getContext().getString(R.string.map_add_from_internet), current);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         mInflater.getContext().startActivity(intent);
                         break;
                     case 2:
@@ -90,14 +83,8 @@ public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCusto
                         sendIntent.setAction(Intent.ACTION_SEND);
                         sendIntent.putExtra(Intent.EXTRA_TEXT, "Name: " + name + "\nAddress: " + address + "\nLatitude: " + lat + "\nLongitude: " + lng);
                         sendIntent.setType("text/plain");
+                        sendIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         mInflater.getContext().startActivity(sendIntent);
-                        break;
-                    case 3:
-                        placeViewModelFavorites = new PlaceViewModelFavorites(ConApp.getApplication());
-                        placeViewModelFavorites.deletePlace(current);
-
-                        Intent intentDeleteData = new Intent(mInflater.getContext(), DeletePlaceActivity.class);
-                        mInflater.getContext().startActivity(intentDeleteData);
                         break;
                 }
                 return false;
@@ -106,16 +93,15 @@ public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCusto
     }
 
     private final LayoutInflater mInflater;
-    private ArrayList<PlaceModel> mPlacesFavoritesList;
+    private List<PlaceModel> mPlacesSearchList;
     private Location location;
     private LocationManager locationManager;
     private Criteria criteria;
     private String provider;
-    private PlaceViewModelFavorites placeViewModelFavorites;
 
-    public PlaceCustomAdapterFavorites(Context context, ArrayList<PlaceModel> dataList) {
+    public CustomAdapterSearch(Context context, ArrayList<PlaceModel> dataList) {
         mInflater = LayoutInflater.from(context);
-        this.mPlacesFavoritesList = dataList;
+        this.mPlacesSearchList = dataList;
     }
 
     @Override
@@ -126,12 +112,9 @@ public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCusto
 
     @Override
     public void onBindViewHolder(final PlaceViewHolder holder, final int position) {
-        if (mPlacesFavoritesList != null) {
+        if (mPlacesSearchList != null) {
             initLocation();
-            final PlaceModel current = mPlacesFavoritesList.get(position);
-            locationManager = (LocationManager) mInflater.getContext().getSystemService(Context.LOCATION_SERVICE);
-            criteria = new Criteria();
-            provider = locationManager.getBestProvider(criteria, true);
+            final PlaceModel current = mPlacesSearchList.get(position);
             if (ActivityCompat.checkSelfPermission(mInflater.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.checkSelfPermission(mInflater.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION);
             }// TODO: Consider calling
@@ -144,8 +127,8 @@ public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCusto
             if (provider != null) {
                 location = locationManager.getLastKnownLocation(provider);
                 if (location != null) {
-                    holder.name3.setText(current.getName());
-                    holder.address3.setText(current.getVicinity());
+                    holder.name1.setText(current.getName());
+                    holder.address1.setText(current.getVicinity());
                     double distanceMe;
                     Location locationA = new Location("Point A");
                     locationA.setLatitude(current.getLat());
@@ -157,25 +140,36 @@ public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCusto
                     String result = prefs.getString("myKm", "1000.0");
                     assert result != null;
                     double val = Double.parseDouble(result);
-                    distanceMe = locationA.distanceTo(locationB) / val;   // in km
+                    distanceMe = locationA.distanceTo(locationB) / val; // In Km
                     String distanceKm1;
                     String disMile;
                     if (val == 1000.0) {
                         if (distanceMe < 1) {
                             int dis = (int) (distanceMe * 1000);
-                            distanceKm1 = "Meters: " + dis;
-                            holder.kmMe3.setText(distanceKm1);
+                            distanceKm1 = "Meters: " + String.valueOf(dis);
+                            holder.kmMe1.setText(distanceKm1);
                         } else if (distanceMe >= 1) {
                             String disM = String.format("%.2f", distanceMe);
-                            distanceKm1 = "Km: " + disM;
-                            // Put the text in kmMe3
-                            holder.kmMe3.setText(distanceKm1);
+                            distanceKm1 = "Km: " + String.valueOf(disM);
+                            // Put the text in kmMe1
+                            holder.kmMe1.setText(distanceKm1);
                         }
                     } else if (val == 1609.344) {
                         String distanceMile1 = String.format("%.2f", distanceMe);
-                        disMile = "Miles: " + distanceMile1;
-                        // Put the text in kmMe3
-                        holder.kmMe3.setText(disMile);
+                        disMile = "Miles: " + String.valueOf(distanceMile1);
+                        // Put the text in kmMe1
+                        holder.kmMe1.setText(disMile);
+                    }
+                    try {
+                        if (String.valueOf(current.getOpening_hours()).equals("true")) {
+                            holder.isOpen1.setText("Open");
+                        } else if (String.valueOf(current.getOpening_hours()).equals("false")) {
+                            holder.isOpen1.setText("Close");
+                        } else {
+                            holder.isOpen1.setText("No info");
+                        }
+                    } catch (Exception e) {
+
                     }
 
                     try {
@@ -184,26 +178,17 @@ public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCusto
                                 "&key=" + mInflater.getContext().getString(R.string.api_key_search)).into(new SimpleTarget<Drawable>() {
                             @Override
                             public void onResourceReady(@NotNull Drawable resource, Transition<? super Drawable> transition) {
-                                holder.linear3.setBackground(resource);
+                                holder.linear1.setBackground(resource);
                             }
                         });
                     } catch (Exception e) {
-                        holder.linear3.setBackgroundResource(R.drawable.no_image_available);
+                        holder.linear1.setBackgroundResource(R.drawable.no_image_available);
                     }
                 }
             }
-
-            holder.linear3.setOnClickListener(v -> {
-                MapFavoritesFragment mapFavoritesFragment = new MapFavoritesFragment();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(mInflater.getContext().getString(R.string.map_favorites_key), current);
-                mapFavoritesFragment.setArguments(bundle);
-                FragmentManager fragmentManager = ((AppCompatActivity) mInflater.getContext()).getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.fragmentFavoritesContainer, mapFavoritesFragment).addToBackStack(null).commit();
-            });
         } else {
             // Covers the case of data not being ready yet.
-            holder.name3.setText("No Places");
+            holder.name1.setText("No Places");
         }
     }
 
@@ -221,7 +206,7 @@ public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCusto
         if (provider != null) {
             location = locationManager.getLastKnownLocation(provider);
             if (location != null) {
-                Collections.sort(mPlacesFavoritesList, (obj1, obj2) -> {
+                Collections.sort(mPlacesSearchList, (obj1, obj2) -> {
                     // ## Ascending order
 //                return obj1.getDistance().compareToIgnoreCase(obj2.getDistance()); // To compare string values
                     return Double.compare(Math.sqrt(Math.pow(obj1.getLat() - location.getLatitude(), 2) + Math.pow(obj1.getLng() - location.getLongitude(), 2)),
@@ -246,8 +231,8 @@ public class PlaceCustomAdapterFavorites extends RecyclerView.Adapter<PlaceCusto
     // mPlacesSearchList has not been updated (means initially, it's null, and we can't return null).
     @Override
     public int getItemCount() {
-        if (mPlacesFavoritesList != null)
-            return mPlacesFavoritesList.size();
+        if (mPlacesSearchList != null)
+            return mPlacesSearchList.size();
         else return 0;
     }
 
