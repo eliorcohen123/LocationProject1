@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.eliorcohen12345.locationproject.ModelsPackage.ChatMessage
 import com.eliorcohen12345.locationproject.R
-import kotlinx.android.synthetic.main.list_item_chat.view.*
+import kotlinx.android.synthetic.main.adapter_chat.view.*
 
 class CustomAdapterChat(private val chatMessages: List<ChatMessage>, private val uid: String) : RecyclerView.Adapter<CustomAdapterChat.ViewHolder>() {
 
@@ -34,7 +34,7 @@ class CustomAdapterChat(private val chatMessages: List<ChatMessage>, private val
     }
 
     class ViewHolder(inflater: LayoutInflater, parent: ViewGroup) : RecyclerView.ViewHolder(
-            inflater.inflate(R.layout.list_item_chat, parent, false)
+            inflater.inflate(R.layout.adapter_chat, parent, false)
     )
 
 }

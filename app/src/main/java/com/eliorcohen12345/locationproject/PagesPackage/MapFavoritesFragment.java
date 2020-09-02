@@ -289,14 +289,14 @@ public class MapFavoritesFragment extends Fragment implements OnMapReadyCallback
         });
     }
 
-    // Sets off the menu of favorites_map_menu
+    // Sets off the menu of menu_favorites
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.favorites_map_menu, menu);
+        inflater.inflate(R.menu.menu_favorites, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    // Options in the favorites_map_menu
+    // Options in the menu_favorites
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

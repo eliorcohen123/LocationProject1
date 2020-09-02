@@ -17,7 +17,7 @@ public class DeletePlaceActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.delete_place);
+        setContentView(R.layout.activity_delete_place);
 
         initUI();
         initListeners();

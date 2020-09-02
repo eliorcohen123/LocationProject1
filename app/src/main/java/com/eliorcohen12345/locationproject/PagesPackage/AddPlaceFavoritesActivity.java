@@ -30,7 +30,7 @@ public class AddPlaceFavoritesActivity extends AppCompatActivity implements View
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_place_me);
+        setContentView(R.layout.activity_add_place);
 
         initUI();
         initListeners();

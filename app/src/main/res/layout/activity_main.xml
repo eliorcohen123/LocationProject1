@@ -66,6 +66,6 @@
             app:headerLayout="@layout/nav_header_main"
             app:itemIconTint="#cd4312"
             app:itemTextColor="@color/colorYellowDark"
-            app:menu="@menu/activity_main_menu" />
+            app:menu="@menu/main_menu" />
     </androidx.drawerlayout.widget.DrawerLayout>
 </LinearLayout>

@@ -307,10 +307,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         return builder;
     }
 
-    // Sets off the menu of activity_menu
+    // Sets off the menu of menu_main
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.activity_menu, menu);
+        inflater.inflate(R.menu.menu_main, menu);
 
         // SearchView of FragmentSearch
         final MenuItem menuItem = menu.findItem(R.id.action_search);
@@ -360,7 +360,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    // Options in the activity_menu
+    // Options in the menu_main
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -23,7 +23,7 @@ public class DeleteAllDataFavoritesActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.delete_all_data_favorites);
+        setContentView(R.layout.activity_delete_all_data_favorites);
 
         initUI();
         initListeners();

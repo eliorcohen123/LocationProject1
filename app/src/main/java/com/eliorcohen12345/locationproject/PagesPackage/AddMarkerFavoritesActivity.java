@@ -29,7 +29,7 @@ public class AddMarkerFavoritesActivity extends AppCompatActivity implements Vie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_marker_me);
+        setContentView(R.layout.activity_add_marker);
 
         initUI();
         initListeners();

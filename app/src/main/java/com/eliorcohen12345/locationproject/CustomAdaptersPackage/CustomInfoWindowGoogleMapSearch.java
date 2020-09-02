@@ -26,7 +26,7 @@ public class CustomInfoWindowGoogleMapSearch implements GoogleMap.InfoWindowAdap
     @Override
     public View getInfoContents(Marker marker) {
         View view = ((Activity) context).getLayoutInflater()
-                .inflate(R.layout.place_custom_infowindow_search, null);
+                .inflate(R.layout.custom_infowindow_search, null);
 
         TextView name = view.findViewById(R.id.nameInfo);
 

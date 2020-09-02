@@ -23,7 +23,7 @@ public class DeleteAllDataHistoryActivity extends AppCompatActivity implements V
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.delete_all_data_history);
+        setContentView(R.layout.activity_delete_all_data_history);
 
         initUI();
         initListeners();
