@@ -50,6 +50,7 @@ public class CustomAdapterFavorites extends RecyclerView.Adapter<CustomAdapterFa
 
         private PlaceViewHolder(View itemView) {
             super(itemView);
+
             name3 = itemView.findViewById(R.id.name1);
             address3 = itemView.findViewById(R.id.address1);
             kmMe3 = itemView.findViewById(R.id.kmMe1);

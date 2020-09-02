@@ -44,6 +44,7 @@ public class CustomAdapterSearch extends RecyclerView.Adapter<CustomAdapterSearc
 
         private PlaceViewHolder(View itemView) {
             super(itemView);
+
             name1 = itemView.findViewById(R.id.name1);
             address1 = itemView.findViewById(R.id.address1);
             kmMe1 = itemView.findViewById(R.id.kmMe1);
