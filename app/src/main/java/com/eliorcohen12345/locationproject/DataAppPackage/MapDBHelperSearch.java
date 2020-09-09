@@ -153,9 +153,9 @@ public class MapDBHelperSearch extends SQLiteOpenHelper {
             photos.setPhoto_reference(photo);
             List<Photos> photosList = new ArrayList<Photos>();
             photosList.add(photos);
-            Results results = new Results(name, address, geometry, photosList);
-            results.setId(String.valueOf(id));
-            results.add(results);
+            Results result = new Results(name, address, geometry, photosList);
+            result.setId(String.valueOf(id));
+            results.add(result);
         }
         cursor.close();
         return results;
