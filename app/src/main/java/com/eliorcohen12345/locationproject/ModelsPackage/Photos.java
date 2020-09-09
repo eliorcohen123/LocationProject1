@@ -3,7 +3,7 @@ package com.eliorcohen12345.locationproject.ModelsPackage;
 import java.io.Serializable;
 
 // class top of Photo_reference
-class Photos implements Serializable {
+public class Photos implements Serializable {
 
     private String photo_reference;
 
