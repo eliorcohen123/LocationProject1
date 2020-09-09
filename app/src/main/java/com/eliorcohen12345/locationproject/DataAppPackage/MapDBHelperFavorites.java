@@ -65,7 +65,7 @@ public class MapDBHelperFavorites extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
 
         Cursor cursor1;
-        cursor1 = db.rawQuery("SELECT * FROM " + MAP_TABLE_NAME + " WHERE " + MAP_LAT + "=?" + " OR " + MAP_LNG + "=?" + " OR " + MAP_NAME + "=?", new String[]{String.valueOf(lat), String.valueOf(lng), String.valueOf(name)});
+        cursor1 = db.rawQuery("SELECT * FROM " + MAP_TABLE_NAME + " WHERE " + MAP_LAT + "=?" + " AND " + MAP_LNG + "=?" + " OR " + MAP_NAME + "=?", new String[]{String.valueOf(lat), String.valueOf(lng), String.valueOf(name)});
         if (cursor1.getCount() > 0) {
             Toast.makeText(ctx, "Current place already exist in your favorites", Toast.LENGTH_LONG).show();
         } else {
