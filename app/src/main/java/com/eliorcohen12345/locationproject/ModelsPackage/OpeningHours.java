@@ -1,8 +1,6 @@
 package com.eliorcohen12345.locationproject.ModelsPackage;
 
-import java.io.Serializable;
-
-class OpeningHours implements Serializable {
+class OpeningHours {
 
     private boolean open_now;
 
