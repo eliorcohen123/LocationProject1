@@ -1,7 +1,9 @@
 package com.eliorcohen12345.locationproject.ModelsPackage;
 
+import java.io.Serializable;
+
 // class top of Lat and lng
-public class Location {
+public class Location implements Serializable {
 
     private double lat;
     private double lng;

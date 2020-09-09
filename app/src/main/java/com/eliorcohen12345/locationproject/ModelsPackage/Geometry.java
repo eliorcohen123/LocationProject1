@@ -1,7 +1,9 @@
 package com.eliorcohen12345.locationproject.ModelsPackage;
 
+import java.io.Serializable;
+
   // class top of Location class
-public class Geometry {
+public class Geometry implements Serializable {
 
     private Location location;
 
