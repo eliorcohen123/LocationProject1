@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.ModelsPackage.Results;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelFavorites;
 import com.eliorcohen12345.locationproject.OthersPackage.ConApp;
 import com.eliorcohen12345.locationproject.R;
@@ -24,7 +24,7 @@ public class EditPlaceActivity extends AppCompatActivity implements View.OnClick
     private EditText name, address, lat, lng, photo;
     private TextView textViewOK, textViewShow;
     private Button btnBack;
-    private PlaceModel item;
+    private Results item;
     private String id;
     private ImageView imageView;
 
@@ -40,7 +40,7 @@ public class EditPlaceActivity extends AppCompatActivity implements View.OnClick
 
     private void initUI() {
         id = Objects.requireNonNull(getIntent().getExtras()).getString(getString(R.string.map_id)); // GetSerializable for the ID
-        item = (PlaceModel) getIntent().getExtras().getSerializable(getString(R.string.map_edit)); // GetSerializable for the texts
+        item = (Results) getIntent().getExtras().getSerializable(getString(R.string.map_edit)); // GetSerializable for the texts
 
         name = findViewById(R.id.editTextName);  // ID of the name
         address = findViewById(R.id.editTextAddress);  // ID of the address

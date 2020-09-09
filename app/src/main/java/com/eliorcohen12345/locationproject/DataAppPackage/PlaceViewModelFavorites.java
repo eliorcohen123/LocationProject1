@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import androidx.lifecycle.AndroidViewModel;
 
-import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.ModelsPackage.Results;
 
 public class PlaceViewModelFavorites extends AndroidViewModel {
 
@@ -18,7 +18,7 @@ public class PlaceViewModelFavorites extends AndroidViewModel {
         mapDBHelperFavorites = new MapDBHelperFavorites(application);
     }
 
-    public ArrayList<PlaceModel> getAllPlaces() {
+    public ArrayList<Results> getAllPlaces() {
         return mapDBHelperFavorites.getAllMaps();
     }
 
@@ -30,7 +30,7 @@ public class PlaceViewModelFavorites extends AndroidViewModel {
         mapDBHelperFavorites.deleteData();
     }
 
-    public void deletePlace(PlaceModel places) {
+    public void deletePlace(Results places) {
         mapDBHelperFavorites.deleteMap(places);
     }
 

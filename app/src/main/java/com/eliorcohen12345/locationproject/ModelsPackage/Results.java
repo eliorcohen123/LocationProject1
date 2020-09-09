@@ -3,7 +3,7 @@ package com.eliorcohen12345.locationproject.ModelsPackage;
 import java.io.Serializable;
 import java.util.List;
 
-public class PlaceModel implements Serializable {
+public class Results implements Serializable {
 
     private String id;
     private String name;
@@ -16,14 +16,14 @@ public class PlaceModel implements Serializable {
     private OpeningHours opening_hours;
 
     // Subject class to the SQLiteHelper
-    public PlaceModel(String name, String vicinity, Geometry geometry, List<Photos> photos) {
+    public Results(String name, String vicinity, Geometry geometry, List<Photos> photos) {
         this.name = name;
         this.vicinity = vicinity;
         this.geometry = geometry;
         this.photos = photos;
     }
 
-    public PlaceModel() {
+    public Results() {
 
     }
 

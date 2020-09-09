@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
-import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.ModelsPackage.Results;
 import com.eliorcohen12345.locationproject.ViewModelsPackage.PlaceViewModelSearchDB;
 import com.eliorcohen12345.locationproject.PagesPackage.SearchFragment;
 import com.eliorcohen12345.locationproject.OthersPackage.ConApp;
@@ -21,11 +21,11 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList<PlaceModel>> {
+public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList<Results>> {
 
     private PlaceViewModelSearchDB placeViewModelSearchDB;
     private double diagonalInches;
-    private ArrayList<PlaceModel> mPlaceModels = new ArrayList<>();
+    private ArrayList<Results> mResults = new ArrayList<>();
 
     // startShowingProgressDialog of FragmentSearch
     @Override
@@ -46,7 +46,7 @@ public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList
 
     // DoInBackground of the JSON
     @Override
-    protected ArrayList<PlaceModel> doInBackground(String... urls) {
+    protected ArrayList<Results> doInBackground(String... urls) {
         OkHttpClient client = new OkHttpClient();
         String urlQuery = urls[0];
         Request request = new Request.Builder()
@@ -66,21 +66,21 @@ public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList
         }
         try {
             assert response.body() != null;
-            mPlaceModels = getMapsListFromJson(Objects.requireNonNull(response.body()).string());
+            mResults = getMapsListFromJson(Objects.requireNonNull(response.body()).string());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return mPlaceModels;
+        return mResults;
     }
 
     // Get places from the JSON
-    private ArrayList<PlaceModel> getMapsListFromJson(String jsonResponse) {
-        List<PlaceModel> stubMapData;
+    private ArrayList<Results> getMapsListFromJson(String jsonResponse) {
+        List<Results> stubMapData;
         Gson gson = new GsonBuilder().create();
         MapResponse response = gson.fromJson(jsonResponse, MapResponse.class);
         stubMapData = response.results;
-        ArrayList<PlaceModel> arrList = new ArrayList<>(stubMapData);
+        ArrayList<Results> arrList = new ArrayList<>(stubMapData);
 
         return arrList;
     }
@@ -88,7 +88,7 @@ public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList
     // The response of the JSON
     private static class MapResponse {
 
-        private List<PlaceModel> results;
+        private List<Results> results;
 
         public MapResponse() {
             results = new ArrayList<>();
@@ -98,8 +98,8 @@ public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList
 
     // Execute the following:
     @Override
-    protected void onPostExecute(ArrayList<PlaceModel> placeModels) {
-        super.onPostExecute(placeModels);
+    protected void onPostExecute(ArrayList<Results> results) {
+        super.onPostExecute(results);
 
         // Tablet/Phone mode
         DisplayMetrics metrics = new DisplayMetrics();
@@ -114,10 +114,10 @@ public class GetMapsAsyncTaskSearch extends AsyncTask<String, Integer, ArrayList
 
         placeViewModelSearchDB = new PlaceViewModelSearchDB(ConApp.getApplication());
         try {
-            placeViewModelSearchDB.addMapPlaces(placeModels);
-            SearchFragment.getData(placeModels);
+            placeViewModelSearchDB.addMapPlaces(results);
+            SearchFragment.getData(results);
         } catch (Exception e) {
-            SearchFragment.getData(placeModels);
+            SearchFragment.getData(results);
         }
     }
 

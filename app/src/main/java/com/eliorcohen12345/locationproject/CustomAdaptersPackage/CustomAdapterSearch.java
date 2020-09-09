@@ -25,7 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.ModelsPackage.Results;
 import com.eliorcohen12345.locationproject.PagesPackage.AddPlaceFavoritesActivity;
 import com.eliorcohen12345.locationproject.R;
 
@@ -67,7 +67,7 @@ public class CustomAdapterSearch extends RecyclerView.Adapter<CustomAdapterSearc
         private final MenuItem.OnMenuItemClickListener onChange = new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                PlaceModel current = mPlacesSearchList.get(getAdapterPosition());
+                Results current = mPlacesSearchList.get(getAdapterPosition());
                 switch (item.getItemId()) {
                     case 1:
                         Intent intent = new Intent(mInflater.getContext(), AddPlaceFavoritesActivity.class);
@@ -94,13 +94,13 @@ public class CustomAdapterSearch extends RecyclerView.Adapter<CustomAdapterSearc
     }
 
     private final LayoutInflater mInflater;
-    private List<PlaceModel> mPlacesSearchList;
+    private List<Results> mPlacesSearchList;
     private Location location;
     private LocationManager locationManager;
     private Criteria criteria;
     private String provider;
 
-    public CustomAdapterSearch(Context context, ArrayList<PlaceModel> dataList) {
+    public CustomAdapterSearch(Context context, ArrayList<Results> dataList) {
         mInflater = LayoutInflater.from(context);
         this.mPlacesSearchList = dataList;
     }
@@ -115,7 +115,7 @@ public class CustomAdapterSearch extends RecyclerView.Adapter<CustomAdapterSearc
     public void onBindViewHolder(final PlaceViewHolder holder, final int position) {
         if (mPlacesSearchList != null) {
             initLocation();
-            final PlaceModel current = mPlacesSearchList.get(position);
+            final Results current = mPlacesSearchList.get(position);
             if (ActivityCompat.checkSelfPermission(mInflater.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.checkSelfPermission(mInflater.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION);
             }// TODO: Consider calling

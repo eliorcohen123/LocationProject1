@@ -40,7 +40,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.eliorcohen12345.locationproject.CustomAdaptersPackage.CustomInfoWindowGoogleMapFavorites;
-import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.ModelsPackage.Results;
 import com.eliorcohen12345.locationproject.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -70,7 +70,7 @@ public class MapFavoritesFragment extends Fragment implements OnMapReadyCallback
     private GoogleMap mGoogleMap;
     private MapView mMapView;
     private View mView;
-    private PlaceModel placeModelFavorites;
+    private Results resultsFavorites;
     private Marker markerFavorites, markerAllFavorites[];
     private Location location;
     private LocationManager locationManager;
@@ -79,7 +79,7 @@ public class MapFavoritesFragment extends Fragment implements OnMapReadyCallback
     private ImageView moovit, gett, waze, num1, num2, num3, num4, num5, btnOpenList;
     private TextView textGeo;
     private PlaceViewModelFavorites placeViewModelFavorites;
-    private ArrayList<PlaceModel> mMapList = new ArrayList<>();  // ArrayList of PlaceModel
+    private ArrayList<Results> mMapList = new ArrayList<>();  // ArrayList of PlaceModel
     private List<Marker> markers;
     private CoordinatorLayout coordinatorLayout;
     private LinearLayout linearList;
@@ -107,7 +107,7 @@ public class MapFavoritesFragment extends Fragment implements OnMapReadyCallback
     private void initUI() {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            placeModelFavorites = (PlaceModel) bundle.getSerializable(getString(R.string.map_favorites_key));
+            resultsFavorites = (Results) bundle.getSerializable(getString(R.string.map_favorites_key));
         }
 
         coordinatorLayout = mView.findViewById(R.id.myContent);
@@ -235,8 +235,8 @@ public class MapFavoritesFragment extends Fragment implements OnMapReadyCallback
     private void addMarkerFavorites() {
         try {
             for (int i = 0; i <= mMapList.size(); i++) {
-                if (placeModelFavorites != null) {
-                    markerFavorites = mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(placeModelFavorites.getLat(), placeModelFavorites.getLng())).title(placeModelFavorites.getName()).icon(BitmapDescriptorFactory
+                if (resultsFavorites != null) {
+                    markerFavorites = mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(resultsFavorites.getLat(), resultsFavorites.getLng())).title(resultsFavorites.getName()).icon(BitmapDescriptorFactory
                             .defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
                     markers.add(markerFavorites);
                 }
@@ -272,11 +272,11 @@ public class MapFavoritesFragment extends Fragment implements OnMapReadyCallback
                         break;
                     } else if (marker.equals(markerFavorites)) {
                         try {
-                            getMoovit(placeModelFavorites.getLat(), placeModelFavorites.getLng(), placeModelFavorites.getName(), location.getLatitude(), location.getLongitude());
-                            getGetTaxi(placeModelFavorites.getLat(), placeModelFavorites.getLng());
-                            getWaze(placeModelFavorites.getLat(), placeModelFavorites.getLng());
+                            getMoovit(resultsFavorites.getLat(), resultsFavorites.getLng(), resultsFavorites.getName(), location.getLatitude(), location.getLongitude());
+                            getGetTaxi(resultsFavorites.getLat(), resultsFavorites.getLng());
+                            getWaze(resultsFavorites.getLat(), resultsFavorites.getLng());
 
-                            getNavigation(placeModelFavorites.getLat(), placeModelFavorites.getLng(), placeModelFavorites.getName(), placeModelFavorites.getVicinity(), marker);
+                            getNavigation(resultsFavorites.getLat(), resultsFavorites.getLng(), resultsFavorites.getName(), resultsFavorites.getVicinity(), marker);
                         } catch (Exception e) {
 
                         }
@@ -379,7 +379,7 @@ public class MapFavoritesFragment extends Fragment implements OnMapReadyCallback
         if (provider != null) {
             location = locationManager.getLastKnownLocation(provider);
             if (location != null) {
-                PlaceModel info = new PlaceModel();
+                Results info = new Results();
                 double distanceMe;
                 Location locationA = new Location("Point A");
                 locationA.setLatitude(getLat);

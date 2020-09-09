@@ -11,7 +11,7 @@ import android.util.Log;
 import com.eliorcohen12345.locationproject.ModelsPackage.Geometry;
 import com.eliorcohen12345.locationproject.ModelsPackage.Location;
 import com.eliorcohen12345.locationproject.ModelsPackage.Photos;
-import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.ModelsPackage.Results;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,12 +102,12 @@ public class MapDBHelperSearch extends SQLiteOpenHelper {
     }
 
     // Delete info items
-    public void deleteMap(PlaceModel placeModel) {
+    public void deleteMap(Results results) {
 
         SQLiteDatabase db = getWritableDatabase();
 
         String[] ids = new String[1];
-        ids[0] = placeModel.getId() + "";
+        ids[0] = results.getId() + "";
         try {
             db.delete(MAP_TABLE_NAME, MAP_ID + " =? ", ids);
         } catch (SQLiteException e) {
@@ -131,9 +131,9 @@ public class MapDBHelperSearch extends SQLiteOpenHelper {
     }
 
     // Get all info items
-    public ArrayList<PlaceModel> getAllMaps() {
+    public ArrayList<Results> getAllMaps() {
 
-        ArrayList<PlaceModel> placeModels = new ArrayList<>();
+        ArrayList<Results> results = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(MAP_TABLE_NAME, null, null, null, null, null, null, null);
         while (cursor.moveToNext()) {
@@ -153,16 +153,16 @@ public class MapDBHelperSearch extends SQLiteOpenHelper {
             photos.setPhoto_reference(photo);
             List<Photos> photosList = new ArrayList<Photos>();
             photosList.add(photos);
-            PlaceModel placeModel = new PlaceModel(name, address, geometry, photosList);
-            placeModel.setId(String.valueOf(id));
-            placeModels.add(placeModel);
+            Results results = new Results(name, address, geometry, photosList);
+            results.setId(String.valueOf(id));
+            results.add(results);
         }
         cursor.close();
-        return placeModels;
+        return results;
     }
 
-    public void addMapList(ArrayList<PlaceModel> placeModels) {
-        for (PlaceModel mapItem : placeModels) {
+    public void addMapList(ArrayList<Results> results) {
+        for (Results mapItem : results) {
             addMap(mapItem.getName(), mapItem.getVicinity(), mapItem.getLat(), mapItem.getLng(), mapItem.getPhoto_reference());
         }
     }

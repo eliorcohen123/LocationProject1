@@ -43,7 +43,7 @@ import android.widget.Toast;
 
 import com.eliorcohen12345.locationproject.AsyncTasksPackage.GetMapsAsyncTaskSearch;
 import com.eliorcohen12345.locationproject.CustomAdaptersPackage.CustomInfoWindowGoogleMapSearch;
-import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.ModelsPackage.Results;
 import com.eliorcohen12345.locationproject.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -74,7 +74,7 @@ public class MapSearchFragment extends Fragment implements OnMapReadyCallback, V
     private GoogleMap mGoogleMap;
     private MapView mMapView;
     private View mView;
-    private PlaceModel placeModelSearch;
+    private Results resultsSearch;
     private Marker markerSearch, markerAllSearch[];
     private Location location;
     private LocationManager locationManager;
@@ -83,7 +83,7 @@ public class MapSearchFragment extends Fragment implements OnMapReadyCallback, V
     private ImageView moovit, gett, waze, num1, num2, num3, num4, num5, btnOpenList;
     private GetMapsAsyncTaskSearch mGetMapsAsyncTaskSearch;
     private PlaceViewModelSearchDB placeViewModelSearchDB;
-    private ArrayList<PlaceModel> mMapList;
+    private ArrayList<Results> mMapList;
     private List<Marker> markers;
     private RecyclerView mRecyclerView;
     private CoordinatorLayout coordinatorLayout;
@@ -109,7 +109,7 @@ public class MapSearchFragment extends Fragment implements OnMapReadyCallback, V
     private void initUI() {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            placeModelSearch = (PlaceModel) bundle.getSerializable(getString(R.string.map_search_key));
+            resultsSearch = (Results) bundle.getSerializable(getString(R.string.map_search_key));
         }
 
         coordinatorLayout = mView.findViewById(R.id.myContent);
@@ -264,8 +264,8 @@ public class MapSearchFragment extends Fragment implements OnMapReadyCallback, V
     private void addMarkerSearch() {
         try {
             for (int i = 0; i <= mMapList.size(); i++) {
-                if (placeModelSearch != null) {
-                    markerSearch = mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(placeModelSearch.getLat(), placeModelSearch.getLng())).title(placeModelSearch.getName()).icon(BitmapDescriptorFactory
+                if (resultsSearch != null) {
+                    markerSearch = mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(resultsSearch.getLat(), resultsSearch.getLng())).title(resultsSearch.getName()).icon(BitmapDescriptorFactory
                             .defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
                     markers.add(markerSearch);
                 }
@@ -301,11 +301,11 @@ public class MapSearchFragment extends Fragment implements OnMapReadyCallback, V
                         break;
                     } else if (marker.equals(markerSearch)) {
                         try {
-                            getMoovit(placeModelSearch.getLat(), placeModelSearch.getLng(), placeModelSearch.getName(), location.getLatitude(), location.getLongitude());
-                            getGetTaxi(placeModelSearch.getLat(), placeModelSearch.getLng());
-                            getWaze(placeModelSearch.getLat(), placeModelSearch.getLng());
+                            getMoovit(resultsSearch.getLat(), resultsSearch.getLng(), resultsSearch.getName(), location.getLatitude(), location.getLongitude());
+                            getGetTaxi(resultsSearch.getLat(), resultsSearch.getLng());
+                            getWaze(resultsSearch.getLat(), resultsSearch.getLng());
 
-                            getNavigation(placeModelSearch.getLat(), placeModelSearch.getLng(), placeModelSearch.getName(), placeModelSearch.getVicinity(), placeModelSearch.getRating(), placeModelSearch.getUser_ratings_total(), marker);
+                            getNavigation(resultsSearch.getLat(), resultsSearch.getLng(), resultsSearch.getName(), resultsSearch.getVicinity(), resultsSearch.getRating(), resultsSearch.getUser_ratings_total(), marker);
                         } catch (Exception e) {
 
                         }
@@ -500,7 +500,7 @@ public class MapSearchFragment extends Fragment implements OnMapReadyCallback, V
         if (provider != null) {
             location = locationManager.getLastKnownLocation(provider);
             if (location != null) {
-                PlaceModel info = new PlaceModel();
+                Results info = new Results();
                 double distanceMe;
                 Location locationA = new Location("Point A");
                 locationA.setLatitude(getLat);

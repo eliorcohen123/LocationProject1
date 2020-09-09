@@ -28,14 +28,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.eliorcohen12345.locationproject.CustomAdaptersPackage.CustomAdapterFavorites;
-import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.ModelsPackage.Results;
 import com.eliorcohen12345.locationproject.R;
 
 import java.util.ArrayList;
 
 public class FavoritesFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ArrayList<PlaceModel> mMapList;  // ArrayList of PlaceModel
+    private ArrayList<Results> mMapList;  // ArrayList of PlaceModel
     private CustomAdapterFavorites mAdapter;  // CustomAdapter of FragmentFavorites
     private RecyclerView mRecyclerView;  // RecyclerView of FragmentFavorites
     private PlaceViewModelFavorites placeViewModelFavorites;

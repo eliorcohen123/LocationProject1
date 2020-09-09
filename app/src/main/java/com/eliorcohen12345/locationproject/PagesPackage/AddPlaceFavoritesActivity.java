@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.ModelsPackage.Results;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelFavorites;
 import com.eliorcohen12345.locationproject.OthersPackage.ConApp;
 import com.eliorcohen12345.locationproject.R;
@@ -20,7 +20,7 @@ import java.util.Objects;
 
 public class AddPlaceFavoritesActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private PlaceModel item;
+    private Results item;
     private PlaceViewModelFavorites placeViewModelFavorites;
     private EditText name, address, lat, lng, photo;
     private TextView textViewOK, textViewShow;
@@ -39,7 +39,7 @@ public class AddPlaceFavoritesActivity extends AppCompatActivity implements View
 
     private void initUI() {
         // GetSerializable for the texts
-        item = (PlaceModel) Objects.requireNonNull(getIntent().getExtras()).getSerializable(getString(R.string.map_add_from_internet));
+        item = (Results) Objects.requireNonNull(getIntent().getExtras()).getSerializable(getString(R.string.map_add_from_internet));
 
         name = findViewById(R.id.editTextName);  // ID of the name
         address = findViewById(R.id.editTextAddress);  // ID of the address

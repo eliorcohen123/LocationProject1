@@ -22,7 +22,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.ModelsPackage.Results;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelFavorites;
 import com.eliorcohen12345.locationproject.OthersPackage.GeofencePackage.Constants;
 import com.eliorcohen12345.locationproject.OthersPackage.GeofencePackage.GeofenceBroadcastReceiver;
@@ -62,7 +62,7 @@ public class FavoritesActivity extends AppCompatActivity implements OnCompleteLi
     private String provider;
     private PlaceViewModelFavorites placeViewModelFavorites;
     private RecyclerView mRecyclerView;
-    private ArrayList<PlaceModel> mMapListFavorites;
+    private ArrayList<Results> mMapListFavorites;
     private boolean boolean_permission;
     private SharedPreferences mPref;
     private SharedPreferences.Editor mEdit;

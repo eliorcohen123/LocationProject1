@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import androidx.lifecycle.AndroidViewModel;
 
 import com.eliorcohen12345.locationproject.DataAppPackage.MapDBHelperSearch;
-import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.ModelsPackage.Results;
 
 public class PlaceViewModelSearchDB extends AndroidViewModel {
 
@@ -19,12 +19,12 @@ public class PlaceViewModelSearchDB extends AndroidViewModel {
         mapDBHelperSearch = new MapDBHelperSearch(application);
     }
 
-    public ArrayList<PlaceModel> getAllPlaces() {
+    public ArrayList<Results> getAllPlaces() {
         return mapDBHelperSearch.getAllMaps();
     }
 
-    public void addMapPlaces(ArrayList<PlaceModel> placeModels) {
-        mapDBHelperSearch.addMapList(placeModels);
+    public void addMapPlaces(ArrayList<Results> results) {
+        mapDBHelperSearch.addMapList(results);
     }
 
     public void deleteAll() {

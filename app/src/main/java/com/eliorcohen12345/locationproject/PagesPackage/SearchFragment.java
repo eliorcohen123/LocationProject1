@@ -53,7 +53,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.eliorcohen12345.locationproject.AsyncTasksPackage.GetMapsAsyncTaskSearch;
 import com.eliorcohen12345.locationproject.CustomAdaptersPackage.CustomAdapterSearch;
-import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.ModelsPackage.Results;
 import com.eliorcohen12345.locationproject.ViewModelsPackage.PlaceViewModelSearchDB;
 import com.eliorcohen12345.locationproject.OthersPackage.ConApp;
 import com.eliorcohen12345.locationproject.OthersPackage.ItemDecoration;
@@ -69,7 +69,7 @@ import eliorcohen.com.googlemapsapi.GoogleMapsApi;
 
 public class SearchFragment extends Fragment implements View.OnClickListener {
 
-    private static ArrayList<PlaceModel> mMapList;
+    private static ArrayList<Results> mMapList;
     private static CustomAdapterSearch mAdapter;
     private static RecyclerView mRecyclerView;
     private static PlaceViewModelSearchDB placeViewModelSearchDB;
@@ -233,7 +233,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         });
     }
 
-    public static void getData(ArrayList<PlaceModel> list) {
+    public static void getData(ArrayList<Results> list) {
         mMapList = list;
         if (!isConnected(mSearchFragment.requireContext())) {
             mMapList = placeViewModelSearchDB.getAllPlaces();
@@ -259,7 +259,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         mRecyclerView.setAdapter(mAdapter);
 
         ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener((recyclerView, position, v) -> {
-            PlaceModel current = mMapList.get(position);
+            Results current = mMapList.get(position);
 
             DisplayMetrics metrics = new DisplayMetrics();
             WindowManager windowManager = (WindowManager) mSearchFragment.getContext().getSystemService(Context.WINDOW_SERVICE);

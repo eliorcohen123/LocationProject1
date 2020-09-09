@@ -28,7 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.ModelsPackage.Results;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelFavorites;
 import com.eliorcohen12345.locationproject.OthersPackage.ConApp;
 import com.eliorcohen12345.locationproject.PagesPackage.DeletePlaceActivity;
@@ -74,7 +74,7 @@ public class CustomAdapterFavorites extends RecyclerView.Adapter<CustomAdapterFa
         private final MenuItem.OnMenuItemClickListener onChange = new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                PlaceModel current = mPlacesFavoritesList.get(getAdapterPosition());
+                Results current = mPlacesFavoritesList.get(getAdapterPosition());
                 switch (item.getItemId()) {
                     case 1:
                         Intent intent = new Intent(mInflater.getContext(), EditPlaceActivity.class);
@@ -107,14 +107,14 @@ public class CustomAdapterFavorites extends RecyclerView.Adapter<CustomAdapterFa
     }
 
     private final LayoutInflater mInflater;
-    private ArrayList<PlaceModel> mPlacesFavoritesList;
+    private ArrayList<Results> mPlacesFavoritesList;
     private Location location;
     private LocationManager locationManager;
     private Criteria criteria;
     private String provider;
     private PlaceViewModelFavorites placeViewModelFavorites;
 
-    public CustomAdapterFavorites(Context context, ArrayList<PlaceModel> dataList) {
+    public CustomAdapterFavorites(Context context, ArrayList<Results> dataList) {
         mInflater = LayoutInflater.from(context);
         this.mPlacesFavoritesList = dataList;
     }
@@ -129,7 +129,7 @@ public class CustomAdapterFavorites extends RecyclerView.Adapter<CustomAdapterFa
     public void onBindViewHolder(final PlaceViewHolder holder, final int position) {
         if (mPlacesFavoritesList != null) {
             initLocation();
-            final PlaceModel current = mPlacesFavoritesList.get(position);
+            final Results current = mPlacesFavoritesList.get(position);
             locationManager = (LocationManager) mInflater.getContext().getSystemService(Context.LOCATION_SERVICE);
             criteria = new Criteria();
             provider = locationManager.getBestProvider(criteria, true);

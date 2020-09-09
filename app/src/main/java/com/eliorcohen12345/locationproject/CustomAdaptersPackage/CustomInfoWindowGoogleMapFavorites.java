@@ -5,7 +5,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
-import com.eliorcohen12345.locationproject.ModelsPackage.PlaceModel;
+import com.eliorcohen12345.locationproject.ModelsPackage.Results;
 import com.eliorcohen12345.locationproject.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
@@ -37,7 +37,7 @@ public class CustomInfoWindowGoogleMapFavorites implements GoogleMap.InfoWindowA
 
         name.setText(marker.getTitle());
 
-        PlaceModel infoWindowData = (PlaceModel) marker.getTag();
+        Results infoWindowData = (Results) marker.getTag();
 
 //        int imageId = context.getResources().getIdentifier(infoWindowData.getPhoto_reference(),
 //                "drawable", context.getPackageName());
