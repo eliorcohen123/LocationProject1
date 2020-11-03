@@ -118,7 +118,7 @@ public class MapDBHelperFavorites extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
 
         String[] ids = new String[1];
-        ids[0] = results.getId() + "";
+        ids[0] = results.getPlace_id() + "";
         try {
             db.delete(MAP_TABLE_NAME, MAP_ID + " =? ", ids);
         } catch (SQLiteException e) {
@@ -165,7 +165,7 @@ public class MapDBHelperFavorites extends SQLiteOpenHelper {
             List<Photos> photosList = new ArrayList<Photos>();
             photosList.add(photos);
             Results result = new Results(name, address, geometry, photosList);
-            result.setId(String.valueOf(id));
+            result.setPlace_id(String.valueOf(id));
             results.add(result);
         }
         cursor.close();

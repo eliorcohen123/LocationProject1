@@ -20,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.eliorcohen12345.locationproject.ModelsPackage.Results;
 import com.eliorcohen12345.locationproject.DataAppPackage.PlaceViewModelFavorites;
@@ -61,7 +60,6 @@ public class FavoritesActivity extends AppCompatActivity implements OnCompleteLi
     private Criteria criteria;
     private String provider;
     private PlaceViewModelFavorites placeViewModelFavorites;
-    private RecyclerView mRecyclerView;
     private ArrayList<Results> mMapListFavorites;
     private boolean boolean_permission;
     private SharedPreferences mPref;

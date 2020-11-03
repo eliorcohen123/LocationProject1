@@ -78,7 +78,7 @@ public class CustomAdapterFavorites extends RecyclerView.Adapter<CustomAdapterFa
                 switch (item.getItemId()) {
                     case 1:
                         Intent intent = new Intent(mInflater.getContext(), EditPlaceActivity.class);
-                        intent.putExtra(mInflater.getContext().getString(R.string.map_id), current.getId());
+                        intent.putExtra(mInflater.getContext().getString(R.string.map_id), current.getPlace_id());
                         intent.putExtra(mInflater.getContext().getString(R.string.map_edit), current);
                         mInflater.getContext().startActivity(intent);
                         break;
