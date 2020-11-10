@@ -130,9 +130,6 @@ public class CustomAdapterFavorites extends RecyclerView.Adapter<CustomAdapterFa
         if (mPlacesFavoritesList != null) {
             initLocation();
             final Results current = mPlacesFavoritesList.get(position);
-            locationManager = (LocationManager) mInflater.getContext().getSystemService(Context.LOCATION_SERVICE);
-            criteria = new Criteria();
-            provider = locationManager.getBestProvider(criteria, true);
             if (ActivityCompat.checkSelfPermission(mInflater.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.checkSelfPermission(mInflater.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION);
             }// TODO: Consider calling
