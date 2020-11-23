@@ -28,9 +28,9 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="api_key_geo">API_</string>
-    <string name="api_key_search">AIzaSyA65-eqSvIefv4lY3vARmN4fwVc1d4lPaE</string>
-    <string name="api_key_map">AIzaSyDc7oNJ8FQZc6xmDVEvj-vewU5-ohnlwR0</string>
-    <string name="places_key">types=accounting|airport|amusement_park|aquarium|art_gallery|atm|bakery|" +
+    <string name="api_key_search">API_KEY</string>
+    <string name="api_key_map">API_KEY</string>
+    <string name="places_types">types=accounting|airport|amusement_park|aquarium|art_gallery|atm|bakery|" +
                                 "bank|bar|beauty_salon|bicycle_store|bowling_alley|bus_station|cafe|campground|car_dealer|car_rental|car_repair|car_wash|casino|" +
                                 "cemetery|church|city_hall|clothing_store|convenience_store|courthouse|dentist|department_store|doctor|electrician|electronics_store|" +
                                 "embassy|fire_station|florist|funeral_home|furniture_store|gas_station|gym|hair_care|hardware_store|hindu_temple|home_goods_store|home_goods_store|" +
