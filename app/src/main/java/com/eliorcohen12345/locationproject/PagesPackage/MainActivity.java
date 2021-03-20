@@ -31,6 +31,8 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.jetbrains.annotations.NotNull;
+
 import guy4444.smartrate.SmartRate;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private DrawerLayout drawer;
     private Toolbar toolbar;
     private NavigationView navigationView;
-    private FirebaseAuth auth = FirebaseAuth.getInstance();
+    private final FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -227,6 +229,18 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         return true;
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NotNull String[] permissions, @NotNull int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_LOCATION: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    finish();
+                    startActivity(getIntent());
+                }
+            }
+        }
+    }
+
     private void signOut() {
         auth.signOut();
 
@@ -326,7 +340,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     @Override
-    public void onConnectionFailed(ConnectionResult arg0) {
+    public void onConnectionFailed(@NotNull ConnectionResult arg0) {
         Toast.makeText(this, "Failed to connect...", Toast.LENGTH_SHORT).show();
     }
 
